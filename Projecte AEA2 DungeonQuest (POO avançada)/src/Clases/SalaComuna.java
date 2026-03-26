@@ -10,6 +10,4 @@ public class SalaComuna extends Sala{
 		return true;
 	}
 
-//60%
-
 }

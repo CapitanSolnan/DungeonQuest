@@ -16,6 +16,5 @@ public class SalaPont extends Sala {
 			return false;
 		}
 	}
-	//20%
-	
+
 }

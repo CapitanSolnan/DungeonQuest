@@ -5,7 +5,7 @@ public class Personatge {
 	private String nom;
 	protected int vida;
 	private int atac;
-	private int experiencia;
+	protected int experiencia;
 	protected int agilitat;
 	protected int forsa;
 	private int[] posicio = new int[2];

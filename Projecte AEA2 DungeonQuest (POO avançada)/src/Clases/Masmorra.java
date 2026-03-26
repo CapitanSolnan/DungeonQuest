@@ -64,13 +64,20 @@ public class Masmorra {
 	
 	public static void finalitzar(Personatge p) {
 		boolean finalitzar = false;
-		
 		if (finalitzar) {
 			System.out.println("");
 		}else {
 			System.out.println("Encara no s'ha finalitzat");
 			if (p.vida == 0) {
 				finalitzar = true;
+				System.out.println("Partida Fallida");
+				System.out.println("Experiencia obtenida: " + p.experiencia);
+				if (montre) {//Causa de la mort MONSTRE
+					
+				}else {//Causa de la mort PONT // TIRADES DE DAU
+					
+				}
+				System.out.println("Percentatge explorat: " + explPer);
 			}
 		}
 	}
