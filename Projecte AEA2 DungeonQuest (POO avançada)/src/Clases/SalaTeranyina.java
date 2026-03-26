@@ -1,16 +1,20 @@
 package Clases;
 
 public class SalaTeranyina extends Sala{
-
-	public SalaTeranyina(Tresor t, Monstre m, boolean explorada) {
+	private Personatge p;
+	
+	public SalaTeranyina(Tresor t, Monstre m, boolean explorada, Personatge p) {
 		super(t, m, explorada);
+		this.p = p;
 	}
 
 	public boolean intentarSortir() {
-		if (forsa >= (Math.random() * 12) + 1) {
+		if (p.forsa >= (Math.random() * 12) + 1) {
 			return true;
 		}else {
 			return false;
 		}
 	}
+
+	//20%
 }

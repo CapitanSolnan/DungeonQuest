@@ -6,6 +6,7 @@ public class Monstre {
 	private int vida;
 	private int penalitzacio;
 	private int valorExperiencia;
+	
 	public Monstre(String nom, int vida, int penalitzacio) {
 		super();
 		this.nom = nom;

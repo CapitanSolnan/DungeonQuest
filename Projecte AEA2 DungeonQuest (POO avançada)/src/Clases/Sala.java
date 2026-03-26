@@ -15,5 +15,9 @@ public abstract class Sala {
 
 	public abstract boolean intentarSortir();
 	
+	public String toString() {
+		// TODO Auto-generated method stub
+		return t + " " + m + " " + explorada;
+	}
 	
 }
