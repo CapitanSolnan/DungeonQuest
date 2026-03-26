@@ -22,5 +22,11 @@ public class Monstre {
 		return valor;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Nom: " + nom + " | Vida: " + vida;
+	}
+	
 	
 }

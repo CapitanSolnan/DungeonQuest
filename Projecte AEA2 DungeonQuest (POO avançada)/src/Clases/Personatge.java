@@ -11,6 +11,7 @@ public class Personatge {
 	private int[] posicio = new int[2];
 	private Tresor equipament;
 	
+	
 	public Personatge(String nom, int vida, int atac, int experiencia, int agilitat, int forsa, int posicioX, int posicioY,
 			Tresor equipament) {
 		super();
@@ -57,8 +58,14 @@ public class Personatge {
 		}
 	}
 	
-	public void calcularAtac() {
-		
+	public int calcularAtac() {
+		return (int)(Math.random() * atac) + 1;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: " + posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
 	}
 	
 	

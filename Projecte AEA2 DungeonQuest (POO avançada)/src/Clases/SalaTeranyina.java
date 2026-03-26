@@ -9,7 +9,7 @@ public class SalaTeranyina extends Sala{
 	}
 
 	public boolean intentarSortir() {
-		if (p.forsa >= (Math.random() * 12) + 1) {
+		if (p.forsa >= (int)(Math.random() * 12) + 1) {
 			return true;
 		}else {
 			return false;

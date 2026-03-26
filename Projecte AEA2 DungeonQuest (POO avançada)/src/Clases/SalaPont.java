@@ -9,7 +9,7 @@ public class SalaPont extends Sala {
 	}
 
 	public boolean intentarSortir() {
-		if (p.agilitat >= (Math.random() * 12) + 1) {
+		if (p.agilitat >= (int)(Math.random() * 12) + 1) {
 			return true;
 		}else {
 			p.vida -=1;
