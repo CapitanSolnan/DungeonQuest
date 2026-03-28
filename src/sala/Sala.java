@@ -1,11 +1,14 @@
-package Clases;
+package sala;
+
+import model.Monstre;
+import model.Tresor;
 
 public abstract class Sala {
-	
+
 	private Tresor t;
 	private Monstre m;
 	private boolean explorada;
-	
+
 	public Sala(Tresor t, Monstre m, boolean explorada) {
 		super();
 		this.t = t;
@@ -14,10 +17,9 @@ public abstract class Sala {
 	}
 
 	public abstract boolean intentarSortir();
-	
+
 	public String toString() {
-		// TODO Auto-generated method stub
 		return t + " " + m + " " + explorada;
 	}
-	
+
 }

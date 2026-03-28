@@ -1,4 +1,8 @@
-package Clases;
+package sala;
+
+import model.Monstre;
+import model.Personatge;
+import model.Tresor;
 
 public class SalaPont extends Sala {
 	private Personatge p;
@@ -9,10 +13,10 @@ public class SalaPont extends Sala {
 	}
 
 	public boolean intentarSortir() {
-		if (p.agilitat >= (int)(Math.random() * 12) + 1) {
+		if (p.agilitat >= (int) (Math.random() * 12) + 1) {
 			return true;
-		}else {
-			p.vida -=1;
+		} else {
+			p.vida -= 1;
 			return false;
 		}
 	}
