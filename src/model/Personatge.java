@@ -8,7 +8,7 @@ public class Personatge {
 	private int agilitat;
 	private int forsa;
 	private int[] posicio = new int[2];
-	private Tresor equipament;
+	private Tresor[] equipament;
 
 	public Personatge(String nom, int vida, int atac, int experiencia, int agilitat, int forsa, int posicioX,
 			int posicioY,
