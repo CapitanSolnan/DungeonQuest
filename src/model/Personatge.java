@@ -1,8 +1,9 @@
 package model;
 
+import combat.Combatent;
 import utils.MathUtils;
 
-public class Personatge {
+public class Personatge implements Combatent {
 	private String nom;
 	private int vida;
 	private int atac;
@@ -33,14 +34,15 @@ public class Personatge {
 		this.equipament = new Tresor[this.forsa];
 	}
 
-	public void atacar(Monstre m) {
-
+	public void atacar(Monstre monstre) {
+		// TODO: Implementar atac.
 	}
 
 	public void explorar() {
-
+		// TODO: Implementar exploració.
 	}
 
+	// TODO: Optimitzar moviment
 	public void moure(char direccio) {
 		if (direccio == 'N') {
 			posicio[0] += 1;
@@ -59,13 +61,25 @@ public class Personatge {
 		}
 	}
 
+	// TODO: Asegurar calcul d'atac
 	public int calcularAtac() {
 		return (int) (Math.random() * atac) + 1;
 	}
 
 	@Override
+	public void rebreDany(int quantitat) {
+		// TODO: Implementar rebre dany
+		throw new UnsupportedOperationException("Unimplemented method 'rebreDany'");
+	}
+
+	@Override
+	public boolean estaViu() {
+		// TODO: Implementar estat viu
+		throw new UnsupportedOperationException("Unimplemented method 'estaViu'");
+	}
+
+	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
 				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
 	}
