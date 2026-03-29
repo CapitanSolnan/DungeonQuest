@@ -1,5 +1,7 @@
 package model;
 
+import utils.MathUtils;
+
 public class Personatge {
 	private String nom;
 	private int vida;
@@ -10,25 +12,17 @@ public class Personatge {
 	private int[] posicio = new int[2];
 	private Tresor[] equipament;
 
-	public Personatge(String nom, int vida, int atac, int experiencia, int agilitat, int forsa, int posicioX,
+	public Personatge(String nom, int vida, int atac, int agilitat, int forsa, int posicioX,
 			int posicioY) {
 		this.nom = nom;
-		this.vida = comprovarRango(5, 20, vida);
-		this.atac = comprovarRango(1, 4, atac);
-		this.experiencia = 0;
-		this.agilitat = comprovarRango(4, 11, agilitat);
-		this.forsa = comprovarRango(4, 11, forsa);
+		this.vida = MathUtils.ajustarRang(5, 20, vida);
+		this.atac = MathUtils.ajustarRang(1, 4, atac);
+		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
+		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
 		this.posicio[0] = posicioX;
 		this.posicio[1] = posicioY;
 		// L'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
-	}
-
-	public int comprovarRango(int min, int max, int valor) {
-		if (valor < min || valor > max) {
-			return '0';
-		}
-		return valor;
 	}
 
 	public void atacar(Monstre m) {
