@@ -17,6 +17,7 @@ public class Personatge implements Combatent {
 
 	public Personatge(String nom, int vida, int atac, int agilitat, int forsa, int posicioInicial[]) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
+
 		this.vida = MathUtils.ajustarRang(5, 20, vida);
 		this.atac = MathUtils.ajustarRang(1, 4, atac);
 		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
@@ -32,11 +33,11 @@ public class Personatge implements Combatent {
 			this.posicio[1] = 0;
 		}
 
-		// L'equipament depen de la força. Inicialment buit.
+		// La quantitat d'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
 	}
 
-	public void atacar(Monstre monstre) {
+	public void atacar(Monstre m) {
 		// TODO: Implementar atac.
 	}
 
@@ -75,15 +76,13 @@ public class Personatge implements Combatent {
 	}
 
 	@Override
-	public boolean estaViu() {
-		// TODO: Implementar estat viu
-		throw new UnsupportedOperationException("Unimplemented method 'estaViu'");
-	}
-
-	@Override
 	public String toString() {
 		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
 				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
+	}
+
+	public int getVida() {
+		return vida;
 	}
 
 }
