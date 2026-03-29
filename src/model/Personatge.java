@@ -3,6 +3,8 @@ package model;
 import combat.Combatent;
 import utils.MathUtils;
 
+// BUG: Un personatge no pot fer res si no esta viu.
+
 public class Personatge implements Combatent {
 	private String nom;
 	private int vida;
