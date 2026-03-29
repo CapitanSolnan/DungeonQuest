@@ -64,9 +64,9 @@ public class Personatge implements Combatent {
 		}
 	}
 
-	// TODO: Asegurar calcul d'atac
+	@Override
 	public int calcularAtac() {
-		return (int) (Math.random() * atac) + 1;
+		return MathUtils.generarNumeroAleatori(1, this.atac);
 	}
 
 	@Override
