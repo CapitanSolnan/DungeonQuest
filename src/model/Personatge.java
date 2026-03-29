@@ -1,13 +1,12 @@
 package model;
 
 public class Personatge {
-
 	private String nom;
-	protected int vida;
+	private int vida;
 	private int atac;
-	protected int experiencia;
-	protected int agilitat;
-	protected int forsa;
+	private int experiencia;
+	private int agilitat;
+	private int forsa;
 	private int[] posicio = new int[2];
 	private Tresor equipament;
 
