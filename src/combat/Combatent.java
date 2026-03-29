@@ -5,5 +5,5 @@ public interface Combatent {
 
 	void rebreDany(int quantitat);
 
-	int estaViu();
+	boolean estaViu();
 }
