@@ -11,9 +11,7 @@ public class Personatge {
 	private Tresor[] equipament;
 
 	public Personatge(String nom, int vida, int atac, int experiencia, int agilitat, int forsa, int posicioX,
-			int posicioY,
-			Tresor equipament) {
-		super();
+			int posicioY) {
 		this.nom = nom;
 		this.vida = comprovarRango(5, 20, vida);
 		this.atac = comprovarRango(1, 4, atac);
@@ -22,7 +20,8 @@ public class Personatge {
 		this.forsa = comprovarRango(4, 11, forsa);
 		this.posicio[0] = posicioX;
 		this.posicio[1] = posicioY;
-		this.equipament = equipament;
+		// L'equipament depen de la força. Inicialment buit.
+		this.equipament = new Tresor[this.forsa];
 	}
 
 	public int comprovarRango(int min, int max, int valor) {
