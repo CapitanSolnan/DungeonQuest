@@ -5,7 +5,11 @@ public interface Combatent {
 
 	int calcularAtac();
 
-	void rebreDany(int quantitat);
+	default void rebreDany(int quantitat) {
+		int vida = getVida();
+		int nouVida = vida - quantitat;
+		vida = (nouVida > 0) ? nouVida : 0;
+	};
 
 	default boolean estaViu() {
 		return getVida() > 0;

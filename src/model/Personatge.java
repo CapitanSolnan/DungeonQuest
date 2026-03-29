@@ -70,12 +70,6 @@ public class Personatge implements Combatent {
 	}
 
 	@Override
-	public void rebreDany(int quantitat) {
-		// TODO: Implementar rebre dany
-		throw new UnsupportedOperationException("Unimplemented method 'rebreDany'");
-	}
-
-	@Override
 	public String toString() {
 		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
 				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
