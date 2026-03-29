@@ -12,15 +12,23 @@ public class Personatge {
 	private int[] posicio = new int[2];
 	private Tresor[] equipament;
 
-	public Personatge(String nom, int vida, int atac, int agilitat, int forsa, int posicioX,
-			int posicioY) {
-		this.nom = nom;
+	public Personatge(String nom, int vida, int atac, int agilitat, int forsa, int posicioInicial[]) {
+		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 		this.vida = MathUtils.ajustarRang(5, 20, vida);
 		this.atac = MathUtils.ajustarRang(1, 4, atac);
 		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
 		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
-		this.posicio[0] = posicioX;
-		this.posicio[1] = posicioY;
+		this.experiencia = 0;
+
+		// Verificar que l'array tingui la mida correcta
+		if (posicioInicial != null && posicioInicial.length >= 2) {
+			this.posicio[0] = posicioInicial[0];
+			this.posicio[1] = posicioInicial[1];
+		} else {
+			this.posicio[0] = 0;
+			this.posicio[1] = 0;
+		}
+
 		// L'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
 	}
