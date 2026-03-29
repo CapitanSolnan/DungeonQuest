@@ -70,13 +70,18 @@ public class Personatge implements Combatent {
 	}
 
 	@Override
-	public String toString() {
-		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
-				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
-	}
-
 	public int getVida() {
 		return vida;
 	}
 
+	@Override
+	public void setVida(int vida) {
+		this.vida = (vida > 0) ? vida : 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
+				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
+	}
 }

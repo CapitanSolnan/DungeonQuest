@@ -3,12 +3,13 @@ package combat;
 public interface Combatent {
 	int getVida();
 
+	void setVida(int vida);
+
 	int calcularAtac();
 
 	default void rebreDany(int quantitat) {
-		int vida = getVida();
-		int nouVida = vida - quantitat;
-		vida = (nouVida > 0) ? nouVida : 0;
+		int nouVida = getVida() - quantitat;
+		setVida(Math.max(0, nouVida));
 	};
 
 	default boolean estaViu() {
