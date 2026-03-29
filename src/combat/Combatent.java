@@ -1,9 +1,13 @@
 package combat;
 
 public interface Combatent {
+	int getVida();
+
 	int calcularAtac();
 
 	void rebreDany(int quantitat);
 
-	boolean estaViu();
+	default boolean estaViu() {
+		return getVida() > 0;
+	}
 }
