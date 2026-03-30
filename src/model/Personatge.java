@@ -38,7 +38,20 @@ public class Personatge implements Combatent {
 	}
 
 	public void atacar(Monstre m) {
-		// TODO: Implementar atac.
+		if (!this.estaViu()) {
+			System.out.println("El personatge està mort.");
+			return;
+		}
+
+		if (!m.estaViu()) {
+			System.out.println("El monstre està mort.");
+			return;
+		}
+
+		int dany = this.calcularAtac();
+		m.rebreDany(dany);
+		System.out.println("El monstre" + m.getNom() + " ha rebut " + dany + " punts de dany.");
+		System.out.println("Vida actual del monstre: " + m.getVida());
 	}
 
 	public void explorar() {
