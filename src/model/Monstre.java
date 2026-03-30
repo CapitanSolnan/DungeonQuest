@@ -51,7 +51,7 @@ public class Monstre implements Combatent {
 
 	@Override
 	public void setVida(int vida) {
-		this.vida = vida;
+		this.vida = (vida > 0) ? vida : 0;
 	}
 
 	@Override
