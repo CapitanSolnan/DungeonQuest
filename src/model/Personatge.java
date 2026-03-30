@@ -87,6 +87,12 @@ public class Personatge implements Combatent {
 		return vida;
 	}
 
+	/**
+	 * Cambia la vida del personatge.
+	 * Si el valor es menor que 0, la vida s'estableix en 0.
+	 * 
+	 * @param vida El nou valor de la vida.
+	 */
 	@Override
 	public void setVida(int vida) {
 		this.vida = (vida > 0) ? vida : 0;
