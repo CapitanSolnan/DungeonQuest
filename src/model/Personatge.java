@@ -71,6 +71,12 @@ public class Personatge implements Combatent {
 		}
 	}
 
+	public void sumarExperiencia(int quantitat) {
+		if (quantitat > 0) {
+			this.experiencia += quantitat;
+		}
+	}
+
 	@Override
 	public int calcularAtac() {
 		return MathUtils.generarNumeroAleatori(1, this.atac);
