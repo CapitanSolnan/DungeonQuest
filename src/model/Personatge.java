@@ -100,7 +100,7 @@ public class Personatge implements Combatent {
 
 	@Override
 	public String toString() {
-		return "Nom: " + nom + " | Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Posició: "
-				+ posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
+		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + "Experiencia: "
+				+ experiencia + " | Posició: " + posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
 	}
 }
