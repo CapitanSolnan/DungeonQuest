@@ -3,8 +3,6 @@ package model;
 import combat.Combatent;
 import utils.MathUtils;
 
-// BUG: Un personatge no pot fer res si no esta viu.
-
 public class Personatge implements Combatent {
 	private String nom;
 	private int vida;
@@ -37,21 +35,17 @@ public class Personatge implements Combatent {
 		this.equipament = new Tresor[this.forsa];
 	}
 
-	public void atacar(Monstre m) {
-		if (!this.estaViu()) {
-			System.out.println("El personatge està mort.");
-			return;
-		}
+	public boolean estaViu() {
+		return getVida() > 0;
+	}
 
-		if (!m.estaViu()) {
-			System.out.println("El monstre està mort.");
-			return;
-		}
+	public int atacar(Monstre monstre) {
+		if (!potLluitar(monstre))
+			return 0;
 
 		int dany = this.calcularAtac();
-		m.rebreDany(dany);
-		System.out.println("El monstre" + m.getNom() + " ha rebut " + dany + " punts de dany.");
-		System.out.println("Vida actual del monstre: " + m.getVida());
+		monstre.rebreDany(dany);
+		return dany;
 	}
 
 	public void explorar() {
@@ -88,7 +82,7 @@ public class Personatge implements Combatent {
 	}
 
 	/**
-	 * Cambia la vida del personatge.
+	 * Cambia la vida del personatge. <br>
 	 * Si el valor es menor que 0, la vida s'estableix en 0.
 	 * 
 	 * @param vida El nou valor de la vida.
