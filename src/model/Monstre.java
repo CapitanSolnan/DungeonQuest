@@ -45,6 +45,16 @@ public class Monstre implements Combatent {
 	}
 
 	@Override
+	public int getVida() {
+		return vida;
+	}
+
+	@Override
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+
+	@Override
 	public String toString() {
 		return "Nom: " + nom + " | Vida: " + vida;
 	}
