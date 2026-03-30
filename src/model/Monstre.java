@@ -1,6 +1,10 @@
 package model;
 
-public class Monstre {
+import combat.Combatent;
+
+// BUG: El monstre no pot fer res si esta mort
+
+public class Monstre implements Combatent {
 
 	private String nom;
 	private int vida;
@@ -20,6 +24,24 @@ public class Monstre {
 			return '0';
 		}
 		return valor;
+	}
+
+	@Override
+	public int calcularAtac() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'calcularAtac'");
+	}
+
+	@Override
+	public void rebreDany(int quantitat) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'rebreDany'");
+	}
+
+	@Override
+	public boolean estaViu() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'estaViu'");
 	}
 
 	@Override
