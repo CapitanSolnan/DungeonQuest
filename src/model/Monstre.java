@@ -22,8 +22,7 @@ public class Monstre implements Combatent {
 
 	@Override
 	public int calcularAtac() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'calcularAtac'");
+		return MathUtils.generarNumeroAleatori(1, this.vida);
 	}
 
 	@Override
