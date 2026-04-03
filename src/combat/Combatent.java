@@ -7,7 +7,9 @@ public interface Combatent {
 
 	int calcularAtac();
 
-	boolean estaViu();
+	default boolean estaViu() {
+		return getVida() > 0;
+	};
 
 	default void rebreDany(int quantitat) {
 		setVida(Math.max(0, getVida() - quantitat));
