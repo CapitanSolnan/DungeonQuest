@@ -3,8 +3,6 @@ package model;
 import combat.Combatent;
 import utils.MathUtils;
 
-// BUG: El monstre no pot fer res si esta mort
-
 public class Monstre implements Combatent {
 
 	private String nom;
