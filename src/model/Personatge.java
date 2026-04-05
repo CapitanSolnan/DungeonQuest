@@ -98,6 +98,10 @@ public class Personatge implements Combatent {
 		this.vida = (vida > 0) ? vida : 0;
 	}
 
+	public int getForsa() {
+		return forsa;
+	}
+
 	@Override
 	public String toString() {
 		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + "Experiencia: "
