@@ -82,6 +82,16 @@ public class Personatge implements Combatent {
 		return MathUtils.generarNumeroAleatori(1, this.atac);
 	}
 
+	public boolean ferTiradaForsa() {
+		int dau = MathUtils.generarNumeroAleatori(1, 12);
+		return dau <= this.forsa;
+	}
+
+	public boolean ferTiradaAgilitat() {
+		int dau = MathUtils.generarNumeroAleatori(1, 12);
+		return dau <= this.agilitat;
+	}
+
 	@Override
 	public int getVida() {
 		return vida;
