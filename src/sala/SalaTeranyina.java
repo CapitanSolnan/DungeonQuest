@@ -5,20 +5,14 @@ import model.Personatge;
 import model.Tresor;
 
 public class SalaTeranyina extends Sala {
-	private Personatge p;
+	private Personatge personatge;
 
-	public SalaTeranyina(Tresor t, Monstre m, boolean explorada, Personatge p) {
-		super(t, m, explorada);
-		this.p = p;
+	public SalaTeranyina(Tresor tresor, Monstre monstre, boolean explorada, Personatge personatge) {
+		super(tresor, monstre, explorada);
+		this.personatge = personatge;
 	}
 
 	public boolean intentarSortir() {
-		if (p.forsa >= (int) (Math.random() * 12) + 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return personatge.ferTiradaForsa();
 	}
-
-	// 20%
 }
