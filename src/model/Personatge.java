@@ -7,29 +7,19 @@ public class Personatge implements Combatent {
 	private String nom;
 	private int vida;
 	private int atac;
-	private int experiencia;
+	private int experiencia = 0;
 	private int agilitat;
 	private int forsa;
-	private int[] posicio = new int[2];
+	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
 
-	public Personatge(String nom, int vida, int atac, int agilitat, int forsa, int posicioInicial[]) {
+	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
 		this.vida = MathUtils.ajustarRang(5, 20, vida);
 		this.atac = MathUtils.ajustarRang(1, 4, atac);
 		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
 		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
-		this.experiencia = 0;
-
-		// Verificar que l'array tingui la mida correcta
-		if (posicioInicial != null && posicioInicial.length >= 2) {
-			this.posicio[0] = posicioInicial[0];
-			this.posicio[1] = posicioInicial[1];
-		} else {
-			this.posicio[0] = 0;
-			this.posicio[1] = 0;
-		}
 
 		// La quantitat d'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
