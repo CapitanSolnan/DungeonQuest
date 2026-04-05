@@ -33,6 +33,10 @@ public class Monstre implements Combatent {
 		this.vida = (vida > 0) ? vida : 0;
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
 	public int getPenalitzacio() {
 		return penalitzacio;
 	}
