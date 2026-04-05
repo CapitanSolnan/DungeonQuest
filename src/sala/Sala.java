@@ -18,6 +18,10 @@ public abstract class Sala {
 
 	public abstract boolean intentarSortir();
 
+	public boolean estaExplorada() {
+		return explorada;
+	}
+
 	public String toString() {
 		return tresor + " " + monstre + " " + explorada;
 	}
