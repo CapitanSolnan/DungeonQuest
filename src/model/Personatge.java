@@ -102,6 +102,18 @@ public class Personatge implements Combatent {
 		return forsa;
 	}
 
+	public int[] getPosicio() {
+		return posicio;
+	}
+
+	public int getPosicioX() {
+		return posicio[0];
+	}
+
+	public int getPosicioY() {
+		return posicio[1];
+	}
+
 	@Override
 	public String toString() {
 		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + "Experiencia: "
