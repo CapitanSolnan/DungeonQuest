@@ -1,6 +1,3 @@
-
-import java.util.Scanner;
-
 import model.Monstre;
 import model.Personatge;
 import model.Tresor;
