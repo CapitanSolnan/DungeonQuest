@@ -7,12 +7,15 @@ public class Main {
 
 		Scanner teclado = new Scanner(System.in);
 
-		System.out.print("Inserta nombre: ");
-		String nom = teclado.nextLine();
+		System.out.println("BENVINGUT/DA A DUNGEON QUEST!");
+		System.out.println();
 
+		// Demanar el nom del jugador
+		String nom = demanarNom(teclado);
+		System.out.println();
 
 		int vida = 5;
-		int atac= 1;
+		int atac = 1;
 		int agilitat = 4;
 		int forsa = 4;
 		System.out.println();
@@ -27,21 +30,22 @@ public class Main {
 		String dificultat = teclado.nextLine();
 		int puntos = 0;
 
-		while (!dificultat.equalsIgnoreCase("facil") || !dificultat.equalsIgnoreCase("fàcil") || !dificultat.equalsIgnoreCase("normal") 
-				|| !dificultat.equalsIgnoreCase("difícil") || !dificultat.equalsIgnoreCase("dificil" ) ) {
+		while (!dificultat.equalsIgnoreCase("facil") || !dificultat.equalsIgnoreCase("fàcil")
+				|| !dificultat.equalsIgnoreCase("normal")
+				|| !dificultat.equalsIgnoreCase("difícil") || !dificultat.equalsIgnoreCase("dificil")) {
 
 			if (dificultat.equalsIgnoreCase("facil") || dificultat.equalsIgnoreCase("fàcil")) {
 				puntos = 32;
 				break;
-			}else if (dificultat.equalsIgnoreCase("normal")) {
+			} else if (dificultat.equalsIgnoreCase("normal")) {
 				puntos = 12;
 				break;
 
-			}else if (dificultat.equalsIgnoreCase("dificil") || dificultat.equalsIgnoreCase("difícil")) {
+			} else if (dificultat.equalsIgnoreCase("dificil") || dificultat.equalsIgnoreCase("difícil")) {
 				System.out.println("No tens punts inicials");
 				break;
 
-			}else {
+			} else {
 				System.out.println("Error al escollir la dificultat");
 
 				System.out.println();
@@ -49,7 +53,7 @@ public class Main {
 				dificultat = teclado.nextLine();
 			}
 		}
-		
+
 		if (puntos > 0) {
 			int newVida = 0;
 			int newAtac = 0;
@@ -63,10 +67,10 @@ public class Main {
 			newVida = teclado.nextInt();
 			System.out.println("VIDA: " + (vida + newVida));
 			vida += newVida;
-			if(puntos <= 0) {
+			if (puntos <= 0) {
 
-			}else{
-				System.out.println("Distribuïu els " + (puntos-newVida) + " PUNTS");
+			} else {
+				System.out.println("Distribuïu els " + (puntos - newVida) + " PUNTS");
 
 				System.out.print("ATAC 1 + ");
 				newAtac = teclado.nextInt();
@@ -75,9 +79,8 @@ public class Main {
 				atac += newAtac;
 				if (puntos <= 0) {
 
-				}else {
-					System.out.println("Distribuïu els " + (puntos-newVida-newAtac) + " PUNTS");
-
+				} else {
+					System.out.println("Distribuïu els " + (puntos - newVida - newAtac) + " PUNTS");
 
 					System.out.print("AGILITAT 4 + ");
 					newAgilitat = teclado.nextInt();
@@ -87,9 +90,8 @@ public class Main {
 					agilitat += newAgilitat;
 					if (puntos <= 0) {
 
-					}else {
-						System.out.println("Distribuïu els " + (puntos-newVida-newAtac-newAgilitat) + " PUNTS");
-
+					} else {
+						System.out.println("Distribuïu els " + (puntos - newVida - newAtac - newAgilitat) + " PUNTS");
 
 						System.out.print("FORSA 4 + ");
 						newForsa = teclado.nextInt();
@@ -103,15 +105,15 @@ public class Main {
 
 		}
 
-
-
-
 		Personatge player1 = new Personatge(nom, vida, atac, agilitat, forsa);
 
 	}
 
-
-
-
+	private static String demanarNom(Scanner teclado) {
+		System.out.println("Trieu un nom per al vostre jugador: ");
+		String nom = teclado.nextLine();
+		teclado.close();
+		return nom;
+	}
 
 }
