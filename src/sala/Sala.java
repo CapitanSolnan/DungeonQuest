@@ -22,6 +22,7 @@ public abstract class Sala {
 		return explorada;
 	}
 
+	@Override
 	public String toString() {
 		return tresor + " " + monstre + " " + explorada;
 	}
