@@ -112,8 +112,28 @@ public class Personatge implements Combatent {
 		return nom;
 	}
 
+	public int getAgilitat() {
+		return agilitat;
+	}
+
+	public void setAgilitat(int agilitat) {
+		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
+	}
+
+	public int getAtac() {
+		return atac;
+	}
+
+	public void setAtac(int atac) {
+		this.atac = MathUtils.ajustarRang(1, 4, atac);
+	}
+
 	public int getForsa() {
 		return forsa;
+	}
+
+	public void setForsa(int forsa) {
+		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
 	}
 
 	public int[] getPosicio() {
