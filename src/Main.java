@@ -6,13 +6,16 @@ public class Main {
 		// TODO: Empezar partida
 
 		Scanner teclado = new Scanner(System.in);
+		saltarPagina();
 
 		System.out.println("BENVINGUT/DA A DUNGEON QUEST!");
 		System.out.println();
 
 		// Demanar el nom del jugador
+		System.out.println("=== Creació de personatge ===");
 		String nom = demanarNom(teclado);
 		System.out.println();
+		saltarPagina("=== Creació de personatge ===");
 
 		int vida = 5;
 		int atac = 1;
@@ -107,6 +110,19 @@ public class Main {
 
 		Personatge player1 = new Personatge(nom, vida, atac, agilitat, forsa);
 
+	}
+
+	private static void saltarPagina() {
+		for (int i = 0; i < 50; i++) {
+			System.out.println();
+		}
+	}
+
+	private static void saltarPagina(String titol) {
+		for (int i = 0; i < 50; i++) {
+			System.out.println();
+		}
+		System.out.println(titol);
 	}
 
 	private static String demanarNom(Scanner teclado) {
