@@ -17,7 +17,7 @@ public class Personatge implements Combatent {
 	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
-		this.setVida(vida);
+		this.setVida(MathUtils.ajustarRang(5, 20, vida));
 		this.setAtac(atac);
 		this.setAgilitat(agilitat);
 		this.setForsa(forsa);
@@ -105,7 +105,7 @@ public class Personatge implements Combatent {
 	 */
 	@Override
 	public void setVida(int vida) {
-		this.vida = (vida > 0) ? vida : 0;
+		this.vida = MathUtils.ajustarRang(0, 20, vida);
 	}
 
 	public String getNom() {
