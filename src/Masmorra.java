@@ -94,4 +94,10 @@ public class Masmorra {
 			System.out.println();
 		}
 	}
+
+	public boolean estaForaMapa(int x, int y) {
+		return x < 0 || x >= this.x
+				|| y < 0 || y >= this.y;
+	}
+
 }
