@@ -26,6 +26,10 @@ public abstract class Sala {
 		this.explorada = explorada;
 	}
 
+	public Tresor getTresor() {
+		return tresor;
+	}
+
 	@Override
 	public String toString() {
 		return tresor + " " + monstre + " " + explorada;
