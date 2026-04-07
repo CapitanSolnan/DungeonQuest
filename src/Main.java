@@ -112,7 +112,6 @@ public class Main {
 	private static String demanarNom(Scanner teclado) {
 		System.out.println("Trieu un nom per al vostre jugador: ");
 		String nom = teclado.nextLine();
-		teclado.close();
 		return nom;
 	}
 
