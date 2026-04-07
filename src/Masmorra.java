@@ -100,4 +100,8 @@ public class Masmorra {
 				|| y < 0 || y >= this.y;
 	}
 
+	public void sumarSalesExplorades() {
+		this.salesExplorades++;
+	}
+
 }
