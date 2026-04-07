@@ -104,4 +104,8 @@ public class Masmorra {
 		this.salesExplorades++;
 	}
 
+	public int getPercentatgeSalesExplorades() {
+		return (int) ((this.salesExplorades * 100) / this.salesTotals);
+	}
+
 }
