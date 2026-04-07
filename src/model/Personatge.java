@@ -1,6 +1,7 @@
 package model;
 
 import combat.Combatent;
+import sala.Sala;
 import utils.MathUtils;
 
 public class Personatge implements Combatent {
@@ -38,8 +39,17 @@ public class Personatge implements Combatent {
 		return dany;
 	}
 
-	public void explorar() {
-		// TODO: Implementar exploració.
+	public void explorar(Sala sala) {
+		if (sala.estaExplorada())
+			return;
+
+		sala.setExplorada(true);
+
+		if (sala.getTresor() == null) {
+			return;
+		} else {
+			this.intentarAfegirTresor(sala.getTresor());
+		}
 	}
 
 	// TODO: Optimitzar moviment
@@ -112,6 +122,16 @@ public class Personatge implements Combatent {
 
 	public int getPosicioY() {
 		return posicio[1];
+	}
+
+	public boolean intentarAfegirTresor(Tresor tresor) {
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] == null) {
+				equipament[i] = tresor;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
