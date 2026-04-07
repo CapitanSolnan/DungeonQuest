@@ -17,10 +17,10 @@ public class Personatge implements Combatent {
 	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
-		this.vida = MathUtils.ajustarRang(5, 20, vida);
-		this.atac = MathUtils.ajustarRang(1, 4, atac);
-		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
-		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
+		this.setVida(vida);
+		this.setAtac(atac);
+		this.setAgilitat(agilitat);
+		this.setForsa(forsa);
 
 		// La quantitat d'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
