@@ -22,6 +22,15 @@ public abstract class Sala {
 		return explorada;
 	}
 
+	public void setExplorada(boolean explorada) {
+		this.explorada = explorada;
+	}
+
+	public Tresor getTresor() {
+		return tresor;
+	}
+
+	@Override
 	public String toString() {
 		return tresor + " " + monstre + " " + explorada;
 	}
