@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import model.Personatge;
+import utils.Colors;
 
 public class Main {
 	public static void main(String[] args) {
@@ -8,11 +9,10 @@ public class Main {
 		Scanner teclado = new Scanner(System.in);
 		saltarPagina(); // neteja inicial per alinear vista consola
 
-		System.out.println("BENVINGUT/DA A DUNGEON QUEST!");
-		System.out.println();
+		imprimirMissatgeBenvinguda(teclado);
+		saltarPagina("=== Creació de personatge ===");
 
 		// demanar el nom del jugador
-		System.out.println("=== Creació de personatge ===");
 		String nom = demanarNom(teclado);
 		System.out.println();
 		saltarPagina("=== Creació de personatge ===");
@@ -110,6 +110,21 @@ public class Main {
 
 		Personatge player1 = new Personatge(nom, vida, atac, agilitat, forsa);
 
+	}
+
+	private static void imprimirMissatgeBenvinguda(Scanner teclado) {
+		System.out.println(Colors.CIAN_B);
+		System.out.println(" ____  _   _ _   _  ____ _____ ___  _   _    ___  _   _ _____ ____ _____ ");
+		System.out.println("|  _ \\| | | | \\ | |/ ___| ____/ _ \\| \\ | |  / _ \\| | | | ____/ ___|_   _|");
+		System.out.println("| | | | | | |  \\| | |  _|  _|| | | |  \\| | | | | | | | |  _| \\___ \\ | |  ");
+		System.out.println("| |_| | |_| | |\\  | |_| | |__| |_| | |\\  | | |_| | |_| | |___ ___) || |  ");
+		System.out.println("|____/ \\___/|_| \\_|\\____|_____\\___/|_| \\_|  \\__\\_\\\\___/|_____|____/ |_|  ");
+		System.out.println(Colors.VERD_B + "Fet per: Javi i Marc");
+		System.out.println("DAM 1M - Programació");
+		System.out.println("CURS 2025-2026");
+		System.out.println(Colors.RESET);
+		System.out.println("Cliqueu \"Enter\" per començar...");
+		teclado.nextLine();
 	}
 
 	private static String demanarNom(Scanner teclado) {
