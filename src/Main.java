@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import model.Personatge;
-import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -33,10 +32,15 @@ public class Main {
 
 			if (dificultat.equalsIgnoreCase("facil") || dificultat.equalsIgnoreCase("fàcil")) {
 				puntos = 32;
+				break;
 			}else if (dificultat.equalsIgnoreCase("normal")) {
 				puntos = 12;
+				break;
+
 			}else if (dificultat.equalsIgnoreCase("dificil") || dificultat.equalsIgnoreCase("difícil")) {
 				System.out.println("No tens punts inicials");
+				break;
+
 			}else {
 				System.out.println("Error al escollir la dificultat");
 
@@ -45,7 +49,8 @@ public class Main {
 				dificultat = teclado.nextLine();
 			}
 		}
-		if (puntos <= 0) {
+		
+		if (puntos > 0) {
 			int newVida = 0;
 			int newAtac = 0;
 			int newAgilitat = 0;
@@ -57,7 +62,7 @@ public class Main {
 			System.out.print("VIDA 5 + ");
 			newVida = teclado.nextInt();
 			System.out.println("VIDA: " + (vida + newVida));
-
+			vida += newVida;
 			if(puntos <= 0) {
 
 			}else{
@@ -67,7 +72,7 @@ public class Main {
 				newAtac = teclado.nextInt();
 
 				System.out.println("ATAC: " + (atac + newAtac));
-
+				atac += newAtac;
 				if (puntos <= 0) {
 
 				}else {
@@ -79,6 +84,7 @@ public class Main {
 
 					System.out.println("AGILITAT: " + (agilitat + newAgilitat));
 
+					agilitat += newAgilitat;
 					if (puntos <= 0) {
 
 					}else {
@@ -89,46 +95,22 @@ public class Main {
 						newForsa = teclado.nextInt();
 
 						System.out.println("FORSA: " + (forsa + newForsa));
-
+						forsa += newForsa;
 					}
 				}
 
 			}
 
-
-
-			asignarPuntos(newVida, newAtac, newAgilitat, newForsa);
-
 		}
 
 
 
 
-		//Personatge player1 = Personatge(nom, vida, atac, agilitat, forsa);
+		Personatge player1 = new Personatge(nom, vida, atac, agilitat, forsa);
 
 	}
 
-	public static void asignarPuntos(int newVida, int newAtac, int newAgilitat, int newForsa) {
-		int puntos = 12;
 
-		if (puntos >= (newVida+newAtac+newAgilitat+newForsa)) {
-			System.out.println("NOUS VALORS ASIGNATS");
-			int vida = MathUtils.ajustarRang(0, 15, newVida);
-			int atac = MathUtils.ajustarRang(0, 3, newAtac);
-			int agilitat = MathUtils.ajustarRang(0, 7, newAgilitat);
-			int forsa = MathUtils.ajustarRang(0, 7, newForsa);
-
-		}else {
-			System.out.println("Els punts asignats es superior als punts que pots aplicar");
-		}
-
-
-
-
-
-
-
-	}
 
 
 
