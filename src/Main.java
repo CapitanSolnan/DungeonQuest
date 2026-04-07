@@ -6,12 +6,12 @@ public class Main {
 		// TODO: Empezar partida
 
 		Scanner teclado = new Scanner(System.in);
-		saltarPagina();
+		saltarPagina(); // neteja inicial per alinear vista consola
 
 		System.out.println("BENVINGUT/DA A DUNGEON QUEST!");
 		System.out.println();
 
-		// Demanar el nom del jugador
+		// demanar el nom del jugador
 		System.out.println("=== Creació de personatge ===");
 		String nom = demanarNom(teclado);
 		System.out.println();
@@ -112,6 +112,13 @@ public class Main {
 
 	}
 
+	private static String demanarNom(Scanner teclado) {
+		System.out.println("Trieu un nom per al vostre jugador: ");
+		String nom = teclado.nextLine();
+		return nom;
+	}
+
+	// funcions per netejar consola
 	private static void saltarPagina() {
 		for (int i = 0; i < 50; i++) {
 			System.out.println();
@@ -124,11 +131,4 @@ public class Main {
 		}
 		System.out.println(titol);
 	}
-
-	private static String demanarNom(Scanner teclado) {
-		System.out.println("Trieu un nom per al vostre jugador: ");
-		String nom = teclado.nextLine();
-		return nom;
-	}
-
 }
