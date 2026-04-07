@@ -108,6 +108,10 @@ public class Personatge implements Combatent {
 		this.vida = (vida > 0) ? vida : 0;
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
 	public int getForsa() {
 		return forsa;
 	}
