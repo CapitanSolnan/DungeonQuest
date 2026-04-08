@@ -12,7 +12,7 @@ public class Masmorra {
 	private int y;
 	Sala[][] mapa = new Sala[x][y];
 	private int salesExplorades = 0;
-	private int salesTotals = x * y;
+	private int salesTotals;
 
 	// Personatge
 	Personatge personatge;
@@ -35,8 +35,7 @@ public class Masmorra {
 		this.x = x;
 		this.y = y;
 		this.mapa = generarMasmorra();
-		this.salesExplorades = salesExplorades;
-		this.salesTotals = salesTotals;
+		this.salesTotals = this.x * this.y;
 		this.personatge = personatge;
 	}
 
