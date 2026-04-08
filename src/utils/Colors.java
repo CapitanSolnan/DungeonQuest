@@ -12,6 +12,12 @@ public class Colors {
 	public static final String MAGENTA = "\u001B[35m";
 	public static final String CIAN = "\u001B[36m";
 	public static final String BLANC = "\u001B[37m";
+	
+	// color stats
+	public static final String VIDA = "\u001B[38;5;196m";       // rojo
+	public static final String ATAC = "\u001B[38;5;208m";       // naranja
+	public static final String AGILITAT = "\u001B[38;5;45m";    // azul claro
+	public static final String FORSA = "\u001B[38;5;220m";      // amarillo 
 
 	// color brillant text
 	public static final String NEGRE_B = "\u001B[90m";

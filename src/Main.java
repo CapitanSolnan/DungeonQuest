@@ -1,11 +1,11 @@
 import java.util.Scanner;
 import model.Personatge;
 import utils.Colors;
+import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
 		// TODO: Empezar partida
-
 		Scanner teclado = new Scanner(System.in);
 		saltarPagina(); // neteja inicial per alinear vista consola
 
@@ -17,99 +17,47 @@ public class Main {
 		System.out.println();
 		saltarPagina("=== Creació de personatge ===");
 
-		int vida = 5;
-		int atac = 1;
-		int agilitat = 4;
-		int forsa = 4;
-		System.out.println();
-		System.out.println("VIDA     | 5 | MAXIM DE 20");
-		System.out.println("ATAC     | 1 | MAXIM DE 4");
-		System.out.println("AGILITAT | 4 | MAXIM DE 11");
-		System.out.println("FORSA    | 4 | MAXIM DE 11");
-		System.out.println();
+        int vida = 5;
+        int atac = 1;
+        int agilitat = 4;
+        int forsa = 4;
 
-		System.out.println("ESCOLLEIX LA DIFICULTAT (Només varia el punts inicials)");
-		System.out.println("FÀCIL | NORMAL | DIFÍCIL");
-		String dificultat = teclado.nextLine();
-		int puntos = 0;
+        // ELEGIR DIFICULTAD
+        int puntos = elegirDificultad(teclado);
 
-		while (!dificultat.equalsIgnoreCase("facil") || !dificultat.equalsIgnoreCase("fàcil")
-				|| !dificultat.equalsIgnoreCase("normal")
-				|| !dificultat.equalsIgnoreCase("difícil") || !dificultat.equalsIgnoreCase("dificil")) {
+        // MOSTRAR STATS INICIALES
+        mostrarStats(vida, atac, agilitat, forsa);
 
-			if (dificultat.equalsIgnoreCase("facil") || dificultat.equalsIgnoreCase("fàcil")) {
-				puntos = 32;
-				break;
-			} else if (dificultat.equalsIgnoreCase("normal")) {
-				puntos = 12;
-				break;
+        System.out.println("\nDistribuïu els " + puntos + " PUNTS");
+        System.out.println("Els punts NO asignats NO es podran RECUPERAR");
 
-			} else if (dificultat.equalsIgnoreCase("dificil") || dificultat.equalsIgnoreCase("difícil")) {
-				System.out.println("No tens punts inicials");
-				break;
+        // REPARTIR PUNTOS
+        while (puntos > 0) {
 
-			} else {
-				System.out.println("Error al escollir la dificultat");
+            System.out.println("\nPunts disponibles: " + puntos);
+            System.out.println("Quina estadística vols millorar? (" + Colors.VIDA + "vida " + Colors.RESET + "/" + Colors.ATAC+ " atac " + Colors.RESET + "/" + Colors.AGILITAT + " agilitat " + Colors.RESET + "/" + Colors.FORSA +"forsa" + Colors.RESET + ")");
+            String opcio = teclado.nextLine().toLowerCase();
 
-				System.out.println();
-				System.out.println("FÀCIL | NORMAL | DIFÍCIL");
-				dificultat = teclado.nextLine();
-			}
-		}
+            System.out.println("Quants punts vols afegir?");
+            int cantidad = Integer.parseInt(teclado.nextLine());
 
-		if (puntos > 0) {
-			int newVida = 0;
-			int newAtac = 0;
-			int newAgilitat = 0;
-			int newForsa = 0;
-			System.out.println("Distribuïu els " + puntos + " PUNTS");
-			System.out.println("Els punts NO asignats NO es podran RECUPERAR");
-			System.out.println();
+            int[] resultat = repartirMultiplesPuntos(opcio, cantidad, vida, atac, agilitat, forsa, puntos);
 
-			System.out.print("VIDA 5 + ");
-			newVida = teclado.nextInt();
-			System.out.println("VIDA: " + (vida + newVida));
-			vida += newVida;
-			if (puntos <= 0) {
+            vida = resultat[0];
+            atac = resultat[1];
+            agilitat = resultat[2];
+            forsa = resultat[3];
 
-			} else {
-				System.out.println("Distribuïu els " + (puntos - newVida) + " PUNTS");
+            puntos -= resultat[4];
+        }
 
-				System.out.print("ATAC 1 + ");
-				newAtac = teclado.nextInt();
+		
 
-				System.out.println("ATAC: " + (atac + newAtac));
-				atac += newAtac;
-				if (puntos <= 0) {
+		mostrarStats(vida, atac, agilitat, forsa);
 
-				} else {
-					System.out.println("Distribuïu els " + (puntos - newVida - newAtac) + " PUNTS");
-
-					System.out.print("AGILITAT 4 + ");
-					newAgilitat = teclado.nextInt();
-
-					System.out.println("AGILITAT: " + (agilitat + newAgilitat));
-
-					agilitat += newAgilitat;
-					if (puntos <= 0) {
-
-					} else {
-						System.out.println("Distribuïu els " + (puntos - newVida - newAtac - newAgilitat) + " PUNTS");
-
-						System.out.print("FORSA 4 + ");
-						newForsa = teclado.nextInt();
-
-						System.out.println("FORSA: " + (forsa + newForsa));
-						forsa += newForsa;
-					}
-				}
-
-			}
-
-		}
 
 		Personatge player1 = new Personatge(nom, vida, atac, agilitat, forsa);
-
+		System.out.println(player1);
 	}
 
 	private static void imprimirMissatgeBenvinguda(Scanner teclado) {
@@ -150,4 +98,120 @@ public class Main {
 		System.out.flush();
 		System.out.println(titol);
 	}
+
+    public static int elegirDificultad(Scanner teclado) {
+
+        String dificultat;
+        int puntos = 0;
+
+        System.out.println("ESCOLLEIX LA DIFICULTAT (Només varia els punts inicials)");
+
+        do {
+            System.out.println(Colors.VERD + "FÀCIL " + Colors.RESET + "|" + Colors.GROC + " NORMAL " + Colors.RESET + "|" + Colors.VERMELL +" DIFÍCIL" + Colors.RESET);
+            dificultat = teclado.nextLine().toLowerCase();
+
+            if (dificultat.equals("facil") || dificultat.equals("fàcil")) {
+                puntos = 32;
+
+            } else if (dificultat.equals("normal")) {
+                puntos = 12;
+
+            } else if (dificultat.equals("dificil") || dificultat.equals("difícil")) {
+                puntos = 0;
+                System.out.println("No tens punts inicials");
+
+            } else {
+                System.out.println("Error al escollir la dificultat");
+            }
+
+        } while (!esDificultatValida(dificultat));
+
+        return puntos;
+    }
+
+    
+    
+    public static boolean esDificultatValida(String d) {
+        return d.equals("facil") || d.equals("fàcil")
+                || d.equals("normal")
+                || d.equals("dificil") || d.equals("difícil");
+    }
+
+    
+    
+    public static int[] repartirMultiplesPuntos(String opcio, int cantidad, int vida, int atac, int agilitat, int forsa, int puntosDisponibles) {
+
+        int puntosGastados = 0;
+
+        if (cantidad <= 0) {
+            System.out.println("Has d'afegir almenys 1 punt!");
+            return new int[]{vida, atac, agilitat, forsa, 0};
+        }
+
+        if (cantidad > puntosDisponibles) {
+            System.out.println("No tens tants punts!");
+            return new int[]{vida, atac, agilitat, forsa, 0};
+        }
+
+        if (opcio.equals("vida")) {
+            int max = 20 - vida;
+            if (max > 0) {
+                int aSumar = Math.min(cantidad, max);
+                vida += aSumar;
+                puntosGastados = aSumar;
+            } else {
+                System.out.println("Vida al màxim!");
+            }
+
+        } else if (opcio.equals("atac")) {
+            int max = 4 - atac;
+            if (max > 0) {
+                int aSumar = Math.min(cantidad, max);
+                atac += aSumar;
+                puntosGastados = aSumar;
+            } else {
+                System.out.println("Atac al màxim!");
+            }
+
+        } else if (opcio.equals("agilitat")) {
+            int max = 11 - agilitat;
+            if (max > 0) {
+                int aSumar = Math.min(cantidad, max);
+                agilitat += aSumar;
+                puntosGastados = aSumar;
+            } else {
+                System.out.println("Agilitat al màxim!");
+            }
+
+        } else if (opcio.equals("forsa")) {
+            int max = 11 - forsa;
+            if (max > 0) {
+                int aSumar = Math.min(cantidad, max);
+                forsa += aSumar;
+                puntosGastados = aSumar;
+            } else {
+                System.out.println("Forsa al màxim!");
+            }
+
+        } else {
+            System.out.println("Opció no vàlida!");
+        }
+
+        return new int[]{vida, atac, agilitat, forsa, puntosGastados};
+    }
+
+    
+    
+    
+    public static void mostrarStats(int vida, int atac, int agilitat, int forsa) {
+        System.out.println("\n=== Estadístiques ===");
+        System.out.println(Colors.VIDA + "VIDA     | " + vida + " | MAX 20" + Colors.RESET);
+        System.out.println(Colors.ATAC + "ATAC     | " + atac + " | MAX 4" + Colors.RESET);
+        System.out.println(Colors.AGILITAT + "AGILITAT | " + agilitat + " | MAX 11" + Colors.RESET);
+        System.out.println(Colors.FORSA + "FORSA    | " + forsa + " | MAX 11" + Colors.RESET);
+        System.out.println();
+    }
+
+
+
 }
