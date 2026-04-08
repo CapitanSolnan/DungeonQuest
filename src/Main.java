@@ -11,8 +11,6 @@ public class Main {
 		ConsoleUtils.saltarPagina(); // neteja inicial per alinear vista consola
 
 		imprimirMissatgeBenvinguda(teclado);
-		ConsoleUtils.saltarPagina(
-				Colors.TITOL + " === Creació de personatge === " + Colors.RESET);
 
 		// demanar el nom del jugador
 		String nom = demanarNom(teclado);
@@ -81,6 +79,8 @@ public class Main {
 	}
 
 	private static String demanarNom(Scanner teclado) {
+		ConsoleUtils.saltarPagina(
+				Colors.TITOL + " === Creació de personatge === " + Colors.RESET);
 		System.out.println(Colors.PREGUNTA + "Trieu un nom per al vostre jugador: ");
 		System.out.print(Colors.RESPOSTA);
 		String nom = teclado.nextLine();
