@@ -14,9 +14,6 @@ public class Main {
 
 		// demanar el nom del jugador
 		String nom = demanarNom(teclado);
-		System.out.println();
-		ConsoleUtils
-				.saltarPagina(Colors.TITOL + "=== Creació de personatge ===" + Colors.RESET);
 
 		int vida = 5;
 		int atac = 1;
@@ -115,7 +112,6 @@ public class Main {
 				System.out.println(Colors.VERMELL + "⚠ Has d'escollir un número vàlid!" + Colors.RESET);
 				ConsoleUtils.dormirSegons(1.5);
 			}
-
 		} while (!esDificultatValida);
 
 		return dificultat;
