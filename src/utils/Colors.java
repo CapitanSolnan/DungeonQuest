@@ -21,6 +21,11 @@ public class Colors {
 	public static final String FORSA = GROC;
 	public static final String MANA = BLAU;
 
+	// secciones
+	public static final String TITOL = "\u001B[48;5;236m" + Colors.CIAN + Colors.NEGRETA; // fondo gris + cian + negrita
+	public static final String PREGUNTA = Colors.CIAN + "❯ " + Colors.RESET + Colors.NEGRETA;
+	public static final String RESPOSTA = Colors.BLANC + "┃ " + Colors.RESET;
+
 	// colores fondo
 	public static final String FONS_NEGRE = "\u001B[40m";
 	public static final String FONS_VERMELL = "\u001B[48;5;88m"; // Granate
