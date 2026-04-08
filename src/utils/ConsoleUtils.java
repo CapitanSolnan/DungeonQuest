@@ -18,4 +18,11 @@ public class ConsoleUtils {
 		System.out.println(titol);
 	}
 
+	public static void dormirSegons(double segons) {
+		try {
+			Thread.sleep((long) (segons * 1000));
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+	}
 }
