@@ -159,6 +159,14 @@ public class Personatge implements Combatent {
 		return posicio[1];
 	}
 
+	public int getPuntsDisponibles() {
+		return puntsDisponibles;
+	}
+
+	public void setPuntsDisponibles(int puntsDisponibles) {
+		this.puntsDisponibles = puntsDisponibles;
+	}
+
 	@Override
 	public String toString() {
 		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Experiencia: "
