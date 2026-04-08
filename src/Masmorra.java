@@ -108,4 +108,8 @@ public class Masmorra {
 		return (int) ((this.salesExplorades * 100) / this.salesTotals);
 	}
 
+	@Override
+	public String toString() {
+		return "Masmorra [" + x + "x" + y + "] " + salesExplorades + "/" + salesTotals;
+	}
 }
