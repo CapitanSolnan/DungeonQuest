@@ -13,6 +13,7 @@ public class Personatge implements Combatent {
 	private int forsa;
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
+	private int puntsDisponibles;
 
 	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
@@ -92,6 +93,16 @@ public class Personatge implements Combatent {
 		return dau <= this.agilitat;
 	}
 
+	public boolean intentarAfegirTresor(Tresor tresor) {
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] == null) {
+				equipament[i] = tresor;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public int getVida() {
 		return vida;
@@ -146,16 +157,6 @@ public class Personatge implements Combatent {
 
 	public int getPosicioY() {
 		return posicio[1];
-	}
-
-	public boolean intentarAfegirTresor(Tresor tresor) {
-		for (int i = 0; i < equipament.length; i++) {
-			if (equipament[i] == null) {
-				equipament[i] = tresor;
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
