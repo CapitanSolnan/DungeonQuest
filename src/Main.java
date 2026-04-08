@@ -1,21 +1,24 @@
 import java.util.Scanner;
 import model.Personatge;
 import utils.Colors;
+import utils.ConsoleUtils;
 import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
 		// TODO: Empezar partida
 		Scanner teclado = new Scanner(System.in);
-		saltarPagina(); // neteja inicial per alinear vista consola
+		ConsoleUtils.saltarPagina(); // neteja inicial per alinear vista consola
 
 		imprimirMissatgeBenvinguda(teclado);
-		saltarPagina("=== Creació de personatge ===");
+		ConsoleUtils.saltarPagina(
+				Colors.TITOL + " === Creació de personatge === " + Colors.RESET);
 
 		// demanar el nom del jugador
 		String nom = demanarNom(teclado);
 		System.out.println();
-		saltarPagina("=== Creació de personatge ===");
+		ConsoleUtils
+				.saltarPagina(Colors.TITOL + "=== Creació de personatge ===" + Colors.RESET);
 
 		int vida = 5;
 		int atac = 1;
@@ -75,27 +78,10 @@ public class Main {
 	}
 
 	private static String demanarNom(Scanner teclado) {
-		System.out.println("Trieu un nom per al vostre jugador: ");
+		System.out.println(Colors.PREGUNTA + "Trieu un nom per al vostre jugador: ");
+		System.out.print(Colors.RESPOSTA);
 		String nom = teclado.nextLine();
 		return nom;
-	}
-
-	// funcions per netejar consola
-	private static void saltarPagina() {
-		// for (int i = 0; i < 50; i++) {
-		// System.out.println();
-		// }
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-	}
-
-	private static void saltarPagina(String titol) {
-		// for (int i = 0; i < 50; i++) {
-		// System.out.println();
-		// }
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-		System.out.println(titol);
 	}
 
 	public static int elegirDificultad(Scanner teclado) {
