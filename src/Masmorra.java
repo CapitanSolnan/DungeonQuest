@@ -34,9 +34,9 @@ public class Masmorra {
 	public Masmorra(int x, int y, Personatge personatge) {
 		this.x = x;
 		this.y = y;
-		this.mapa = generarMasmorra();
 		this.salesTotals = this.x * this.y;
 		this.personatge = personatge;
+		this.mapa = generarMasmorra();
 	}
 
 	private Tresor generarTresor() {
