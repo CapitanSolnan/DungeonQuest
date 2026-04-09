@@ -6,26 +6,38 @@ import utils.MathUtils;
 
 public class Personatge implements Combatent {
 	private String nom;
+
+	// atributs del personatge
 	private int vida;
+	public static final int MIN_VIDA_INICIAL = 5;
+	public static final int MIN_VIDA = 0;
+	public static final int MAX_VIDA = 20;
 	private int atac;
-	private int experiencia = 0;
+	public static final int MIN_ATAC = 1;
+	public static final int MAX_ATAC = 4;
 	private int agilitat;
+	public static final int MIN_AGILITAT = 4;
+	public static final int MAX_AGILITAT = 11;
 	private int forsa;
+	public static final int MIN_FORSA = 1;
+	public static final int MAX_FORSA = 11;
+
+	private int experiencia = 0;
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
 	private int puntsDisponibles = 0;
 	private int puntsInvertits = 0;
-	private int puntsLimits = 32;
+	public static final int PUNTS_LIMITS = 32;
 
 	public Personatge(String nom, int dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
 		// iniciar valors per defecte amb el minim d'atributs
 		// com que els setters tenen validacions amb un minim
-		this.setVida(5);
-		this.setAtac(0);
-		this.setAgilitat(0);
-		this.setForsa(0);
+		this.setVida(MIN_VIDA_INICIAL);
+		this.setAtac(MIN_ATAC);
+		this.setAgilitat(MIN_AGILITAT);
+		this.setForsa(MIN_FORSA);
 
 		// iniciar punts disponibles segons la dificultat
 		this.setPuntsDisponiblesSegonsDificultat(dificultat);
@@ -126,7 +138,7 @@ public class Personatge implements Combatent {
 	 */
 	@Override
 	public void setVida(int vida) {
-		this.vida = MathUtils.ajustarRang(0, 20, vida);
+		this.vida = MathUtils.ajustarRang(MIN_VIDA, MAX_VIDA, vida);
 	}
 
 	public String getNom() {
@@ -138,7 +150,7 @@ public class Personatge implements Combatent {
 	}
 
 	public void setAgilitat(int agilitat) {
-		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
+		this.agilitat = MathUtils.ajustarRang(MIN_AGILITAT, MAX_AGILITAT, agilitat);
 	}
 
 	public int getAtac() {
@@ -146,7 +158,7 @@ public class Personatge implements Combatent {
 	}
 
 	public void setAtac(int atac) {
-		this.atac = MathUtils.ajustarRang(1, 4, atac);
+		this.atac = MathUtils.ajustarRang(MIN_ATAC, MAX_ATAC, atac);
 	}
 
 	public int getForsa() {
@@ -154,7 +166,7 @@ public class Personatge implements Combatent {
 	}
 
 	public void setForsa(int forsa) {
-		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
+		this.forsa = MathUtils.ajustarRang(MIN_FORSA, MAX_FORSA, forsa);
 	}
 
 	public int[] getPosicio() {
@@ -190,10 +202,6 @@ public class Personatge implements Combatent {
 			default:
 				break;
 		}
-	}
-
-	public int getPuntsLimits() {
-		return puntsLimits;
 	}
 
 	@Override
