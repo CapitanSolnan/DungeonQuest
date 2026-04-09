@@ -21,7 +21,6 @@ public class Main {
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
 
-		// TODO: repartir punts
 		repartirPunts(teclado, personatge);
 
 		// demanar mida masmorra
