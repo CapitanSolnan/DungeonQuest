@@ -204,6 +204,14 @@ public class Personatge implements Combatent {
 		}
 	}
 
+	public int getPuntsInvertits() {
+		return puntsInvertits;
+	}
+
+	public void setPuntsInvertits(int puntsInvertits) {
+		this.puntsInvertits = puntsInvertits;
+	}
+
 	@Override
 	public String toString() {
 		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Experiencia: "
