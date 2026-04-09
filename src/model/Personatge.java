@@ -29,6 +29,11 @@ public class Personatge implements Combatent {
 	private int puntsInvertits = 0;
 	public static final int PUNTS_LIMITS = 32;
 
+	// punts per al jugador segons la dificultat
+	public static final int PUNTS_DIFICULTAT_FACIL = 32;
+	public static final int PUNTS_DIFICULTAT_NORMAL = 12;
+	public static final int PUNTS_DIFICULTAT_DIFICIL = 0;
+
 	public Personatge(String nom, int dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
@@ -75,7 +80,7 @@ public class Personatge implements Combatent {
 		}
 	}
 
-	// TODO: Optimitzar moviment
+	// TODO: corregir moviment
 	public void moure(char direccio) {
 		if (direccio == 'N') {
 			posicio[0] += 1;
@@ -123,6 +128,36 @@ public class Personatge implements Combatent {
 			}
 		}
 		return false;
+	}
+
+	// TODO: utilitzar enums?
+	public boolean aplicarPunts(String stat, int quantitat) {
+		switch (stat) {
+			case "vida":
+				if (vida >= MAX_VIDA || vida + quantitat > MAX_VIDA)
+					return false;
+				setVida(getVida() + quantitat);
+				break;
+			case "atac":
+				if (atac >= MAX_ATAC || atac + quantitat > MAX_ATAC)
+					return false;
+				setAtac(getAtac() + quantitat);
+				break;
+			case "agilitat":
+				if (agilitat >= MAX_AGILITAT || agilitat + quantitat > MAX_AGILITAT)
+					return false;
+				setAgilitat(getAgilitat() + quantitat);
+				break;
+			case "forsa":
+				if (forsa >= MAX_FORSA || forsa + quantitat > MAX_FORSA)
+					return false;
+				setForsa(getForsa() + quantitat);
+				break;
+			default:
+				return false;
+		}
+		setPuntsDisponibles(getPuntsDisponibles() - quantitat);
+		return true;
 	}
 
 	@Override
@@ -186,19 +221,21 @@ public class Personatge implements Combatent {
 	}
 
 	public void setPuntsDisponibles(int puntsDisponibles) {
-		this.puntsDisponibles = puntsDisponibles;
+		this.puntsDisponibles = Math.max(0, puntsDisponibles);
 	}
 
+	// TODO: optimitzar utilitzant enums per evitar complicacions
 	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
 		switch (dificultat) {
 			case 1:
-				this.puntsDisponibles = 32;
+				this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
 				break;
 			case 2:
-				this.puntsDisponibles = 12;
+				this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
 				break;
 			case 3:
-				this.puntsDisponibles = 0;
+				this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
+				break;
 			default:
 				break;
 		}
