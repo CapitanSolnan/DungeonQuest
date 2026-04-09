@@ -13,7 +13,9 @@ public class Personatge implements Combatent {
 	private int forsa;
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
-	private int puntsDisponibles;
+	private int puntsDisponibles = 0;
+	private int puntsInvertits = 0;
+	private int puntsLimits = 64;
 
 	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
@@ -165,6 +167,25 @@ public class Personatge implements Combatent {
 
 	public void setPuntsDisponibles(int puntsDisponibles) {
 		this.puntsDisponibles = puntsDisponibles;
+	}
+
+	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
+		switch (dificultat) {
+			case 1:
+				this.puntsDisponibles = 32;
+				break;
+			case 2:
+				this.puntsDisponibles = 12;
+				break;
+			case 3:
+				this.puntsDisponibles = 0;
+			default:
+				break;
+		}
+	}
+
+	public int getPuntsLimits() {
+		return puntsLimits;
 	}
 
 	@Override
