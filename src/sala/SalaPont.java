@@ -4,6 +4,9 @@ import model.Monstre;
 import model.Personatge;
 import model.Tresor;
 
+//ES POT SORTIR
+//OBLIGAT A TIRAR EL DAU A AGILIDAD
+//SI PERD NO POT SORTIR
 public class SalaPont extends Sala {
 	private Personatge personatge;
 

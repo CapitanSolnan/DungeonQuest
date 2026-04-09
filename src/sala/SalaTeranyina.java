@@ -1,5 +1,8 @@
 package sala;
 
+//ES POT SORTIR
+//OBLIGAT A TIRAR EL DAU A FORZA
+//SI PERD -1VIDA Y NO POT SORTIR
 import model.Monstre;
 import model.Personatge;
 import model.Tresor;

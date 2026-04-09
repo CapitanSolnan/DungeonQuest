@@ -13,14 +13,25 @@ public class Personatge implements Combatent {
 	private int forsa;
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
+	private int puntsDisponibles = 0;
+	private int puntsInvertits = 0;
+	private int puntsLimits = 64;
 
-	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
+	public Personatge(String nom, int dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
-		this.vida = MathUtils.ajustarRang(5, 20, vida);
-		this.atac = MathUtils.ajustarRang(1, 4, atac);
-		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
-		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
+		// iniciar valors per defecte amb el minim d'atributs
+		// com que els setters tenen validacions amb un minim
+		this.setVida(5);
+		this.setAtac(0);
+		this.setAgilitat(0);
+		this.setForsa(0);
+
+		// iniciar punts disponibles segons la dificultat
+		this.setPuntsDisponiblesSegonsDificultat(dificultat);
+
+		// TODO: cambiar a un array extensible o iniciar amb la mida del maxim de força
+		// posible i fer validacions en intentarAfegirTresor
 
 		// La quantitat d'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
@@ -92,6 +103,16 @@ public class Personatge implements Combatent {
 		return dau <= this.agilitat;
 	}
 
+	public boolean intentarAfegirTresor(Tresor tresor) {
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] == null) {
+				equipament[i] = tresor;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public int getVida() {
 		return vida;
@@ -105,11 +126,35 @@ public class Personatge implements Combatent {
 	 */
 	@Override
 	public void setVida(int vida) {
-		this.vida = (vida > 0) ? vida : 0;
+		this.vida = MathUtils.ajustarRang(0, 20, vida);
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public int getAgilitat() {
+		return agilitat;
+	}
+
+	public void setAgilitat(int agilitat) {
+		this.agilitat = MathUtils.ajustarRang(4, 11, agilitat);
+	}
+
+	public int getAtac() {
+		return atac;
+	}
+
+	public void setAtac(int atac) {
+		this.atac = MathUtils.ajustarRang(1, 4, atac);
 	}
 
 	public int getForsa() {
 		return forsa;
+	}
+
+	public void setForsa(int forsa) {
+		this.forsa = MathUtils.ajustarRang(4, 11, forsa);
 	}
 
 	public int[] getPosicio() {
@@ -124,19 +169,36 @@ public class Personatge implements Combatent {
 		return posicio[1];
 	}
 
-	public boolean intentarAfegirTresor(Tresor tresor) {
-		for (int i = 0; i < equipament.length; i++) {
-			if (equipament[i] == null) {
-				equipament[i] = tresor;
-				return true;
-			}
+	public int getPuntsDisponibles() {
+		return puntsDisponibles;
+	}
+
+	public void setPuntsDisponibles(int puntsDisponibles) {
+		this.puntsDisponibles = puntsDisponibles;
+	}
+
+	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
+		switch (dificultat) {
+			case 1:
+				this.puntsDisponibles = 32;
+				break;
+			case 2:
+				this.puntsDisponibles = 12;
+				break;
+			case 3:
+				this.puntsDisponibles = 0;
+			default:
+				break;
 		}
-		return false;
+	}
+
+	public int getPuntsLimits() {
+		return puntsLimits;
 	}
 
 	@Override
 	public String toString() {
-		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + "Experiencia: "
+		return "Nom: " + nom + " |Vida: " + vida + " | Agilitat: " + agilitat + " | Força: " + forsa + " | Experiencia: "
 				+ experiencia + " | Posició: " + posicio[0] + " " + posicio[1] + " | Tresors: " + equipament;
 	}
 }
