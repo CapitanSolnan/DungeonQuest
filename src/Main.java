@@ -126,15 +126,19 @@ public class Main {
 	}
 
 	public static int[] demanarMidaMasmorra(Scanner teclado) {
-		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Mida de la masmorra ===" + Colors.RESET);
-
-		// 0 = x, 1 = y
 		int[] mides = new int[2];
 		String[] eixos = { "X (Horitzontal)", "Y (Vertical)" };
 
 		for (int i = 0; i < eixos.length; i++) {
 			boolean valid = false;
 			while (!valid) {
+				ConsoleUtils.saltarPagina(Colors.TITOL + "=== Mida de la masmorra ===" + Colors.RESET);
+
+				// mostrar X si estem preguntant Y
+				if (i == 1) {
+					System.out.println("X seleccionada: " + Colors.VERD + mides[0] + Colors.RESET + "\n");
+				}
+
 				try {
 					System.out.println(Colors.PREGUNTA + "Introdueix " + eixos[i] + ": ");
 					System.out.print(Colors.RESPOSTA);
@@ -144,11 +148,13 @@ public class Main {
 						mides[i] = valor;
 						valid = true;
 					} else {
-						System.out.println(Colors.VERMELL + "La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
+						System.out.println(Colors.VERMELL + "⚠ La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
 								+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
+						ConsoleUtils.dormirSegons(1.5);
 					}
 				} catch (NumberFormatException e) {
-					System.out.println(Colors.VERMELL + "Introdueix un número sencer vàlid." + Colors.RESET);
+					System.out.println(Colors.VERMELL + "⚠ Introdueix un número sencer vàlid." + Colors.RESET);
+					ConsoleUtils.dormirSegons(1.5);
 				}
 			}
 		}
