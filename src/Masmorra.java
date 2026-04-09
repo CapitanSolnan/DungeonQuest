@@ -10,6 +10,9 @@ public class Masmorra {
 	// Matriu sala
 	private int x;
 	private int y;
+	public static final int MIN_MIDA_MASMORRA = 3;
+	public static final int MAX_MIDA_MASMORRA = 20;
+
 	Sala[][] mapa = new Sala[x][y];
 	private int salesExplorades = 0;
 	private int salesTotals;
