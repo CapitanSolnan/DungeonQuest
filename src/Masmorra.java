@@ -10,9 +10,12 @@ public class Masmorra {
 	// Matriu sala
 	private int x;
 	private int y;
+	public static final int MIN_MIDA_MASMORRA = 3;
+	public static final int MAX_MIDA_MASMORRA = 20;
+
 	Sala[][] mapa = new Sala[x][y];
 	private int salesExplorades = 0;
-	private int salesTotals = x * y;
+	private int salesTotals;
 
 	// Personatge
 	Personatge personatge;
@@ -34,10 +37,9 @@ public class Masmorra {
 	public Masmorra(int x, int y, Personatge personatge) {
 		this.x = x;
 		this.y = y;
-		this.mapa = generarMasmorra();
-		this.salesExplorades = salesExplorades;
-		this.salesTotals = salesTotals;
+		this.salesTotals = this.x * this.y;
 		this.personatge = personatge;
+		this.mapa = generarMasmorra();
 	}
 
 	private Tresor generarTresor() {
@@ -108,4 +110,8 @@ public class Masmorra {
 		return (int) ((this.salesExplorades * 100) / this.salesTotals);
 	}
 
+	@Override
+	public String toString() {
+		return "Masmorra [" + x + "x" + y + "] " + salesExplorades + "/" + salesTotals;
+	}
 }

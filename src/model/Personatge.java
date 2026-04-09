@@ -13,14 +13,25 @@ public class Personatge implements Combatent {
 	private int forsa;
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
+	private int puntsDisponibles = 0;
+	private int puntsInvertits = 0;
+	private int puntsLimits = 64;
 
-	public Personatge(String nom, int vida, int atac, int agilitat, int forsa) {
+	public Personatge(String nom, int dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
-		this.setVida(MathUtils.ajustarRang(5, 20, vida));
-		this.setAtac(atac);
-		this.setAgilitat(agilitat);
-		this.setForsa(forsa);
+		// iniciar valors per defecte amb el minim d'atributs
+		// com que els setters tenen validacions amb un minim
+		this.setVida(5);
+		this.setAtac(0);
+		this.setAgilitat(0);
+		this.setForsa(0);
+
+		// iniciar punts disponibles segons la dificultat
+		this.setPuntsDisponiblesSegonsDificultat(dificultat);
+
+		// TODO: cambiar a un array extensible o iniciar amb la mida del maxim de força
+		// posible i fer validacions en intentarAfegirTresor
 
 		// La quantitat d'equipament depen de la força. Inicialment buit.
 		this.equipament = new Tresor[this.forsa];
@@ -92,6 +103,16 @@ public class Personatge implements Combatent {
 		return dau <= this.agilitat;
 	}
 
+	public boolean intentarAfegirTresor(Tresor tresor) {
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] == null) {
+				equipament[i] = tresor;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public int getVida() {
 		return vida;
@@ -148,14 +169,31 @@ public class Personatge implements Combatent {
 		return posicio[1];
 	}
 
-	public boolean intentarAfegirTresor(Tresor tresor) {
-		for (int i = 0; i < equipament.length; i++) {
-			if (equipament[i] == null) {
-				equipament[i] = tresor;
-				return true;
-			}
+	public int getPuntsDisponibles() {
+		return puntsDisponibles;
+	}
+
+	public void setPuntsDisponibles(int puntsDisponibles) {
+		this.puntsDisponibles = puntsDisponibles;
+	}
+
+	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
+		switch (dificultat) {
+			case 1:
+				this.puntsDisponibles = 32;
+				break;
+			case 2:
+				this.puntsDisponibles = 12;
+				break;
+			case 3:
+				this.puntsDisponibles = 0;
+			default:
+				break;
 		}
-		return false;
+	}
+
+	public int getPuntsLimits() {
+		return puntsLimits;
 	}
 
 	@Override
