@@ -15,16 +15,17 @@ public class Main {
 		// demanar el nom del jugador
 		String nom = demanarNom(teclado);
 
-		int vida = 5;
-		int atac = 1;
-		int agilitat = 4;
-		int forsa = 4;
-
 		// escollir dificultat
 		int dificultat = escollirDificultat(teclado);
 
-		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
+
+		repartirPunts(teclado, personatge);
+
+
+
+
+		// crear personatge
 
 		// TODO: repartir punts
 
@@ -32,7 +33,8 @@ public class Main {
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
 
 		// MOSTRAR STATS INICIALES
-		mostrarStats(vida, atac, agilitat, forsa);
+
+
 
 		// System.out.println("\nDistribuïu els " + puntos + " PUNTS");
 		// System.out.println("Els punts NO asignats NO es podran RECUPERAR");
@@ -161,19 +163,139 @@ public class Main {
 		return mides;
 	}
 
-	public static void repartirPunts() {
-		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
+	public static int repartirPunts(Scanner teclado, Personatge personatge) {
 
-		// TODO: Implementar repartiment de punts
-		char repartiment;
+		while (personatge.getPuntsDisponibles() > 0) {
+
+			mostrarStats(personatge);
+
+			System.out.println(Colors.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
+			System.out.println("Punts disponibles: " + personatge.getPuntsDisponibles() + "\n");
+
+			System.out.println(Colors.PREGUNTA + "Quina estadística vols millorar? (V/A/G/F | Q Per sortir)" + Colors.RESET);
+			System.out.println(Colors.VIDA + "  V. VIDA");
+			System.out.println(Colors.ATAC + "  A. ATAC");
+			System.out.println(Colors.AGILITAT + "  G. AGILITAT");
+			System.out.println(Colors.FORSA + "  F. FORÇA");
+			System.out.print(Colors.RESPOSTA);
+
+
+			String entrada = teclado.nextLine().toUpperCase();
+			if (entrada.isEmpty()) continue;
+
+			char opcio = entrada.charAt(0);
+
+			if (opcio == 'Q') {
+				return 0;
+			}
+
+			System.out.println(Colors.PREGUNTA + "Quants punts vols afegir?");
+			System.out.print(Colors.RESPOSTA);
+
+			int cantidad;
+			try {
+				cantidad = Integer.parseInt(teclado.nextLine());
+
+				if (cantidad <= 0) {
+					System.out.println(Colors.VERMELL + "⚠ Introdueix un número positiu!" + Colors.RESET);
+					ConsoleUtils.dormirSegons(1.5);
+
+					continue;
+				}
+
+			} catch (Exception e) {
+				System.out.println(Colors.VERMELL + "⚠ Entrada invàlida!" + Colors.RESET);
+				ConsoleUtils.dormirSegons(1.5);
+
+				continue;
+			}
+
+			if (cantidad > personatge.getPuntsDisponibles()) {
+				System.out.println(Colors.VERMELL + "⚠ No tens tants punts!" + Colors.RESET);				
+				ConsoleUtils.dormirSegons(1.5);
+
+				continue;
+			}
+
+			switch (opcio) {
+
+			case 'V':
+				int puntsVida = calcularPuntsAplicables(personatge.getVida(), 20, cantidad, "Vida");
+
+				if (puntsVida > 0) {
+					personatge.setVida(personatge.getVida() + puntsVida);
+					personatge.setPuntsDisponibles(personatge.getPuntsDisponibles() - puntsVida);
+				}
+				break;
+
+			case 'A':
+				int puntsAtac = calcularPuntsAplicables(personatge.getAtac(), 4, cantidad, "Atac");
+
+				if (puntsAtac > 0) {
+					personatge.setAtac(personatge.getAtac() + puntsAtac);
+					personatge.setPuntsDisponibles(personatge.getPuntsDisponibles() - puntsAtac);
+				}
+				break;
+
+			case 'G':
+				int puntsAgilitat = calcularPuntsAplicables(personatge.getAgilitat(), 11, cantidad, "Agilitat");
+
+				if (puntsAgilitat > 0) {
+					personatge.setAgilitat(personatge.getAgilitat() + puntsAgilitat);
+					personatge.setPuntsDisponibles(personatge.getPuntsDisponibles() - puntsAgilitat);
+				}
+				break;
+
+			case 'F':
+				int puntsForsa = calcularPuntsAplicables(personatge.getForsa(), 11, cantidad, "Força");
+
+				if (puntsForsa > 0) {
+					personatge.setForsa(personatge.getForsa() + puntsForsa);
+					personatge.setPuntsDisponibles(personatge.getPuntsDisponibles() - puntsForsa);
+				}
+				break;
+
+			default:
+				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+				ConsoleUtils.dormirSegons(1.5);
+
+			}
+		}
+
+		mostrarStats(personatge);
+
+		return 0;
+		
 	}
 
-	public static void mostrarStats(int vida, int atac, int agilitat, int forsa) {
-		System.out.println("\n=== Estadístiques ===");
-		System.out.println(Colors.VIDA + "VIDA     | " + vida + " | MAX 20" + Colors.RESET);
-		System.out.println(Colors.ATAC + "ATAC     | " + atac + " | MAX 4" + Colors.RESET);
-		System.out.println(Colors.AGILITAT + "AGILITAT | " + agilitat + " | MAX 11" + Colors.RESET);
-		System.out.println(Colors.FORSA + "FORSA    | " + forsa + " | MAX 11" + Colors.RESET);
+
+	public static int calcularPuntsAplicables(int valorActual, int maxim, int cantidad, String nomEstadistica) {
+
+		if (valorActual >= maxim) {
+			System.out.println(Colors.GROC + "⚠ " + nomEstadistica + " ja està al màxim!" + Colors.RESET);
+			ConsoleUtils.dormirSegons(1.5);
+
+			return 0;
+		}
+
+		if (valorActual + cantidad > maxim) {
+			System.out.println(Colors.GROC + "⚠ No pots superar " + maxim + " en " + nomEstadistica + "!" + Colors.RESET);
+			ConsoleUtils.dormirSegons(1.5);
+
+			return 0;
+		}
+
+		return cantidad;
+	}
+
+
+
+	public static void mostrarStats(Personatge personatge) {
+		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Estadístiques ===" + Colors.RESET);
+		System.out.println(Colors.VIDA + "VIDA     | " + personatge.getVida() + " | MAX 20");
+		System.out.println(Colors.ATAC + "ATAC     | " + personatge.getAtac() + " | MAX 4");
+		System.out.println(Colors.AGILITAT + "AGILITAT | " + personatge.getAgilitat() + " | MAX 11");
+		System.out.println(Colors.FORSA + "FORÇA    | " + personatge.getForsa() + " | MAX 11" + Colors.RESET);
 		System.out.println();
 	}
 

@@ -15,7 +15,7 @@ public class Personatge implements Combatent {
 	private Tresor[] equipament;
 	private int puntsDisponibles = 0;
 	private int puntsInvertits = 0;
-	private int puntsLimits = 64;
+	private int puntsLimits = 32;
 
 	public Personatge(String nom, int dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
