@@ -124,7 +124,7 @@ public class Main {
 	public static void repartirPunts(Scanner teclado, Personatge personatge) {
 
 		while (personatge.getPuntsDisponibles() > 0) {
-			mostrarStats(personatge);
+			mostrarAtributs(personatge);
 
 			System.out.println(Colors.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
 			System.out.println("Punts disponibles: " + personatge.getPuntsDisponibles() + "\n");
@@ -217,7 +217,7 @@ public class Main {
 			}
 		}
 
-		mostrarStats(personatge);
+		mostrarAtributs(personatge);
 		return;
 	}
 
@@ -240,12 +240,13 @@ public class Main {
 		return cantidad;
 	}
 
-	public static void mostrarStats(Personatge personatge) {
-		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Estadístiques ===" + Colors.RESET);
-		System.out.println(Colors.VIDA + "VIDA     | " + personatge.getVida() + "/20");
-		System.out.println(Colors.ATAC + "ATAC     | " + personatge.getAtac() + "/4");
-		System.out.println(Colors.AGILITAT + "AGILITAT | " + personatge.getAgilitat() + "/11");
-		System.out.println(Colors.FORSA + "FORÇA    | " + personatge.getForsa() + "/11" + Colors.RESET);
+	public static void mostrarAtributs(Personatge personatge) {
+		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Atributs ===" + Colors.RESET);
+		System.out.println(Colors.VIDA + "Vida     | " + personatge.getVida() + "/" + Personatge.MAX_VIDA);
+		System.out.println(Colors.ATAC + "Atac     | " + personatge.getAtac() + "/" + Personatge.MAX_ATAC);
+		System.out.println(Colors.AGILITAT + "Agilitat | " + personatge.getAgilitat() + "/" + Personatge.MAX_AGILITAT);
+		System.out
+				.println(Colors.FORSA + "Força    | " + personatge.getForsa() + "/" + Personatge.MAX_FORSA + Colors.RESET);
 		System.out.println();
 	}
 }
