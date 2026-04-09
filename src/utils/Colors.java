@@ -17,7 +17,7 @@ public class Colors {
 	// color stats
 	public static final String VIDA = VERMELL;
 	public static final String ATAC = TARONJA;
-	public static final String AGILITAT = CIAN;
+	public static final String AGILITAT = MAGENTA;
 	public static final String FORSA = GROC;
 	public static final String MANA = BLAU;
 
