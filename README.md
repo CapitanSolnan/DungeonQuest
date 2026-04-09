@@ -7,3 +7,4 @@ Lacayo: Stageddat
 ## TODO List
 - [ ] Comprovar y corregir todos los toString().
 - [ ] Utilizar enums/constantes.
+- [ ] Añadir iconos ascii o emojis para los atributos.
