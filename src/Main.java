@@ -242,11 +242,20 @@ public class Main {
 
 	public static void mostrarAtributs(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Atributs ===" + Colors.RESET);
-		System.out.println(Colors.VIDA + "Vida     | " + personatge.getVida() + "/" + Personatge.MAX_VIDA);
-		System.out.println(Colors.ATAC + "Atac     | " + personatge.getAtac() + "/" + Personatge.MAX_ATAC);
-		System.out.println(Colors.AGILITAT + "Agilitat | " + personatge.getAgilitat() + "/" + Personatge.MAX_AGILITAT);
-		System.out
-				.println(Colors.FORSA + "Força    | " + personatge.getForsa() + "/" + Personatge.MAX_FORSA + Colors.RESET);
-		System.out.println();
+		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Personatge.MAX_VIDA);
+		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Personatge.MAX_ATAC);
+		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Personatge.MAX_AGILITAT);
+		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Personatge.MAX_FORSA);
+		System.out.println(Colors.RESET);
+	}
+
+	private static void mostrarBarra(String nom, String color, int valor, int maxValor) {
+		final int MIDA_BARRA = 50;
+		int plens = (int) Math.round((double) valor / maxValor * MIDA_BARRA);
+		int buits = MIDA_BARRA - plens;
+
+		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+		System.out.println(
+				color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
 	}
 }
