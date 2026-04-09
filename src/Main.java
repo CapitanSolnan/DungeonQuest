@@ -1,8 +1,8 @@
 import java.util.Scanner;
+
 import model.Personatge;
 import utils.Colors;
 import utils.ConsoleUtils;
-import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -20,8 +20,16 @@ public class Main {
 		int agilitat = 4;
 		int forsa = 4;
 
-		// ELEGIR DIFICULTAD
+		// escollir dificultat
 		int dificultat = escollirDificultat(teclado);
+
+		// crear personatge
+		Personatge personatge = new Personatge(nom, dificultat);
+
+		// TODO: repartir punts
+
+		// demanar mida masmorra
+		int[] midaMasmorra = demanarMidaMasmorra(teclado);
 
 		// MOSTRAR STATS INICIALES
 		mostrarStats(vida, atac, agilitat, forsa);
@@ -117,66 +125,41 @@ public class Main {
 		return dificultat;
 	}
 
-	public static int[] repartirMultiplesPuntos(String opcio, int cantidad, int vida, int atac, int agilitat, int forsa,
-			int puntosDisponibles) {
+	public static int[] demanarMidaMasmorra(Scanner teclado) {
+		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Mida de la masmorra ===" + Colors.RESET);
 
-		int puntosGastados = 0;
+		// 0 = x, 1 = y
+		int[] mides = new int[2];
+		String[] eixos = { "X (Horitzontal)", "Y (Vertical)" };
 
-		if (cantidad <= 0) {
-			System.out.println("Has d'afegir almenys 1 punt!");
-			return new int[] { vida, atac, agilitat, forsa, 0 };
+		for (int i = 0; i < eixos.length; i++) {
+			boolean valid = false;
+			while (!valid) {
+				try {
+					System.out.println(Colors.PREGUNTA + "Introdueix " + eixos[i] + ": ");
+					System.out.print(Colors.RESPOSTA);
+					int valor = Integer.parseInt(teclado.nextLine());
+
+					if (valor >= Masmorra.MIN_MIDA_MASMORRA && valor <= Masmorra.MAX_MIDA_MASMORRA) {
+						mides[i] = valor;
+						valid = true;
+					} else {
+						System.out.println(Colors.VERMELL + "La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
+								+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
+					}
+				} catch (NumberFormatException e) {
+					System.out.println(Colors.VERMELL + "Introdueix un número sencer vàlid." + Colors.RESET);
+				}
+			}
 		}
+		return mides;
+	}
 
-		if (cantidad > puntosDisponibles) {
-			System.out.println("No tens tants punts!");
-			return new int[] { vida, atac, agilitat, forsa, 0 };
-		}
+	public static void repartirPunts() {
+		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
 
-		if (opcio.equals("vida")) {
-			int max = 20 - vida;
-			if (max > 0) {
-				int aSumar = Math.min(cantidad, max);
-				vida += aSumar;
-				puntosGastados = aSumar;
-			} else {
-				System.out.println("Vida al màxim!");
-			}
-
-		} else if (opcio.equals("atac")) {
-			int max = 4 - atac;
-			if (max > 0) {
-				int aSumar = Math.min(cantidad, max);
-				atac += aSumar;
-				puntosGastados = aSumar;
-			} else {
-				System.out.println("Atac al màxim!");
-			}
-
-		} else if (opcio.equals("agilitat")) {
-			int max = 11 - agilitat;
-			if (max > 0) {
-				int aSumar = Math.min(cantidad, max);
-				agilitat += aSumar;
-				puntosGastados = aSumar;
-			} else {
-				System.out.println("Agilitat al màxim!");
-			}
-
-		} else if (opcio.equals("forsa")) {
-			int max = 11 - forsa;
-			if (max > 0) {
-				int aSumar = Math.min(cantidad, max);
-				forsa += aSumar;
-				puntosGastados = aSumar;
-			} else {
-				System.out.println("Forsa al màxim!");
-			}
-
-		} else {
-			System.out.println("Opció no vàlida!");
-		}
-
-		return new int[] { vida, atac, agilitat, forsa, puntosGastados };
+		// TODO: Implementar repartiment de punts
+		char repartiment;
 	}
 
 	public static void mostrarStats(int vida, int atac, int agilitat, int forsa) {
