@@ -1,6 +1,4 @@
 # Projecte DungeonQuest
 DAM 1M - Programació
 
-Creador: Javier Caño
-
-Lacayo: Marc
+Creador: Javier Caño <br> Lacayo: Marc
