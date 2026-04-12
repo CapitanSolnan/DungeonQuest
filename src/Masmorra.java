@@ -5,6 +5,7 @@ import sala.Sala;
 import sala.SalaComuna;
 import sala.SalaPont;
 import sala.SalaTeranyina;
+import utils.Colors;
 
 public class Masmorra {
 	// Matriu sala
@@ -82,15 +83,17 @@ public class Masmorra {
 	}
 
 	public void mostrarMasmorra(Personatge personatge) {
+		int[] posPersonatge = personatge.getPosicio();
+
 		for (int i = 0; i < this.x; i++) {
 			for (int j = 0; j < this.y; j++) {
-				int[] posicioPersonatge = personatge.getPosicio();
-				if (posicioPersonatge[0] == i && posicioPersonatge[1] == j) {
-					System.out.print("[ & ]");
+
+				if (posPersonatge[0] == i && posPersonatge[1] == j) {
+					System.out.print(Colors.VERD + Colors.NEGRETA + "[ & ]" + Colors.RESET);
 				} else if (mapa[i][j].estaExplorada()) {
-					System.out.print("[ * ]");
+					System.out.print(Colors.BLANC + "[ * ]" + Colors.RESET);
 				} else {
-					System.out.print("[ - ]");
+					System.out.print(Colors.GRIS + "[ · ]" + Colors.RESET);
 				}
 			}
 			System.out.println();
