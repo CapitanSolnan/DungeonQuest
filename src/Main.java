@@ -6,7 +6,6 @@ import utils.ConsoleUtils;
 
 public class Main {
 	public static void main(String[] args) {
-		// TODO: Empezar partida
 		Scanner teclado = new Scanner(System.in);
 		ConsoleUtils.saltarPagina(); // neteja inicial per alinear vista consola
 
@@ -30,6 +29,8 @@ public class Main {
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
 
 		masmorra.mostrarMasmorra(masmorra.personatge);
+
+		// TODO: Bucle del juego
 	}
 
 	private static void imprimirMissatgeBenvinguda(Scanner teclado) {
