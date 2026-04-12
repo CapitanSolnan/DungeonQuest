@@ -2,17 +2,5 @@
 DAM 1M - Programació
 
 Creador: Javier Caño
-Lacayo: Marc
 
-## Lista TODO
-- [ ] Comprobar y corregir todos los toString().
-- [ ] Utilizar enums/constantes.
-- [ ] Añadir iconos ASCII o emojis para los atributos.
-- [ ] Configurar la vida y el ataque del enemigo según la dificultad.
-- [ ] Configurar el RNG según la dificultad.
-- [ ] Hacer sala jefe.
-- [ ] Añadir modo historia?
-- [ ] Mejorar juego partida UI
-- [ ] Separar responsabilidades de la clase [Colors](https://github.com/CapitanSolnan/DungeonQuest/blob/master/src/utils/Colors.java).
-- [ ] Comprobar gramática.
-- [ ] Añadir licencia.
+Lacayo: Marc
