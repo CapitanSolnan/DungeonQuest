@@ -25,6 +25,11 @@ public class Main {
 
 		// demanar mida masmorra
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
+
+		// crear objecte masmorra
+		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
+
+		masmorra.mostrarMasmorra(masmorra.personatge);
 	}
 
 	private static void imprimirMissatgeBenvinguda(Scanner teclado) {
