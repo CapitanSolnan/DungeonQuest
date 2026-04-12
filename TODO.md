@@ -11,7 +11,7 @@
 - [ ] Separar responsabilidades de la clase [Colors](https://github.com/CapitanSolnan/DungeonQuest/blob/master/src/utils/Colors.java).
 - [ ] Comprobar gramática.
 - [ ] Añadir licencia.
-- Implementar lógica jefe.
+- [ ] Implementar lógica jefe.
 
 ## En progreso
 
