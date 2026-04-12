@@ -13,6 +13,7 @@ public class Colors {
 	public static final String MAGENTA = "\u001B[38;5;201m"; // Rosa/Fucsia
 	public static final String CIAN = "\u001B[38;5;51m"; // Cian brillante
 	public static final String BLANC = "\u001B[38;5;255m"; // Blanco puro
+	public static final String GRIS = "\u001B[90m"; // Blanco puro
 
 	// color stats
 	public static final String VIDA = VERMELL;
