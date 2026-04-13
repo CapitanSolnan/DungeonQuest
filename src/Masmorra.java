@@ -6,6 +6,7 @@ import sala.SalaComuna;
 import sala.SalaPont;
 import sala.SalaTeranyina;
 import utils.Colors;
+import utils.Estils;
 
 public class Masmorra {
 	// Matriu sala
@@ -89,7 +90,7 @@ public class Masmorra {
 			for (int j = 0; j < this.y; j++) {
 
 				if (posPersonatge[0] == i && posPersonatge[1] == j) {
-					System.out.print(Colors.VERD + Colors.NEGRETA + "[ & ]" + Colors.RESET);
+					System.out.print(Colors.VERD + Estils.NEGRETA + "[ & ]" + Colors.RESET);
 				} else if (mapa[i][j].estaExplorada()) {
 					System.out.print(Colors.BLANC + "[ * ]" + Colors.RESET);
 				} else {
