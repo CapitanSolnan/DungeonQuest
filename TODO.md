@@ -5,7 +5,6 @@
 - [ ] Utilizar enums/constantes.
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.
-- [ ] Añadir licencia.
 - [ ] Implementar lógica jefe.
 
 - [ ] Mejorar juego partida UI
@@ -14,5 +13,6 @@
 ## En progreso
 
 ## Terminado
+- [x] Añadir licencia.
 - [x] Hacer sala jefe.
 - [x] Separar responsabilidades de la clase [Colors](https://github.com/CapitanSolnan/DungeonQuest/blob/master/src/utils/Colors.java).

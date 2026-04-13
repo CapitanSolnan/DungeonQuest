@@ -27,7 +27,7 @@ public class Main {
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
 
 		// crear objecte masmorra
-		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
+		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge, dificultat);
 
 		masmorra.mostrarMasmorra(masmorra.personatge);
 
@@ -158,16 +158,11 @@ public class Main {
 			String stat;
 
 			switch (opcio) {
-				case 'V' ->
-					stat = "vida";
-				case 'A' ->
-					stat = "atac";
-				case 'G' ->
-					stat = "agilitat";
-				case 'F' ->
-					stat = "forsa";
-				default ->
-					stat = null;
+				case 'V' ->	stat = "vida";
+				case 'A' ->	stat = "atac";
+				case 'G' ->	stat = "agilitat";
+				case 'F' ->	stat = "forsa";
+				default ->	stat = null;
 			}
 
 			if (stat == null) {
