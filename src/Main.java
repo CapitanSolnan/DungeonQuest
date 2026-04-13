@@ -27,7 +27,7 @@ public class Main {
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
 
 		// crear objecte masmorra
-		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge, dificultat);
+		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
 
 		masmorra.mostrarMasmorra(masmorra.personatge);
 
