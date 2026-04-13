@@ -3,6 +3,7 @@ import java.util.Scanner;
 import model.Personatge;
 import utils.Colors;
 import utils.ConsoleUtils;
+import utils.Estils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -50,9 +51,9 @@ public class Main {
 
 	private static String demanarNom(Scanner teclado) {
 		ConsoleUtils.saltarPagina(
-				Colors.TITOL + " === Creació de personatge === " + Colors.RESET);
-		System.out.println(Colors.PREGUNTA + "Trieu un nom per al vostre jugador: ");
-		System.out.print(Colors.RESPOSTA);
+				Estils.TITOL + " === Creació de personatge === " + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "Trieu un nom per al vostre jugador: ");
+		System.out.print(Estils.RESPOSTA);
 		String nom = teclado.nextLine();
 		return nom;
 	}
@@ -62,14 +63,14 @@ public class Main {
 		boolean esDificultatValida = false;
 
 		do {
-			ConsoleUtils.saltarPagina(Colors.TITOL + "=== Escollir dificultat ===" + Colors.RESET);
+			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Escollir dificultat ===" + Colors.RESET);
 
 			System.out.println("  " + Colors.VERD + "1. Fàcil");
 			System.out.println("  " + Colors.GROC + "2. Normal");
 			System.out.println("  " + Colors.VERMELL + "3. Difícil" + Colors.RESET);
 
-			System.out.println(Colors.PREGUNTA + "Quina dificultat vols? (1-3): ");
-			System.out.print(Colors.RESPOSTA);
+			System.out.println(Estils.PREGUNTA + "Quina dificultat vols? (1-3): ");
+			System.out.print(Estils.RESPOSTA);
 
 			try {
 				int dificultatCache = Integer.parseInt(teclado.nextLine());
@@ -97,7 +98,7 @@ public class Main {
 		for (int i = 0; i < eixos.length; i++) {
 			boolean valid = false;
 			while (!valid) {
-				ConsoleUtils.saltarPagina(Colors.TITOL + "=== Mida de la masmorra ===" + Colors.RESET);
+				ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mida de la masmorra ===" + Colors.RESET);
 
 				// mostrar X si estem preguntant Y
 				if (i == 1) {
@@ -105,8 +106,8 @@ public class Main {
 				}
 
 				try {
-					System.out.println(Colors.PREGUNTA + "Introdueix " + eixos[i] + ": ");
-					System.out.print(Colors.RESPOSTA);
+					System.out.println(Estils.PREGUNTA + "Introdueix " + eixos[i] + ": ");
+					System.out.print(Estils.RESPOSTA);
 					int valor = Integer.parseInt(teclado.nextLine());
 
 					if (valor >= Masmorra.MIN_MIDA_MASMORRA && valor <= Masmorra.MAX_MIDA_MASMORRA) {
@@ -132,15 +133,15 @@ public class Main {
 		while (!finalitzar) {
 			mostrarAtributs(personatge);
 
-			System.out.println(Colors.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
+			System.out.println(Estils.TITOL + "=== Repartiment de punts ===" + Colors.RESET);
 			System.out.println("Punts disponibles: " + personatge.getPuntsDisponibles() + "\n");
 
-			System.out.println(Colors.PREGUNTA + "Quin atribut vols millorar? (V/A/G/F | Q Per sortir)" + Colors.RESET);
+			System.out.println(Estils.PREGUNTA + "Quin atribut vols millorar? (V/A/G/F | Q Per sortir)" + Colors.RESET);
 			System.out.println(Colors.VIDA + "  V. Vida");
 			System.out.println(Colors.ATAC + "  A. Atac");
 			System.out.println(Colors.AGILITAT + "  G. Agilitat");
 			System.out.println(Colors.FORSA + "  F. Força");
-			System.out.print(Colors.RESPOSTA);
+			System.out.print(Estils.RESPOSTA);
 
 			String entrada = teclado.nextLine().toUpperCase();
 			if (entrada.isEmpty())
@@ -157,21 +158,16 @@ public class Main {
 			String stat;
 
 			switch (opcio) {
-				case 'V':
+				case 'V' ->
 					stat = "vida";
-					break;
-				case 'A':
+				case 'A' ->
 					stat = "atac";
-					break;
-				case 'G':
+				case 'G' ->
 					stat = "agilitat";
-					break;
-				case 'F':
+				case 'F' ->
 					stat = "forsa";
-					break;
-				default:
+				default ->
 					stat = null;
-					break;
 			}
 
 			if (stat == null) {
@@ -189,8 +185,8 @@ public class Main {
 			}
 
 			// si la pregunta es correcta y hay puntos disponibles
-			System.out.println(Colors.PREGUNTA + "Quants punts vols afegir a " + stat.toUpperCase() + "?");
-			System.out.print(Colors.RESPOSTA);
+			System.out.println(Estils.PREGUNTA + "Quants punts vols afegir a " + stat.toUpperCase() + "?");
+			System.out.print(Estils.RESPOSTA);
 
 			int cantidad;
 			try {
@@ -221,7 +217,7 @@ public class Main {
 	}
 
 	public static void mostrarAtributs(Personatge personatge) {
-		ConsoleUtils.saltarPagina(Colors.TITOL + "=== Atributs ===" + Colors.RESET);
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs ===" + Colors.RESET);
 		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Personatge.MAX_VIDA);
 		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Personatge.MAX_ATAC);
 		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Personatge.MAX_AGILITAT);

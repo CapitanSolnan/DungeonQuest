@@ -22,11 +22,6 @@ public class Colors {
 	public static final String FORSA = GROC;
 	public static final String MANA = BLAU;
 
-	// secciones
-	public static final String TITOL = "\u001B[48;5;236m" + Colors.CIAN + Colors.NEGRETA; // fondo gris + cian + negrita
-	public static final String PREGUNTA = Colors.CIAN + "❯ " + Colors.RESET + Colors.NEGRETA;
-	public static final String RESPOSTA = Colors.BLANC + "┃ " + Colors.RESET;
-
 	// colores fondo
 	public static final String FONS_NEGRE = "\u001B[40m";
 	public static final String FONS_VERMELL = "\u001B[48;5;88m"; // Granate
@@ -37,7 +32,5 @@ public class Colors {
 	public static final String FONS_CIAN = "\u001B[48;5;24m"; // Petróleo
 	public static final String FONS_BLANC = "\u001B[47m";
 
-	// estilos
-	public static final String NEGRETA = "\u001B[1m";
-	public static final String SUBRATLLAT = "\u001B[4m";
+
 }
