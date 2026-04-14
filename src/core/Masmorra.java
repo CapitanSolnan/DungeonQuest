@@ -18,12 +18,12 @@ public class Masmorra {
 	public static final int MIN_MIDA_MASMORRA = 3;
 	public static final int MAX_MIDA_MASMORRA = 20;
 
-	Sala[][] mapa = new Sala[x][y];
+	private Sala[][] mapa = new Sala[x][y];
 	private int salesExplorades = 0;
 	private int salesTotals;
 
 	// Personatge
-	Personatge personatge;
+	private Personatge personatge;
 
 	// Tresors posibles
 	private static final Tresor[] LLISTA_TRESORS = {
