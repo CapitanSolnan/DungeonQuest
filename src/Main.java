@@ -4,6 +4,7 @@ import model.Personatge;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
+import utils.Config;
 
 public class Main {
 	public static void main(String[] args) {
@@ -155,19 +156,14 @@ public class Main {
 				continue;
 			}
 
-			String stat;
+			Config.Atributs stat;
 
 			switch (opcio) {
-				case 'V' ->
-					stat = "vida";
-				case 'A' ->
-					stat = "atac";
-				case 'G' ->
-					stat = "agilitat";
-				case 'F' ->
-					stat = "forsa";
-				default ->
-					stat = null;
+				case 'V' -> stat = Config.Atributs.VIDA;
+				case 'A' -> stat = Config.Atributs.ATAC;
+				case 'G' -> stat = Config.Atributs.AGILITAT;
+				case 'F' -> stat = Config.Atributs.FORSA;
+				default -> stat = null;
 			}
 
 			if (stat == null) {
@@ -185,7 +181,7 @@ public class Main {
 			}
 
 			// si la pregunta es correcta y hay puntos disponibles
-			System.out.println(Estils.PREGUNTA + "Quants punts vols afegir a " + stat.toUpperCase() + "?");
+			System.out.println(Estils.PREGUNTA + "Quants punts vols afegir a " + stat.name().toUpperCase() + "?");
 			System.out.print(Estils.RESPOSTA);
 
 			int cantidad;
