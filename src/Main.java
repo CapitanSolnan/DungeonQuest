@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import core.Config;
+import core.Dificultats;
 import core.Masmorra;
 import model.Personatge;
 import model.Atributs;
@@ -8,49 +10,33 @@ import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
+import utils.Missatges;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		ConsoleUtils.saltarPagina(); // neteja inicial per alinear vista consola
 
-		imprimirMissatgeBenvinguda(teclado);
+		Missatges.imprimirMissatgeBenvinguda(teclado);
 
 		// demanar el nom del jugador
 		String nom = demanarNom(teclado);
 
 		// escollir dificultat
-		int dificultat = escollirDificultat(teclado);
+		Dificultats dificultat = escollirDificultat(teclado);
 
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
 
-		repartirPunts(teclado, personatge, dificultat);
+		repartirPuntsInicials(teclado, personatge, dificultat);
 
 		// demanar mida masmorra
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
 
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
-
-		triarQueFer(teclado, personatge, masmorra);
-
-		// TODO: Bucle del juego
-	}
-
-	private static void imprimirMissatgeBenvinguda(Scanner teclado) {
-		System.out.println(Colors.CIAN);
-		System.out.println(" ____  _   _ _   _  ____ _____ ___  _   _    ___  _   _ _____ ____ _____ ");
-		System.out.println("|  _ \\| | | | \\ | |/ ___| ____/ _ \\| \\ | |  / _ \\| | | | ____/ ___|_   _|");
-		System.out.println("| | | | | | |  \\| | |  _|  _|| | | |  \\| | | | | | | | |  _| \\___ \\ | |  ");
-		System.out.println("| |_| | |_| | |\\  | |_| | |__| |_| | |\\  | | |_| | |_| | |___ ___) || |  ");
-		System.out.println("|____/ \\___/|_| \\_|\\____|_____\\___/|_| \\_|  \\__\\_\\\\___/|_____|____/ |_|  ");
-		System.out.println(Colors.VERD + "Fet per: Javi i Marc");
-		System.out.println("DAM 1M - Programació");
-		System.out.println("CURS 2025-2026");
-		System.out.println(Colors.RESET);
-		System.out.println("Cliqueu \"Enter\" per començar...");
-		teclado.nextLine();
+		mostrarPantallaDividida(personatge, masmorra);
+		// triarQueFer(teclado, personatge, masmorra);
 	}
 
 	private static String demanarNom(Scanner teclado) {
@@ -62,11 +48,10 @@ public class Main {
 		return nom;
 	}
 
-	public static int escollirDificultat(Scanner teclado) {
-		int dificultat = 0;
-		boolean esDificultatValida = false;
+	public static Dificultats escollirDificultat(Scanner teclado) {
+		Dificultats dificultatEscollida = null;
 
-		do {
+		while (dificultatEscollida == null) {
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Escollir dificultat ===" + Colors.RESET);
 
 			System.out.println("  " + Colors.VERD + "1. Fàcil");
@@ -77,22 +62,20 @@ public class Main {
 			System.out.print(Estils.RESPOSTA);
 
 			try {
-				int dificultatCache = Integer.parseInt(teclado.nextLine());
+				int opcio = Integer.parseInt(teclado.nextLine());
+				dificultatEscollida = Dificultats.desdeNumero(opcio);
 
-				if (dificultatCache >= 1 && dificultatCache <= 3) {
-					dificultat = dificultatCache;
-					esDificultatValida = true;
-				} else {
-					System.out.println(Colors.VERMELL + "⚠ Tria un número entre 1 i 3." + Colors.RESET);
+				if (dificultatEscollida == null) {
+					System.out.println(Colors.VERMELL + "⚠ Opció no vàlida!" + Colors.RESET);
 					ConsoleUtils.dormirSegons(1.5);
 				}
 			} catch (NumberFormatException e) {
-				System.out.println(Colors.VERMELL + "⚠ Has d'escollir un número vàlid!" + Colors.RESET);
+				System.out.println(Colors.VERMELL + "⚠ Introdueix un número vàlid!" + Colors.RESET);
 				ConsoleUtils.dormirSegons(1.5);
 			}
-		} while (!esDificultatValida);
+		}
 
-		return dificultat;
+		return dificultatEscollida;
 	}
 
 	public static int[] demanarMidaMasmorra(Scanner teclado) {
@@ -131,17 +114,15 @@ public class Main {
 		return mides;
 	}
 
-	public static void repartirPunts(Scanner teclado, Personatge personatge, int dificultat) {
-		boolean finalitzar = false;
-		if (dificultat == 3) {
+	public static void repartirPuntsInicials(Scanner teclado, Personatge personatge, Dificultats dificultat) {
+		if (dificultat == Dificultats.DIFICIL) {
 			mostrarAtributs(personatge);
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
 					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
-			finalitzar = true;
+			return;
 
-		}
-		if (dificultat == 1) {
+		} else if (dificultat == Dificultats.FACIL) {
 			personatge.setVida(20);
 			personatge.setAtac(4);
 			personatge.setAgilitat(11);
@@ -151,9 +132,14 @@ public class Main {
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
 					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
-			finalitzar = true;
-
+			return;
+		} else {
+			repartirPunts(teclado, personatge);
 		}
+	}
+
+	public static void repartirPunts(Scanner teclado, Personatge personatge) {
+		boolean finalitzar = false;
 
 		while (!finalitzar) {
 			mostrarAtributs(personatge);
@@ -231,11 +217,20 @@ public class Main {
 
 	public static void mostrarAtributs(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs ===" + Colors.RESET);
-		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim(), 50, true);
-		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim(), 50, true);
-		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim(), 50, true);
-		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim(), 50, true);
+		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim());
+		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim());
+		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim());
+		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim());
 		System.out.println(Colors.RESET);
+	}
+
+	private static void mostrarBarra(String nom, String color, int valor, int maxValor) {
+		int plens = (int) Math.round((double) valor / maxValor * Config.MOSTRAR_BARRA_ATRIBUTS_MIDA);
+		int buits = Config.MOSTRAR_BARRA_ATRIBUTS_MIDA - plens;
+
+		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+		System.out.println(
+				color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
 	}
 
 	private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra,
@@ -247,6 +242,46 @@ public class Main {
 		String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
 
 		System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
+	}
+
+	private static String generarBarra(String nom, String color, int valor, int maxValor) {
+		int plens = (int) Math.round((double) valor / maxValor * Config.GENERAR_BARRA_ATRIBUTS_MIDA);
+		int buits = Config.GENERAR_BARRA_ATRIBUTS_MIDA - plens;
+
+		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+		return (color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
+	}
+
+	public static void mostrarPantallaDividida(Personatge personatge, Masmorra masmorra) {
+		String[] mapa = masmorra.generarLiniesMapa(personatge);
+		String[] stats = generarLiniesStats(personatge);
+
+		int maxLinies = Math.max(mapa.length, stats.length);
+
+		for (int i = 0; i < maxLinies; i++) {
+			// calcular distancia mapa
+			String columnaMapa = (i < mapa.length) ? mapa[i] : " ".repeat(masmorra.getY() * 5);
+
+			// calcular si no hi ha stats
+			String columnaStats = (i < stats.length) ? stats[i] : "";
+
+			System.out.println(columnaMapa + "       " + columnaStats);
+		}
+		// calcular cierre?
+		// System.out.println("_".repeat(masmorra.getX() * 5 + 25));
+	}
+
+	public static String[] generarLiniesStats(Personatge personatge) {
+		return new String[] {
+				Colors.CIAN + "Heroi: " + Estils.NEGRETA + Colors.BLANC + personatge.getNom() + Colors.RESET,
+				"─".repeat(50),
+				generarBarra("Vida     ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim()),
+				generarBarra("Atac     ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim()),
+				generarBarra("Agilitat ", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim()),
+				generarBarra("Força    ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim()),
+				"─".repeat(50),
+				"Punts:  " + Colors.GROC + personatge.getPuntsDisponibles() + Colors.RESET
+		};
 	}
 
 	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
@@ -290,12 +325,9 @@ public class Main {
 					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 					ConsoleUtils.dormirSegons(1.5);
 					ConsoleUtils.saltarPagina();
-
 				}
 			}
-
 		}
-
 	}
 
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
