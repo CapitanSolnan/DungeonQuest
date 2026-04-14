@@ -6,6 +6,7 @@ import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
+import utils.Config;
 
 public class Main {
 	public static void main(String[] args) {
@@ -31,10 +32,7 @@ public class Main {
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
 
-
-
 		triarQueFer(teclado, personatge, masmorra);
-
 
 		// TODO: Bucle del juego
 	}
@@ -136,19 +134,21 @@ public class Main {
 		boolean finalitzar = false;
 		if (dificultat == 3) {
 			mostrarAtributs(personatge);
-			System.out.println(Estils.NEGRETA + Colors.VERMELL + "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
+			System.out.println(Estils.NEGRETA + Colors.VERMELL
+					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
 		}
-		if (dificultat == 1) {	
+		if (dificultat == 1) {
 			personatge.setVida(20);
 			personatge.setAtac(4);
 			personatge.setAgilitat(11);
 			personatge.setForsa(11);
-			
+
 			mostrarAtributs(personatge);
-			System.out.println(Estils.NEGRETA + Colors.VERMELL +"Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
+			System.out.println(Estils.NEGRETA + Colors.VERMELL
+					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
@@ -179,14 +179,14 @@ public class Main {
 				continue;
 			}
 
-			String stat;
+			Config.Atributs stat;
 
 			switch (opcio) {
-				case 'V' ->	stat = "vida";
-				case 'A' ->	stat = "atac";
-				case 'G' ->	stat = "agilitat";
-				case 'F' ->	stat = "forsa";
-				default ->	stat = null;
+				case 'V' -> stat = Config.Atributs.VIDA;
+				case 'A' -> stat = Config.Atributs.ATAC;
+				case 'G' -> stat = Config.Atributs.AGILITAT;
+				case 'F' -> stat = Config.Atributs.FORSA;
+				default -> stat = null;
 			}
 
 			if (stat == null) {
@@ -204,7 +204,7 @@ public class Main {
 			}
 
 			// si la pregunta es correcta y hay puntos disponibles
-			System.out.println(Estils.PREGUNTA + "Quants punts vols afegir a " + stat.toUpperCase() + "?");
+			System.out.println(Estils.PREGUNTA + "Quants punts vols afegir a " + stat.name().toUpperCase() + "?");
 			System.out.print(Estils.RESPOSTA);
 
 			int cantidad;
@@ -254,21 +254,89 @@ public class Main {
 				color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
 	}
 
-//TODO: Implementar si hay un monstruo entonces atacar activado y depende de la sala quitar opciones de canviar de sala 
-// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla pantalla 
+	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
+	// sala quitar opciones de canviar de sala
+	// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla
+	// pantalla
 
-public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-	masmorra.mostrarMasmorra(masmorra.personatge);
+	public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		masmorra.mostrarMasmorra(masmorra.personatge);
 
-	boolean juegoIniciado = true;	
-	while(juegoIniciado){
-		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
-		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
-		System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
-		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
-		System.out.println(Colors.GROC + "  R. Mostrar atributs");
-		System.out.println(Colors.BLAU + "  I. Mostrar inventari");
-		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
+		boolean juegoIniciado = true;
+		while (juegoIniciado) {
+			System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
+			System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
+			System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
+			System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
+			System.out.println(Colors.GROC + "  R. Mostrar atributs");
+			System.out.println(Colors.BLAU + "  I. Mostrar inventari");
+			System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
+			System.out.print(Estils.RESPOSTA);
+
+			String entrada = teclado.nextLine().toUpperCase();
+			if (entrada.isEmpty())
+				return;
+
+			char opcio = entrada.charAt(0);
+
+			switch (opcio) {
+				case 'M' -> moure(teclado, personatge, masmorra);
+				// case 'E' -> explorarSala();
+				case 'R' -> mostrarAtributs(personatge);
+				// case 'I' -> inventario();
+				case 'Q' -> {
+					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
+					juegoIniciado = false;
+					System.exit(0);
+				}
+				default -> {
+					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+					ConsoleUtils.dormirSegons(1.5);
+
+				}
+			}
+
+		}
+
+	}
+
+	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
+		boolean combatActivo = true;
+		while (combatActivo) {
+			ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
+			ConsoleUtils.dormirSegons(1.5);
+
+			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Combat ===" + Colors.RESET);
+
+			System.out.println(Colors.VERMELL + "Monstre: " + monstre.getNom());
+			System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
+			System.out.println();
+
+			System.out.println(Estils.PREGUNTA + "Què vols fer?" + Colors.RESET);
+			System.out.println(Colors.ATAC + "  A. Atacar");
+			System.out.println(Colors.GRIS + "  Q. Fugir" + Colors.RESET);
+
+			String entrada = teclado.nextLine().toUpperCase();
+			if (entrada.isEmpty())
+				return;
+
+			char opcio = entrada.charAt(0);
+
+			switch (opcio) {
+				// case 'A' -> atacar();
+				// case 'F' -> fugir();
+				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+			}
+
+		}
+
+	}
+
+	public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		masmorra.mostrarMasmorra(masmorra.personatge);
+
+		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
 		String entrada = teclado.nextLine().toUpperCase();
@@ -278,85 +346,14 @@ public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra 
 		char opcio = entrada.charAt(0);
 
 		switch (opcio) {
-			case 'M' ->	moure(teclado, personatge, masmorra);
-			//case 'E' ->	explorarSala();
-			case 'R' ->	mostrarAtributs(personatge);
-			//case 'I' ->	inventario();
-			case 'Q' -> {
-				System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
-				juegoIniciado = false;
-				System.exit(0);
-			}
-			default -> {
-				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-				ConsoleUtils.dormirSegons(1.5);
-
-			}
+			case 'W' -> personatge.moure('W', masmorra.getX());
+			case 'A' -> personatge.moure('A', masmorra.getX());
+			case 'S' -> personatge.moure('S', masmorra.getY());
+			case 'D' -> personatge.moure('D', masmorra.getY());
+			default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 		}
-
-}
-
-}
-
-
-public static void combatre(Scanner teclado, Personatge personatge,Monstre monstre, Sala sala) {
-	boolean combatActivo = true;
-	while (combatActivo) {
-	ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
-	ConsoleUtils.dormirSegons(1.5);
-
-	ConsoleUtils.saltarPagina(Estils.TITOL + "=== Combat ===" + Colors.RESET);
-
-	System.out.println(Colors.VERMELL + "Monstre: " + monstre.getNom());
-	System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
-	System.out.println();
-
-	System.out.println(Estils.PREGUNTA + "Què vols fer?" + Colors.RESET);
-	System.out.println(Colors.ATAC + "  A. Atacar");
-	System.out.println(Colors.GRIS + "  Q. Fugir" + Colors.RESET);
-
-	String entrada = teclado.nextLine().toUpperCase();
-		if (entrada.isEmpty())
-			return;
-
-		char opcio = entrada.charAt(0);
-
-
-	switch (opcio) {
-		//case 'A' -> atacar();
-		//case 'F' -> fugir();
-		default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);	
-	}
+		masmorra.mostrarMasmorra(masmorra.personatge);
 
 	}
-
-}
-
-
-public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-	masmorra.mostrarMasmorra(masmorra.personatge);
-
-	System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
-	System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
-	System.out.print(Estils.RESPOSTA);
-
-	String entrada = teclado.nextLine().toUpperCase();
-	if (entrada.isEmpty())
-		return;
-
-	char opcio = entrada.charAt(0);
-
-	switch (opcio) {
-		case 'W' -> personatge.moure('W', masmorra.getX());
-		case 'A' -> personatge.moure('A', masmorra.getX());
-		case 'S' -> personatge.moure('S', masmorra.getY());
-		case 'D' -> personatge.moure('D', masmorra.getY());
-		default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-	}
-	masmorra.mostrarMasmorra(masmorra.personatge);
-	
-}
-
-
 
 }
