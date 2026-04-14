@@ -8,7 +8,6 @@ import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
-import utils.Config;
 
 public class Main {
 	public static void main(String[] args) {
@@ -239,15 +238,16 @@ public class Main {
 		System.out.println(Colors.RESET);
 	}
 
-private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra, boolean mostrarValors) {
-    int plens = (int) Math.round((double) valor / maxValor * midaBarra);
-    int buits = midaBarra - plens;
+	private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra,
+			boolean mostrarValors) {
+		int plens = (int) Math.round((double) valor / maxValor * midaBarra);
+		int buits = midaBarra - plens;
 
-    String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
-    String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
+		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+		String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
 
-    System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
-}
+		System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
+	}
 
 	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
 	// sala quitar opciones de canviar de sala
@@ -289,7 +289,7 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 				default -> {
 					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 					ConsoleUtils.dormirSegons(1.5);
-					ConsoleUtils.saltarPagina(); 
+					ConsoleUtils.saltarPagina();
 
 				}
 			}
@@ -344,7 +344,6 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 
 	}
 
-
 	public static void explorarSala() {
 		int max = 5;
 
@@ -358,11 +357,9 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
 		System.out.println("Sala Explorada");
 
-
 		System.out.println("No hi ha res d'interessant aquí.");
 		ConsoleUtils.dormirSegons(2);
 	}
-
 
 	public static void inventari() {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
@@ -376,12 +373,14 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 		System.out.println("Atacant al monstre...");
 		ConsoleUtils.dormirSegons(2);
 	}
+
 	public static void fugir() {
-		
+
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Fugir ===" + Colors.RESET);
 		System.out.println("Intentant fugir...");
 		ConsoleUtils.dormirSegons(2);
 	}
+
 	public static void mostrarMenuCombat(Personatge personatge, Monstre monstre) {
 		ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
 		ConsoleUtils.dormirSegons(1.5);
