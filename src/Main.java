@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import model.Personatge;
+import model.Atributs;
 import model.Monstre;
 import sala.Sala;
 import utils.Colors;
@@ -179,15 +180,8 @@ public class Main {
 				continue;
 			}
 
-			Config.Atributs stat;
-
-			switch (opcio) {
-				case 'V' -> stat = Config.Atributs.VIDA;
-				case 'A' -> stat = Config.Atributs.ATAC;
-				case 'G' -> stat = Config.Atributs.AGILITAT;
-				case 'F' -> stat = Config.Atributs.FORSA;
-				default -> stat = null;
-			}
+			// convertir lletra a atribut enum
+			Atributs stat = Atributs.desdeLletra(opcio);
 
 			if (stat == null) {
 				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
@@ -237,10 +231,10 @@ public class Main {
 
 	public static void mostrarAtributs(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs ===" + Colors.RESET);
-		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Personatge.MAX_VIDA);
-		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Personatge.MAX_ATAC);
-		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Personatge.MAX_AGILITAT);
-		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Personatge.MAX_FORSA);
+		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim());
+		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim());
+		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim());
+		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim());
 		System.out.println(Colors.RESET);
 	}
 

@@ -10,18 +10,9 @@ public class Personatge implements Combatent {
 
 	// atributs del personatge
 	private int vida;
-	public static final int MIN_VIDA_INICIAL = 5;
-	public static final int MIN_VIDA = 0;
-	public static final int MAX_VIDA = 20;
 	private int atac;
-	public static final int MIN_ATAC = 1;
-	public static final int MAX_ATAC = 4;
 	private int agilitat;
-	public static final int MIN_AGILITAT = 4;
-	public static final int MAX_AGILITAT = 11;
 	private int forsa;
-	public static final int MIN_FORSA = 1;
-	public static final int MAX_FORSA = 11;
 
 	private int experiencia = 0;
 	private int[] posicio = { 0, 0 };
@@ -40,10 +31,10 @@ public class Personatge implements Combatent {
 
 		// iniciar valors per defecte amb el minim d'atributs
 		// com que els setters tenen validacions amb un minim
-		this.setVida(MIN_VIDA_INICIAL);
-		this.setAtac(MIN_ATAC);
-		this.setAgilitat(MIN_AGILITAT);
-		this.setForsa(MIN_FORSA);
+		this.setVida(Atributs.VIDA.getMinimInicial());
+		this.setAtac(Atributs.ATAC.getMinimInicial());
+		this.setAgilitat(Atributs.AGILITAT.getMinimInicial());
+		this.setForsa(Atributs.FORSA.getMinimInicial());
 
 		// iniciar punts disponibles segons la dificultat
 		this.setPuntsDisponiblesSegonsDificultat(dificultat);
@@ -82,42 +73,37 @@ public class Personatge implements Combatent {
 	}
 
 	// TODO: corregir moviment
-public void moure(char direccio, int midaMasmorra) {
-
-    if (direccio == 'W') {
-        if (posicio[0] - 1 < 0) {
-            System.out.println("⚠ Direcció invàlida!");
-            ConsoleUtils.dormirSegons(1.5);
-            return;
-        }
-        posicio[0]--;
-
-    } else if (direccio == 'S') {
-        if (posicio[0] + 1 >= midaMasmorra) {
-            System.out.println("⚠ Direcció invàlida!");
-            ConsoleUtils.dormirSegons(1.5);
-            return;
-        }
-        posicio[0]++;
-
-    } else if (direccio == 'D') {
-        if (posicio[1] + 1 >= midaMasmorra) {
-            System.out.println("⚠ Direcció invàlida!");
-            ConsoleUtils.dormirSegons(1.5);
-            return;
-        }
-        posicio[1]++;
-
-    } else if (direccio == 'A') {
-        if (posicio[1] - 1 < 0) {
-            System.out.println("⚠ Direcció invàlida!");
-            ConsoleUtils.dormirSegons(1.5);
-            return;
-        }
-        posicio[1]--;
-    }
-}
-
+	public void moure(char direccio, int midaMasmorra) {
+		if (direccio == 'W') {
+			if (posicio[0] - 1 < 0) {
+				System.out.println("⚠ Direcció invàlida!");
+				ConsoleUtils.dormirSegons(1.5);
+				return;
+			}
+			posicio[0]--;
+		} else if (direccio == 'S') {
+			if (posicio[0] + 1 >= midaMasmorra) {
+				System.out.println("⚠ Direcció invàlida!");
+				ConsoleUtils.dormirSegons(1.5);
+				return;
+			}
+			posicio[0]++;
+		} else if (direccio == 'D') {
+			if (posicio[1] + 1 >= midaMasmorra) {
+				System.out.println("⚠ Direcció invàlida!");
+				ConsoleUtils.dormirSegons(1.5);
+				return;
+			}
+			posicio[1]++;
+		} else if (direccio == 'A') {
+			if (posicio[1] - 1 < 0) {
+				System.out.println("⚠ Direcció invàlida!");
+				ConsoleUtils.dormirSegons(1.5);
+				return;
+			}
+			posicio[1]--;
+		}
+	}
 
 	public void sumarExperiencia(int quantitat) {
 		if (quantitat > 0) {
@@ -150,34 +136,34 @@ public void moure(char direccio, int midaMasmorra) {
 		return false;
 	}
 
-	// TODO: utilitzar enums?
-	public boolean aplicarPunts(String stat, int quantitat) {
-		switch (stat) {
-			case "vida":
-				if (vida >= MAX_VIDA || vida + quantitat > MAX_VIDA)
-					return false;
-				setVida(getVida() + quantitat);
-				break;
-			case "atac":
-				if (atac >= MAX_ATAC || atac + quantitat > MAX_ATAC)
-					return false;
-				setAtac(getAtac() + quantitat);
-				break;
-			case "agilitat":
-				if (agilitat >= MAX_AGILITAT || agilitat + quantitat > MAX_AGILITAT)
-					return false;
-				setAgilitat(getAgilitat() + quantitat);
-				break;
-			case "forsa":
-				if (forsa >= MAX_FORSA || forsa + quantitat > MAX_FORSA)
-					return false;
-				setForsa(getForsa() + quantitat);
-				break;
-			default:
-				return false;
+	public boolean aplicarPunts(Atributs stat, int quantitat) {
+		if (stat == null || quantitat <= 0)
+			return false;
+
+		int valorActual = getValorPerAtribut(stat);
+
+		if (valorActual + quantitat > stat.getMaxim()) {
+			return false;
 		}
+
+		switch (stat) {
+			case VIDA -> setVida(vida + quantitat);
+			case ATAC -> setAtac(atac + quantitat);
+			case AGILITAT -> setAgilitat(agilitat + quantitat);
+			case FORSA -> setForsa(forsa + quantitat);
+		}
+
 		setPuntsDisponibles(getPuntsDisponibles() - quantitat);
 		return true;
+	}
+
+	private int getValorPerAtribut(Atributs stat) {
+		return switch (stat) {
+			case VIDA -> this.vida;
+			case ATAC -> this.atac;
+			case AGILITAT -> this.agilitat;
+			case FORSA -> this.forsa;
+		};
 	}
 
 	@Override
@@ -193,7 +179,7 @@ public void moure(char direccio, int midaMasmorra) {
 	 */
 	@Override
 	public void setVida(int vida) {
-		this.vida = MathUtils.ajustarRang(MIN_VIDA, MAX_VIDA, vida);
+		this.vida = MathUtils.ajustarRang(0, Atributs.VIDA.getMaxim(), vida);
 	}
 
 	public String getNom() {
@@ -205,7 +191,7 @@ public void moure(char direccio, int midaMasmorra) {
 	}
 
 	public void setAgilitat(int agilitat) {
-		this.agilitat = MathUtils.ajustarRang(MIN_AGILITAT, MAX_AGILITAT, agilitat);
+		this.agilitat = MathUtils.ajustarRang(Atributs.AGILITAT.getMinimInicial(), Atributs.AGILITAT.getMaxim(), agilitat);
 	}
 
 	public int getAtac() {
@@ -213,7 +199,7 @@ public void moure(char direccio, int midaMasmorra) {
 	}
 
 	public void setAtac(int atac) {
-		this.atac = MathUtils.ajustarRang(MIN_ATAC, MAX_ATAC, atac);
+		this.atac = MathUtils.ajustarRang(Atributs.ATAC.getMinimInicial(), Atributs.ATAC.getMaxim(), atac);
 	}
 
 	public int getForsa() {
@@ -221,7 +207,7 @@ public void moure(char direccio, int midaMasmorra) {
 	}
 
 	public void setForsa(int forsa) {
-		this.forsa = MathUtils.ajustarRang(MIN_FORSA, MAX_FORSA, forsa);
+		this.forsa = MathUtils.ajustarRang(Atributs.FORSA.getMinimInicial(), Atributs.FORSA.getMaxim(), forsa);
 	}
 
 	public int[] getPosicio() {
