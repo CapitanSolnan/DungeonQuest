@@ -140,8 +140,8 @@ public class Main {
 		boolean finalitzar = false;
 		if (dificultat == 3) {
 			mostrarAtributs(personatge);
-			System.out.println("Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim.");
-			ConsoleUtils.dormirSegons(1.5);
+			System.out.println(Estils.NEGRETA + Colors.VERMELL + "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
+			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
 		}
@@ -152,8 +152,8 @@ public class Main {
 			personatge.setForsa(11);
 			
 			mostrarAtributs(personatge);
-			System.out.println("Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim.");
-			ConsoleUtils.dormirSegons(1.5);
+			System.out.println(Estils.NEGRETA + Colors.VERMELL +"Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
+			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
 		}
