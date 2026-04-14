@@ -1,3 +1,5 @@
+package core;
+
 import model.Monstre;
 import model.Personatge;
 import model.Tresor;
@@ -45,8 +47,6 @@ public class Masmorra {
 		this.mapa = generarMasmorra();
 	}
 
-
-
 	private Tresor generarTresor() {
 		if (Math.random() < 0.30) {
 			Tresor plantillaTresor = LLISTA_TRESORS[(int) (Math.random() * LLISTA_TRESORS.length)];
@@ -60,7 +60,8 @@ public class Masmorra {
 		if (Math.random() < 0.40) {
 			Monstre plantillaMonstre = LLISTA_MONSTRES[(int) (Math.random() * LLISTA_MONSTRES.length)];
 
-			return new Monstre(plantillaMonstre.getNom(), plantillaMonstre.getVida(), plantillaMonstre.getAtac(), plantillaMonstre.getPenalitzacio());
+			return new Monstre(plantillaMonstre.getNom(), plantillaMonstre.getVida(), plantillaMonstre.getAtac(),
+					plantillaMonstre.getPenalitzacio());
 		}
 		return null;
 	}
@@ -121,6 +122,7 @@ public class Masmorra {
 	public int getX() {
 		return x;
 	}
+
 	public int getY() {
 		return y;
 	}
