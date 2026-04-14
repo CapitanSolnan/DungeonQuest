@@ -4,6 +4,7 @@ import core.Config;
 import core.Dificultats;
 import core.Masmorra;
 import model.Personatge;
+import model.Tresor;
 import model.Atributs;
 import model.Monstre;
 import sala.Sala;
@@ -100,8 +101,9 @@ public class Main {
 						mides[i] = valor;
 						valid = true;
 					} else {
-						System.out.println(Colors.VERMELL + "⚠ La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
-								+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
+						System.out.println(
+								Colors.VERMELL + "⚠ La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
+										+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
 						ConsoleUtils.dormirSegons(1.5);
 					}
 				} catch (NumberFormatException e) {
@@ -117,7 +119,8 @@ public class Main {
 		if (dificultat == Dificultats.DIFICIL) {
 			mostrarAtributs(personatge);
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
-					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
+					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim."
+					+ Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			return;
 
@@ -129,7 +132,8 @@ public class Main {
 
 			mostrarAtributs(personatge);
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
-					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
+					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim."
+					+ Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			return;
 		} else {
@@ -332,15 +336,15 @@ public class Main {
 	}
 
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
-		boolean combatActivo = true;
-		while (combatActivo) {
+		boolean combatActiu = true;
+
+		while (combatActiu && personatge.potLluitar(monstre)) {
 
 			mostrarMenuCombat(personatge, monstre);
 
 			String entrada = teclado.nextLine().toUpperCase();
 			if (entrada.isEmpty())
-				return;
-
+				continue;
 			char opcio = entrada.charAt(0);
 
 			switch (opcio) {
@@ -350,7 +354,6 @@ public class Main {
 			}
 
 		}
-
 	}
 
 	public static void demanarMoure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
@@ -396,8 +399,28 @@ public class Main {
 
 	public static void demanarObrirInventari() {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
-		System.out.println("El teu inventari està buit.");
-		ConsoleUtils.dormirSegons(2);
+
+		Tresor[] equipament = personatge.getEquipament();
+		boolean hiHaTresors = false;
+
+		System.out.println(Estils.TITOL + "  Tresors:" + Colors.RESET);
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] != null) {
+				hiHaTresors = true;
+				System.out.printf("  %s[%d]%s %s — %s%d g%s — %s%d or%s%n",
+						Colors.GRIS, i + 1, Colors.RESET,
+						Colors.BLANC + equipament[i].getNom() + Colors.RESET,
+						Colors.GROC, (int) equipament[i].getPes(), Colors.RESET,
+						Colors.TARONJA, equipament[i].getValor(), Colors.RESET);
+			}
+		}
+		if (!hiHaTresors) {
+			System.out.println(Colors.GRIS + "  No tens cap tresor." + Colors.RESET);
+		}
+
+		System.out.println();
+		ConsoleUtils.dormirSegons(3);
+		ConsoleUtils.saltarPagina();
 	}
 
 	public static void demanarAtacar() {
