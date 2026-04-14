@@ -212,8 +212,16 @@ public class Personatge implements Combatent {
 		return posicio[0];
 	}
 
-	public int getPosicioY() {
+	public int setPosicioY() {
 		return posicio[1];
+	}
+
+	public int setPosicioX(int x) {
+		return posicio[0] + x;
+	}
+
+	public int setPosicioY(int y) {
+		return posicio[1] + y;
 	}
 
 	public int getPuntsDisponibles() {

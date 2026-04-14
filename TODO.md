@@ -6,6 +6,14 @@
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.
 - [ ] Implementar lógica jefe.
+  
+
+- [ ] Implementar combate.
+- [ ] Implementar conseguir tresors
+- [ ] Implementar inventario (Mostrar els tresors)
+
+
+
 
 - [ ] Mejorar juego partida UI
 - [ ] Comprobar gramática.

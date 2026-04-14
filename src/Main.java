@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
 import model.Personatge;
+import model.Tresor;
+import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
+import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -30,6 +33,9 @@ public class Main {
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
 
 		masmorra.mostrarMasmorra(masmorra.personatge);
+
+		triarQueFer(teclado, personatge, masmorra);
+
 
 		// TODO: Bucle del juego
 	}
@@ -229,4 +235,48 @@ public class Main {
 		System.out.println(
 				color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
 	}
+
+//TODO: Implementar si hay un monstruo entonces atacar activado y depende de la sala quitar opciones de canviar de sala 
+// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla pantalla 
+
+//TODO: Implementar sistema de combate
+public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	ConsoleUtils.saltarPagina();
+	boolean juegoIniciado = true;	
+	while(juegoIniciado){
+		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
+		System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
+		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
+		System.out.println(Colors.GROC + "  R. Mostrar atributs" + Colors.RESET);
+		System.out.println(Colors.BLAU + "  I. Mostrar inventari" + Colors.RESET);
+		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
+		System.out.print(Estils.RESPOSTA);
+
+		String entrada = teclado.nextLine().toUpperCase();
+		if (entrada.isEmpty())
+			return;
+
+		char opcio = entrada.charAt(0);
+
+		switch (opcio) {
+			//case 'M' ->	moure(teclado, personatge, masmorra);
+			//case 'E' ->	explorarSala();
+			case 'R' ->	mostrarAtributs(personatge);
+			//case 'I' ->	inventario();
+			case 'Q' -> {
+				System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
+				juegoIniciado = false;
+				System.exit(0);
+			}
+			default -> {
+				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+				ConsoleUtils.dormirSegons(1.5);
+			}
+		}
+
+}
+
+}
+
 }
