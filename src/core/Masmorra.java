@@ -88,7 +88,6 @@ public class Masmorra {
 	}
 
 	public void mostrarMasmorra(Personatge personatge) {
-		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mapa de la Masmora ===" + Colors.RESET);
 		int[] posPersonatge = personatge.getPosicio();
 
 		for (int i = 0; i < this.x; i++) {
