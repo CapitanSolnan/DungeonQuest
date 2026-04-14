@@ -35,8 +35,7 @@ public class Main {
 
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
-		mostrarPantallaDividida(personatge, masmorra);
-		// triarQueFer(teclado, personatge, masmorra);
+		triarQueFer(teclado, personatge, masmorra);
 	}
 
 	private static String demanarNom(Scanner teclado) {
@@ -252,7 +251,7 @@ public class Main {
 		return (color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
 	}
 
-	public static void mostrarPantallaDividida(Personatge personatge, Masmorra masmorra) {
+	public static void mostrarMapaAmbStats(Personatge personatge, Masmorra masmorra) {
 		String[] mapa = masmorra.generarLiniesMapa(personatge);
 		String[] stats = generarLiniesStats(personatge);
 
@@ -290,10 +289,12 @@ public class Main {
 	// pantalla
 
 	public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-		masmorra.mostrarMasmorra(masmorra.getPersonatge());
+		ConsoleUtils.saltarPagina();
+		mostrarMapaAmbStats(personatge, masmorra);
 
 		boolean juegoIniciado = true;
 		while (juegoIniciado) {
+			System.out.println();
 			System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
 			System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
 			System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
