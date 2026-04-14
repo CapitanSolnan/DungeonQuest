@@ -320,7 +320,7 @@ public class Main {
 				// case 'R' -> {
 				// mostrarAtributs(personatge);
 				// }
-				case 'I' -> demanarObrirInventari();
+				case 'I' -> demanarObrirInventari(personatge);
 				case 'Q' -> {
 					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 					juegoIniciado = false;
@@ -397,7 +397,7 @@ public class Main {
 		ConsoleUtils.dormirSegons(2);
 	}
 
-	public static void demanarObrirInventari() {
+	public static void demanarObrirInventari(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
 
 		Tresor[] equipament = personatge.getEquipament();
