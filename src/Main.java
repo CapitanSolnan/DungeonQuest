@@ -9,7 +9,6 @@ import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
-import utils.Config;
 
 public class Main {
 	public static void main(String[] args) {
@@ -468,6 +467,7 @@ public class Main {
 		ConsoleUtils.dormirSegons(1.5);
 		ConsoleUtils.saltarPagina();
 	}
+
 
 	public static void mostrarMenuCombat(Personatge personatge, Monstre monstre) {
 		ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
