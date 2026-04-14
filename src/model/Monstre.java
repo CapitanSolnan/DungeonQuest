@@ -7,13 +7,15 @@ public class Monstre implements Combatent {
 
 	private String nom;
 	private int vida;
+	private int atac;
 	private int penalitzacio;
 	private int valorExperiencia;
 
-	public Monstre(String nom, int vida, int penalitzacio) {
+	public Monstre(String nom, int vida, int atac, int penalitzacio) {
 		super();
 		this.nom = nom;
 		this.vida = vida;
+		this.atac = atac;
 		this.penalitzacio = MathUtils.ajustarRang(0, 3, penalitzacio);
 		this.valorExperiencia = this.vida * 2;
 	}
@@ -31,6 +33,14 @@ public class Monstre implements Combatent {
 	@Override
 	public void setVida(int vida) {
 		this.vida = (vida > 0) ? vida : 0;
+	}
+
+	public int getAtac() {
+		return atac;
+	}
+
+	public void setAtac(int atac) {
+		this.atac = (atac > 0) ? atac : 0;
 	}
 
 	public String getNom() {

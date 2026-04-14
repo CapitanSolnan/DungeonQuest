@@ -6,6 +6,7 @@ import sala.SalaComuna;
 import sala.SalaPont;
 import sala.SalaTeranyina;
 import utils.Colors;
+import utils.ConsoleUtils;
 import utils.Estils;
 
 public class Masmorra {
@@ -31,9 +32,9 @@ public class Masmorra {
 
 	// Monstres posibles
 	private static final Monstre[] LLISTA_MONSTRES = {
-			new Monstre("Zombie", 10, 2),
-			new Monstre("Aranya", 5, 1),
-			new Monstre("Esquelet", 8, 3)
+			new Monstre("Zombie", 10, 5, 2),
+			new Monstre("Aranya", 5, 3, 1),
+			new Monstre("Esquelet", 8, 4, 3)
 	};
 
 	public Masmorra(int x, int y, Personatge personatge) {
@@ -43,6 +44,8 @@ public class Masmorra {
 		this.personatge = personatge;
 		this.mapa = generarMasmorra();
 	}
+
+
 
 	private Tresor generarTresor() {
 		if (Math.random() < 0.30) {
@@ -57,7 +60,7 @@ public class Masmorra {
 		if (Math.random() < 0.40) {
 			Monstre plantillaMonstre = LLISTA_MONSTRES[(int) (Math.random() * LLISTA_MONSTRES.length)];
 
-			return new Monstre(plantillaMonstre.getNom(), plantillaMonstre.getVida(), plantillaMonstre.getPenalitzacio());
+			return new Monstre(plantillaMonstre.getNom(), plantillaMonstre.getVida(), plantillaMonstre.getAtac(), plantillaMonstre.getPenalitzacio());
 		}
 		return null;
 	}
@@ -84,6 +87,7 @@ public class Masmorra {
 	}
 
 	public void mostrarMasmorra(Personatge personatge) {
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mapa de la Masmora ===" + Colors.RESET);
 		int[] posPersonatge = personatge.getPosicio();
 
 		for (int i = 0; i < this.x; i++) {
@@ -112,6 +116,13 @@ public class Masmorra {
 
 	public int getPercentatgeSalesExplorades() {
 		return (int) ((this.salesExplorades * 100) / this.salesTotals);
+	}
+
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package model;
 
 import combat.Combatent;
 import sala.Sala;
+import utils.ConsoleUtils;
 import utils.MathUtils;
 
 public class Personatge implements Combatent {
@@ -81,23 +82,42 @@ public class Personatge implements Combatent {
 	}
 
 	// TODO: corregir moviment
-	public void moure(char direccio) {
-		if (direccio == 'N') {
-			posicio[0] += 1;
+public void moure(char direccio, int midaMasmorra) {
 
-		} else if (direccio == 'S') {
-			posicio[0] -= 1;
+    if (direccio == 'W') {
+        if (posicio[0] - 1 < 0) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[0]--;
 
-		} else if (direccio == 'E') {
-			posicio[1] += 1;
+    } else if (direccio == 'S') {
+        if (posicio[0] + 1 >= midaMasmorra) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[0]++;
 
-		} else if (direccio == 'O') {
-			posicio[1] -= 1;
+    } else if (direccio == 'D') {
+        if (posicio[1] + 1 >= midaMasmorra) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[1]++;
 
-		} else {
-			System.out.println("Direcció erronia");
-		}
-	}
+    } else if (direccio == 'A') {
+        if (posicio[1] - 1 < 0) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[1]--;
+    }
+}
+
 
 	public void sumarExperiencia(int quantitat) {
 		if (quantitat > 0) {
@@ -212,8 +232,16 @@ public class Personatge implements Combatent {
 		return posicio[0];
 	}
 
-	public int getPosicioY() {
+	public int setPosicioY() {
 		return posicio[1];
+	}
+
+	public int setPosicioX(int x) {
+		return posicio[0] + x;
+	}
+
+	public int setPosicioY(int y) {
+		return posicio[1] + y;
 	}
 
 	public int getPuntsDisponibles() {
@@ -227,17 +255,9 @@ public class Personatge implements Combatent {
 	// TODO: optimitzar utilitzant enums per evitar complicacions
 	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
 		switch (dificultat) {
-			case 1:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
-				break;
-			case 2:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
-				break;
-			case 3:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
-				break;
-			default:
-				break;
+			case 1 -> this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
+			case 2 -> this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
+			case 3 -> this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
 		}
 	}
 
