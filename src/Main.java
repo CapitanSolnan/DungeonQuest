@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import core.Masmorra;
 import model.Personatge;
+import model.Tresor;
 import model.Atributs;
 import model.Monstre;
 import sala.Sala;
@@ -119,8 +120,9 @@ public class Main {
 						mides[i] = valor;
 						valid = true;
 					} else {
-						System.out.println(Colors.VERMELL + "⚠ La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
-								+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
+						System.out.println(
+								Colors.VERMELL + "⚠ La mida ha de ser entre " + Masmorra.MIN_MIDA_MASMORRA + " i "
+										+ Masmorra.MAX_MIDA_MASMORRA + "." + Colors.RESET);
 						ConsoleUtils.dormirSegons(1.5);
 					}
 				} catch (NumberFormatException e) {
@@ -137,7 +139,8 @@ public class Main {
 		if (dificultat == 3) {
 			mostrarAtributs(personatge);
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
-					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim." + Colors.RESET);
+					+ "Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim."
+					+ Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
@@ -150,7 +153,8 @@ public class Main {
 
 			mostrarAtributs(personatge);
 			System.out.println(Estils.NEGRETA + Colors.VERMELL
-					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim." + Colors.RESET);
+					+ "Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim."
+					+ Colors.RESET);
 			ConsoleUtils.dormirSegons(3);
 			finalitzar = true;
 
@@ -239,15 +243,16 @@ public class Main {
 		System.out.println(Colors.RESET);
 	}
 
-private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra, boolean mostrarValors) {
-    int plens = (int) Math.round((double) valor / maxValor * midaBarra);
-    int buits = midaBarra - plens;
+	private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra,
+			boolean mostrarValors) {
+		int plens = (int) Math.round((double) valor / maxValor * midaBarra);
+		int buits = midaBarra - plens;
 
-    String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
-    String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
+		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+		String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
 
-    System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
-}
+		System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
+	}
 
 	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
 	// sala quitar opciones de canviar de sala
@@ -280,7 +285,7 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 				case 'R' -> {
 					mostrarAtributs(personatge);
 				}
-				case 'I' -> inventari();
+				case 'I' -> inventari(personatge);
 				case 'Q' -> {
 					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 					juegoIniciado = false;
@@ -289,7 +294,7 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 				default -> {
 					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 					ConsoleUtils.dormirSegons(1.5);
-					ConsoleUtils.saltarPagina(); 
+					ConsoleUtils.saltarPagina();
 
 				}
 			}
@@ -299,25 +304,69 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 	}
 
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
-		boolean combatActivo = true;
-		while (combatActivo) {
+		boolean combatActiu = true;
+
+		while (combatActiu && personatge.potLluitar(monstre)) {
 
 			mostrarMenuCombat(personatge, monstre);
 
 			String entrada = teclado.nextLine().toUpperCase();
 			if (entrada.isEmpty())
-				return;
-
+				continue;
 			char opcio = entrada.charAt(0);
 
 			switch (opcio) {
-				case 'A' -> atacar();
-				case 'F' -> fugir();
-				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+				case 'A' -> {
+					atacar(personatge, monstre);
+
+					// Si el monstre segueix viu, contraataca
+					if (monstre.estaViu()) {
+						int danyMonstre = monstre.calcularAtac();
+						personatge.rebreDany(danyMonstre);
+						System.out.println(Colors.VERMELL + monstre.getNom()
+								+ " t'ha contraatacat per " + danyMonstre + " de dany." + Colors.RESET);
+						System.out.println(Colors.VIDA + "La teva vida: " + personatge.getVida() + Colors.RESET);
+						ConsoleUtils.dormirSegons(1.5);
+					}
+
+					if (!monstre.estaViu()) {
+						ConsoleUtils.saltarPagina(Estils.TITOL + "=== Victòria! ===" + Colors.RESET);
+						System.out.println(Colors.VERD + "Has derrotat al " + monstre.getNom() + "!" + Colors.RESET);
+						personatge.sumarExperiencia(monstre.getValorExperiencia());
+						System.out.println(
+								Colors.GROC + "Has guanyat " + monstre.getValorExperiencia() + " XP!" + Colors.RESET);
+						ConsoleUtils.dormirSegons(2);
+						combatActiu = false;
+					}
+
+					if (!personatge.estaViu()) {
+						ConsoleUtils.saltarPagina(Estils.TITOL + "=== Has mort! ===" + Colors.RESET);
+						System.out.println(
+								Colors.VERMELL + "Has estat derrotat per " + monstre.getNom() + "..." + Colors.RESET);
+						ConsoleUtils.dormirSegons(3);
+						System.exit(0);
+					}
+				}
+				case 'F' -> {
+					boolean fuita = fugir(personatge, monstre);
+					if (fuita)
+						combatActiu = false;
+
+					// Si la fuita falla i el personatge ha mort
+					if (!personatge.estaViu()) {
+						ConsoleUtils.saltarPagina(Estils.TITOL + "=== Has mort! ===" + Colors.RESET);
+						System.out.println(Colors.VERMELL + "Has mort intentant fugir de " + monstre.getNom() + "..."
+								+ Colors.RESET);
+						ConsoleUtils.dormirSegons(3);
+						System.exit(0);
+					}
+				}
+				default -> {
+					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+					ConsoleUtils.dormirSegons(1);
+				}
 			}
-
 		}
-
 	}
 
 	public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
@@ -344,7 +393,6 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 
 	}
 
-
 	public static void explorarSala() {
 		int max = 5;
 
@@ -358,30 +406,69 @@ private static void mostrarBarra(String nom, String color, int valor, int maxVal
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
 		System.out.println("Sala Explorada");
 
-
 		System.out.println("No hi ha res d'interessant aquí.");
 		ConsoleUtils.dormirSegons(2);
 	}
 
-
-	public static void inventari() {
+	public static void inventari(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
-		System.out.println("El teu inventari està buit.");
-		ConsoleUtils.dormirSegons(2);
+
+		Tresor[] equipament = personatge.getEquipament();
+		boolean hiHaTresors = false;
+
+		System.out.println(Estils.TITOL + "  Tresors:" + Colors.RESET);
+		for (int i = 0; i < equipament.length; i++) {
+			if (equipament[i] != null) {
+				hiHaTresors = true;
+				System.out.printf("  %s[%d]%s %s — %s%d g%s — %s%d or%s%n",
+						Colors.GRIS, i + 1, Colors.RESET,
+						Colors.BLANC + equipament[i].getNom() + Colors.RESET,
+						Colors.GROC, (int) equipament[i].getPes(), Colors.RESET,
+						Colors.TARONJA, equipament[i].getValor(), Colors.RESET);
+			}
+		}
+		if (!hiHaTresors) {
+			System.out.println(Colors.GRIS + "  No tens cap tresor." + Colors.RESET);
+		}
+
+		System.out.println();
+		ConsoleUtils.dormirSegons(3);
+		ConsoleUtils.saltarPagina();
 	}
 
-	public static void atacar() {
+	public static boolean fugir(Personatge personatge, Monstre monstre) {
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Intentant fugir... ===" + Colors.RESET);
 
-		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atacar ===" + Colors.RESET);
-		System.out.println("Atacant al monstre...");
-		ConsoleUtils.dormirSegons(2);
+		boolean escapada = personatge.ferTiradaAgilitat();
+
+		if (escapada) {
+			System.out.println(Colors.VERD + "✔ Has aconseguit fugir!" + Colors.RESET);
+			ConsoleUtils.dormirSegons(2);
+		} else {
+			// El monstre aprofita i ataca
+			int dany = monstre.calcularAtac();
+			personatge.rebreDany(dany);
+			System.out.println(Colors.VERMELL + "✘ No has pogut fugir! El monstre t'ha atacat per " + dany + " de dany."
+					+ Colors.RESET);
+			System.out.println(Colors.VIDA + "Vida restant: " + personatge.getVida() + Colors.RESET);
+			ConsoleUtils.dormirSegons(2.5);
+			ConsoleUtils.saltarPagina();
+		}
+
+		return escapada;
 	}
-	public static void fugir() {
-		
-		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Fugir ===" + Colors.RESET);
-		System.out.println("Intentant fugir...");
-		ConsoleUtils.dormirSegons(2);
+
+	public static void atacar(Personatge personatge, Monstre monstre) {
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atacant! ===" + Colors.RESET);
+
+		int dany = personatge.atacar(monstre);
+		System.out.println(Colors.ATAC + "Has atacat a " + monstre.getNom()
+				+ " per " + dany + " de dany!" + Colors.RESET);
+		System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
+		ConsoleUtils.dormirSegons(1.5);
+		ConsoleUtils.saltarPagina();
 	}
+
 	public static void mostrarMenuCombat(Personatge personatge, Monstre monstre) {
 		ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
 		ConsoleUtils.dormirSegons(1.5);
