@@ -8,7 +8,7 @@
 - [ ] Implementar combate.
 - [ ] Implementar conseguir tresors
 - [ ] Implementar inventario (Mostrar els tresors)
-- [ ] Explorar las salas
+- [ ] Explorar las salas (logica de si hay o no tresors)
 - [ ] Inventario
 - [ ] Atacar
 - [ ] Huir

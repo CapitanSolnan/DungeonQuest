@@ -232,22 +232,22 @@ public class Main {
 
 	public static void mostrarAtributs(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs ===" + Colors.RESET);
-		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim());
-		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim());
-		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim());
-		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim());
+		mostrarBarra("Vida    ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim(), 50, true);
+		mostrarBarra("Atac    ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim(), 50, true);
+		mostrarBarra("Agilitat", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim(), 50, true);
+		mostrarBarra("Força   ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim(), 50, true);
 		System.out.println(Colors.RESET);
 	}
 
-	private static void mostrarBarra(String nom, String color, int valor, int maxValor) {
-		final int MIDA_BARRA = 50;
-		int plens = (int) Math.round((double) valor / maxValor * MIDA_BARRA);
-		int buits = MIDA_BARRA - plens;
+private static void mostrarBarra(String nom, String color, int valor, int maxValor, int midaBarra, boolean mostrarValors) {
+    int plens = (int) Math.round((double) valor / maxValor * midaBarra);
+    int buits = midaBarra - plens;
 
-		String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
-		System.out.println(
-				color + nom + " | " + Colors.RESET + "[" + barra + "] " + color + valor + "/" + maxValor + Colors.RESET);
-	}
+    String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+    String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
+
+    System.out.println(color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix);
+}
 
 	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
 	// sala quitar opciones de canviar de sala
@@ -276,9 +276,11 @@ public class Main {
 
 			switch (opcio) {
 				case 'M' -> moure(teclado, personatge, masmorra);
-				// case 'E' -> explorarSala();
-				case 'R' -> mostrarAtributs(personatge);
-				// case 'I' -> inventario();
+				case 'E' -> explorarSala();
+				case 'R' -> {
+					mostrarAtributs(personatge);
+				}
+				case 'I' -> inventari();
 				case 'Q' -> {
 					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 					juegoIniciado = false;
@@ -287,6 +289,7 @@ public class Main {
 				default -> {
 					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 					ConsoleUtils.dormirSegons(1.5);
+					ConsoleUtils.saltarPagina(); 
 
 				}
 			}
@@ -298,18 +301,8 @@ public class Main {
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
 		boolean combatActivo = true;
 		while (combatActivo) {
-			ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
-			ConsoleUtils.dormirSegons(1.5);
 
-			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Combat ===" + Colors.RESET);
-
-			System.out.println(Colors.VERMELL + "Monstre: " + monstre.getNom());
-			System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
-			System.out.println();
-
-			System.out.println(Estils.PREGUNTA + "Què vols fer?" + Colors.RESET);
-			System.out.println(Colors.ATAC + "  A. Atacar");
-			System.out.println(Colors.GRIS + "  Q. Fugir" + Colors.RESET);
+			mostrarMenuCombat(personatge, monstre);
 
 			String entrada = teclado.nextLine().toUpperCase();
 			if (entrada.isEmpty())
@@ -318,8 +311,8 @@ public class Main {
 			char opcio = entrada.charAt(0);
 
 			switch (opcio) {
-				// case 'A' -> atacar();
-				// case 'F' -> fugir();
+				case 'A' -> atacar();
+				case 'F' -> fugir();
 				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			}
 
@@ -351,4 +344,54 @@ public class Main {
 
 	}
 
+
+	public static void explorarSala() {
+		int max = 5;
+
+		for (int min = 0; min < max; min++) {
+			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
+
+			mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
+			ConsoleUtils.dormirSegons(1);
+		}
+
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
+		System.out.println("Sala Explorada");
+
+
+		System.out.println("No hi ha res d'interessant aquí.");
+		ConsoleUtils.dormirSegons(2);
+	}
+
+
+	public static void inventari() {
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
+		System.out.println("El teu inventari està buit.");
+		ConsoleUtils.dormirSegons(2);
+	}
+
+	public static void atacar() {
+
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atacar ===" + Colors.RESET);
+		System.out.println("Atacant al monstre...");
+		ConsoleUtils.dormirSegons(2);
+	}
+	public static void fugir() {
+		
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Fugir ===" + Colors.RESET);
+		System.out.println("Intentant fugir...");
+		ConsoleUtils.dormirSegons(2);
+	}
+	public static void mostrarMenuCombat(Personatge personatge, Monstre monstre) {
+		ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
+		ConsoleUtils.dormirSegons(1.5);
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs en combate ===" + Colors.RESET);
+		System.out.println(Colors.VERMELL + "Monstre: " + monstre.getNom());
+		System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
+		System.out.println();
+		System.out.println(Estils.TITOL + "=== Opcions de combate ===" + Colors.RESET);
+		System.out.println("A. Atacar");
+		System.out.println("F. Fugir");
+		System.out.print(Estils.PREGUNTA + "Què vols fer?" + Colors.RESET);
+	}
 }
