@@ -2,6 +2,7 @@ package model;
 
 import combat.Combatent;
 import sala.Sala;
+import utils.ConsoleUtils;
 import utils.MathUtils;
 
 public class Personatge implements Combatent {
@@ -81,23 +82,42 @@ public class Personatge implements Combatent {
 	}
 
 	// TODO: corregir moviment
-	public void moure(char direccio) {
-		if (direccio == 'W') {
-			posicio[0] -= 1;
+public void moure(char direccio, int midaMasmorra) {
 
-		} else if (direccio == 'S') {
-			posicio[0] += 1;
+    if (direccio == 'W') {
+        if (posicio[0] - 1 < 0) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[0]--;
 
-		} else if (direccio == 'D') {
-			posicio[1] += 1;
+    } else if (direccio == 'S') {
+        if (posicio[0] + 1 >= midaMasmorra) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[0]++;
 
-		} else if (direccio == 'A') {
-			posicio[1] -= 1;
+    } else if (direccio == 'D') {
+        if (posicio[1] + 1 >= midaMasmorra) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[1]++;
 
-		} else {
-			System.out.println("Direcció erronia");
-		}
-	}
+    } else if (direccio == 'A') {
+        if (posicio[1] - 1 < 0) {
+            System.out.println("⚠ Direcció invàlida!");
+            ConsoleUtils.dormirSegons(1.5);
+            return;
+        }
+        posicio[1]--;
+    }
+}
+
 
 	public void sumarExperiencia(int quantitat) {
 		if (quantitat > 0) {

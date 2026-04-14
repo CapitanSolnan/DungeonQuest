@@ -31,8 +31,6 @@ public class Main {
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
 
-		masmorra.mostrarMasmorra(masmorra.personatge);
-
 
 
 		triarQueFer(teclado, personatge, masmorra);
@@ -260,8 +258,8 @@ public class Main {
 // Se puede implementar un sistema antes de si hay monstruo salga esta pantalla pantalla 
 
 public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-	
-	ConsoleUtils.saltarPagina();
+	masmorra.mostrarMasmorra(masmorra.personatge);
+
 	boolean juegoIniciado = true;	
 	while(juegoIniciado){
 		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
@@ -292,6 +290,7 @@ public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra 
 			default -> {
 				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 				ConsoleUtils.dormirSegons(1.5);
+
 			}
 		}
 
@@ -335,7 +334,6 @@ public static void combatre(Scanner teclado, Personatge personatge,Monstre monst
 
 
 public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-	ConsoleUtils.saltarPagina();
 	masmorra.mostrarMasmorra(masmorra.personatge);
 
 	System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
@@ -349,15 +347,16 @@ public static void moure(Scanner teclado, Personatge personatge, Masmorra masmor
 	char opcio = entrada.charAt(0);
 
 	switch (opcio) {
-		case 'W' -> personatge.moure('W');
-		case 'A' -> personatge.moure('A');
-		case 'S' -> personatge.moure('S');
-		case 'D' -> personatge.moure('D');
+		case 'W' -> personatge.moure('W', masmorra.getX());
+		case 'A' -> personatge.moure('A', masmorra.getX());
+		case 'S' -> personatge.moure('S', masmorra.getY());
+		case 'D' -> personatge.moure('D', masmorra.getY());
 		default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 	}
-	ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mapa de la Masmora==="  + Colors.RESET);
 	masmorra.mostrarMasmorra(masmorra.personatge);
 	
 }
+
+
 
 }

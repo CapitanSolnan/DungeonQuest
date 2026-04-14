@@ -6,6 +6,7 @@ import sala.SalaComuna;
 import sala.SalaPont;
 import sala.SalaTeranyina;
 import utils.Colors;
+import utils.ConsoleUtils;
 import utils.Estils;
 
 public class Masmorra {
@@ -86,6 +87,7 @@ public class Masmorra {
 	}
 
 	public void mostrarMasmorra(Personatge personatge) {
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mapa de la Masmora ===" + Colors.RESET);
 		int[] posPersonatge = personatge.getPosicio();
 
 		for (int i = 0; i < this.x; i++) {
@@ -114,6 +116,13 @@ public class Masmorra {
 
 	public int getPercentatgeSalesExplorades() {
 		return (int) ((this.salesExplorades * 100) / this.salesTotals);
+	}
+
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
 	}
 
 	@Override
