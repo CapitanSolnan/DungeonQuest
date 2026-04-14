@@ -1,7 +1,6 @@
 # Lista TODO
 
 ## Pendiente
-- [ ] Comprobar y corregir todos los toString().
 - [ ] Utilizar enums/constantes.
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.
@@ -13,8 +12,12 @@
 - [ ] Inventario
 - [ ] Atacar
 - [ ] Huir
-- [ ] Mejorar juego partida UI
+
+## No urgente
+- [ ] Comprobar y corregir todos los toString().
 - [ ] Comprobar gramática.
+- [ ] Mejorar juego partida UI
+- [ ] Implementar metodo generico en mostrarAtributs() [Main.java 232:22]
 
 ## En progreso
 
