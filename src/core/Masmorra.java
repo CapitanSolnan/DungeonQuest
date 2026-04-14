@@ -8,7 +8,6 @@ import sala.SalaComuna;
 import sala.SalaPont;
 import sala.SalaTeranyina;
 import utils.Colors;
-import utils.ConsoleUtils;
 import utils.Estils;
 
 public class Masmorra {
@@ -103,6 +102,26 @@ public class Masmorra {
 			}
 			System.out.println();
 		}
+	}
+
+	public String[] generarLiniesMapa(Personatge personatge) {
+		String[] linies = new String[this.x];
+		int[] posicio = personatge.getPosicio();
+
+		for (int i = 0; i < this.x; i++) {
+			StringBuilder fila = new StringBuilder();
+			for (int j = 0; j < this.y; j++) {
+				if (posicio[0] == i && posicio[1] == j) {
+					fila.append(Colors.VERD).append(Estils.NEGRETA).append("[ & ]").append(Colors.RESET);
+				} else if (mapa[i][j].estaExplorada()) {
+					fila.append(Colors.BLANC).append("[ * ]").append(Colors.RESET);
+				} else {
+					fila.append(Colors.GRIS).append("[ · ]").append(Colors.RESET);
+				}
+			}
+			linies[i] = fila.toString();
+		}
+		return linies;
 	}
 
 	public boolean estaForaMapa(int x, int y) {
