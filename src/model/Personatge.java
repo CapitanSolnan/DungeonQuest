@@ -67,7 +67,6 @@ public class Personatge implements Combatent {
 		}
 	}
 
-	// TODO: corregir moviment
 	public void moure(char direccio, int midaMasmorra) {
 		if (direccio == 'W') {
 			if (posicio[0] - 1 < 0) {
