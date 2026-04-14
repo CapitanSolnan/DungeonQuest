@@ -1,7 +1,6 @@
-package core;
-
 import java.util.Scanner;
 
+import core.Masmorra;
 import model.Personatge;
 import model.Atributs;
 import model.Monstre;
@@ -256,7 +255,7 @@ public class Main {
 	// pantalla
 
 	public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-		masmorra.mostrarMasmorra(masmorra.personatge);
+		masmorra.mostrarMasmorra(masmorra.getPersonatge());
 
 		boolean juegoIniciado = true;
 		while (juegoIniciado) {
@@ -329,7 +328,7 @@ public class Main {
 	}
 
 	public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-		masmorra.mostrarMasmorra(masmorra.personatge);
+		masmorra.mostrarMasmorra(masmorra.getPersonatge());
 
 		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
@@ -348,7 +347,7 @@ public class Main {
 			case 'D' -> personatge.moure('D', masmorra.getY());
 			default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 		}
-		masmorra.mostrarMasmorra(masmorra.personatge);
+		masmorra.mostrarMasmorra(masmorra.getPersonatge());
 
 	}
 
