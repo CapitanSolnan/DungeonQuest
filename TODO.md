@@ -7,13 +7,14 @@
 - [ ] Configurar el RNG según la dificultad.
 - [ ] Implementar lógica jefe.
   
-
 - [ ] Implementar combate.
 - [ ] Implementar conseguir tresors
 - [ ] Implementar inventario (Mostrar els tresors)
 
-
-
+- [ ] Explorar las salas
+- [ ] Inventario
+- [ ] Atacar
+- [ ] Huir
 
 - [ ] Mejorar juego partida UI
 - [ ] Comprobar gramática.
