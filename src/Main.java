@@ -25,7 +25,7 @@ public class Main {
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
 
-		repartirPunts(teclado, personatge);
+		repartirPunts(teclado, personatge, dificultat);
 
 		// demanar mida masmorra
 		int[] midaMasmorra = demanarMidaMasmorra(teclado);
@@ -136,8 +136,11 @@ public class Main {
 		return mides;
 	}
 
-	public static void repartirPunts(Scanner teclado, Personatge personatge) {
+	public static void repartirPunts(Scanner teclado, Personatge personatge, int dificultat) {
 		boolean finalitzar = false;
+		if (dificultat == 3) {
+			finalitzar = true;
+		}
 
 		while (!finalitzar) {
 			mostrarAtributs(personatge);
