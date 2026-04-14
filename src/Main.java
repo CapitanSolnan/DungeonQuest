@@ -313,9 +313,9 @@ public class Main {
 			switch (opcio) {
 				case 'M' -> moure(teclado, personatge, masmorra);
 				case 'E' -> explorarSala();
-				case 'R' -> {
-					mostrarAtributs(personatge);
-				}
+				// case 'R' -> {
+				// mostrarAtributs(personatge);
+				// }
 				case 'I' -> inventari();
 				case 'Q' -> {
 					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
