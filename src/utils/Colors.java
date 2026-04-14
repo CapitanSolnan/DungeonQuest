@@ -1,6 +1,10 @@
 package utils;
 
-public class Colors {
+public final class Colors {
+	// evitar que pueda instanciarse
+	private Colors() {
+	}
+
 	public static final String RESET = "\u001B[0m";
 
 	// colores text
@@ -31,6 +35,4 @@ public class Colors {
 	public static final String FONS_MAGENTA = "\u001B[48;5;89m"; // Púrpura oscuro
 	public static final String FONS_CIAN = "\u001B[48;5;24m"; // Petróleo
 	public static final String FONS_BLANC = "\u001B[47m";
-
-
 }
