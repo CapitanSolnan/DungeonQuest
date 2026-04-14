@@ -82,16 +82,16 @@ public class Personatge implements Combatent {
 
 	// TODO: corregir moviment
 	public void moure(char direccio) {
-		if (direccio == 'N') {
-			posicio[0] += 1;
-
-		} else if (direccio == 'S') {
+		if (direccio == 'W') {
 			posicio[0] -= 1;
 
-		} else if (direccio == 'E') {
+		} else if (direccio == 'S') {
+			posicio[0] += 1;
+
+		} else if (direccio == 'D') {
 			posicio[1] += 1;
 
-		} else if (direccio == 'O') {
+		} else if (direccio == 'A') {
 			posicio[1] -= 1;
 
 		} else {
@@ -235,17 +235,9 @@ public class Personatge implements Combatent {
 	// TODO: optimitzar utilitzant enums per evitar complicacions
 	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
 		switch (dificultat) {
-			case 1:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
-				break;
-			case 2:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
-				break;
-			case 3:
-				this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
-				break;
-			default:
-				break;
+			case 1 -> this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
+			case 2 -> this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
+			case 3 -> this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
 		}
 	}
 

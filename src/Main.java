@@ -1,13 +1,11 @@
 import java.util.Scanner;
 
 import model.Personatge;
-import model.Tresor;
 import model.Monstre;
 import sala.Sala;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
-import utils.MathUtils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -282,7 +280,7 @@ public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra 
 		char opcio = entrada.charAt(0);
 
 		switch (opcio) {
-			//case 'M' ->	moure(teclado, personatge, masmorra);
+			case 'M' ->	moure(teclado, personatge, masmorra);
 			//case 'E' ->	explorarSala();
 			case 'R' ->	mostrarAtributs(personatge);
 			//case 'I' ->	inventario();
@@ -333,6 +331,33 @@ public static void combatre(Scanner teclado, Personatge personatge,Monstre monst
 
 	}
 
+}
+
+
+public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	ConsoleUtils.saltarPagina();
+	masmorra.mostrarMasmorra(masmorra.personatge);
+
+	System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
+	System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
+	System.out.print(Estils.RESPOSTA);
+
+	String entrada = teclado.nextLine().toUpperCase();
+	if (entrada.isEmpty())
+		return;
+
+	char opcio = entrada.charAt(0);
+
+	switch (opcio) {
+		case 'W' -> personatge.moure('W');
+		case 'A' -> personatge.moure('A');
+		case 'S' -> personatge.moure('S');
+		case 'D' -> personatge.moure('D');
+		default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+	}
+	ConsoleUtils.saltarPagina(Estils.TITOL + "=== Mapa de la Masmora==="  + Colors.RESET);
+	masmorra.mostrarMasmorra(masmorra.personatge);
+	
 }
 
 }
