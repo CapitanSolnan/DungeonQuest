@@ -1,6 +1,7 @@
 package model;
 
 import combat.Combatent;
+import core.Dificultats;
 import sala.Sala;
 import utils.ConsoleUtils;
 import utils.MathUtils;
@@ -19,14 +20,8 @@ public class Personatge implements Combatent {
 	private Tresor[] equipament;
 	private int puntsDisponibles = 0;
 	private int puntsInvertits = 0;
-	public static final int PUNTS_LIMITS = 32;
 
-	// punts per al jugador segons la dificultat
-	public static final int PUNTS_DIFICULTAT_FACIL = 32;
-	public static final int PUNTS_DIFICULTAT_NORMAL = 12;
-	public static final int PUNTS_DIFICULTAT_DIFICIL = 0;
-
-	public Personatge(String nom, int dificultat) {
+	public Personatge(String nom, Dificultats dificultat) {
 		this.nom = (nom == null || nom.isEmpty()) ? "Steve" : nom;
 
 		// iniciar valors per defecte amb el minim d'atributs
@@ -37,7 +32,7 @@ public class Personatge implements Combatent {
 		this.setForsa(Atributs.FORSA.getMinimInicial());
 
 		// iniciar punts disponibles segons la dificultat
-		this.setPuntsDisponiblesSegonsDificultat(dificultat);
+		this.setPuntsDisponibles(dificultat.getPuntsPerDificultat());
 
 		// TODO: cambiar a un array extensible o iniciar amb la mida del maxim de força
 		// posible i fer validacions en intentarAfegirTresor
@@ -236,15 +231,6 @@ public class Personatge implements Combatent {
 
 	public void setPuntsDisponibles(int puntsDisponibles) {
 		this.puntsDisponibles = Math.max(0, puntsDisponibles);
-	}
-
-	// TODO: optimitzar utilitzant enums per evitar complicacions
-	public void setPuntsDisponiblesSegonsDificultat(int dificultat) {
-		switch (dificultat) {
-			case 1 -> this.puntsDisponibles = PUNTS_DIFICULTAT_FACIL;
-			case 2 -> this.puntsDisponibles = PUNTS_DIFICULTAT_NORMAL;
-			case 3 -> this.puntsDisponibles = PUNTS_DIFICULTAT_DIFICIL;
-		}
 	}
 
 	public int getPuntsInvertits() {
