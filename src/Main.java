@@ -23,7 +23,7 @@ public class Main {
 		String nom = demanarNom(teclado);
 
 		// escollir dificultat
-		Dificultats dificultat = escollirDificultat(teclado);
+		Dificultats dificultat = demanarDificultat(teclado);
 
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
@@ -35,7 +35,7 @@ public class Main {
 
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
-		triarQueFer(teclado, personatge, masmorra);
+		demanarSeguentAccio(teclado, personatge, masmorra);
 	}
 
 	private static String demanarNom(Scanner teclado) {
@@ -47,7 +47,7 @@ public class Main {
 		return nom;
 	}
 
-	public static Dificultats escollirDificultat(Scanner teclado) {
+	public static Dificultats demanarDificultat(Scanner teclado) {
 		Dificultats dificultatEscollida = null;
 
 		while (dificultatEscollida == null) {
@@ -288,7 +288,7 @@ public class Main {
 	// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla
 	// pantalla
 
-	public static void triarQueFer(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	public static void demanarSeguentAccio(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
 
@@ -311,12 +311,12 @@ public class Main {
 			char opcio = entrada.charAt(0);
 
 			switch (opcio) {
-				case 'M' -> moure(teclado, personatge, masmorra);
+				case 'M' -> demanarMoure(teclado, personatge, masmorra);
 				case 'E' -> explorarSala();
 				// case 'R' -> {
 				// mostrarAtributs(personatge);
 				// }
-				case 'I' -> inventari();
+				case 'I' -> demanarObrirInventari();
 				case 'Q' -> {
 					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 					juegoIniciado = false;
@@ -344,8 +344,8 @@ public class Main {
 			char opcio = entrada.charAt(0);
 
 			switch (opcio) {
-				case 'A' -> atacar();
-				case 'F' -> fugir();
+				case 'A' -> demanarAtacar();
+				case 'F' -> demanarFugir();
 				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			}
 
@@ -353,7 +353,7 @@ public class Main {
 
 	}
 
-	public static void moure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	public static void demanarMoure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		masmorra.mostrarMasmorra(masmorra.getPersonatge());
 
 		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
@@ -394,20 +394,20 @@ public class Main {
 		ConsoleUtils.dormirSegons(2);
 	}
 
-	public static void inventari() {
+	public static void demanarObrirInventari() {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
 		System.out.println("El teu inventari està buit.");
 		ConsoleUtils.dormirSegons(2);
 	}
 
-	public static void atacar() {
+	public static void demanarAtacar() {
 
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atacar ===" + Colors.RESET);
 		System.out.println("Atacant al monstre...");
 		ConsoleUtils.dormirSegons(2);
 	}
 
-	public static void fugir() {
+	public static void demanarFugir() {
 
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Fugir ===" + Colors.RESET);
 		System.out.println("Intentant fugir...");
