@@ -139,7 +139,23 @@ public class Main {
 	public static void repartirPunts(Scanner teclado, Personatge personatge, int dificultat) {
 		boolean finalitzar = false;
 		if (dificultat == 3) {
+			mostrarAtributs(personatge);
+			System.out.println("Has escollit la dificultat difícil, el teu personatge començarà amb els punts al mínim.");
+			ConsoleUtils.dormirSegons(1.5);
 			finalitzar = true;
+
+		}
+		if (dificultat == 1) {	
+			personatge.setVida(20);
+			personatge.setAtac(4);
+			personatge.setAgilitat(11);
+			personatge.setForsa(11);
+			
+			mostrarAtributs(personatge);
+			System.out.println("Has escollit la dificultat fàcil, el teu personatge començarà amb els punts al màxim.");
+			ConsoleUtils.dormirSegons(1.5);
+			finalitzar = true;
+
 		}
 
 		while (!finalitzar) {
