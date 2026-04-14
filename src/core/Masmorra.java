@@ -127,6 +127,10 @@ public class Masmorra {
 		return y;
 	}
 
+	public Personatge getPersonatge() {
+		return personatge;
+	}
+
 	@Override
 	public String toString() {
 		return "Masmorra [" + x + "x" + y + "] " + salesExplorades + "/" + salesTotals;
