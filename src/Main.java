@@ -7,6 +7,7 @@ import model.Personatge;
 import model.Tresor;
 import model.Accions;
 import model.Atributs;
+import model.Direccions;
 import model.Monstre;
 import sala.Sala;
 import utils.Colors;
@@ -301,7 +302,7 @@ public class Main {
 			Accions seguentAccio = demanarSeguentAccio(teclado);
 
 			switch (seguentAccio) {
-				case MOURE -> demanarMoure(teclado, personatge, masmorra);
+				case MOURE -> demanarMoviment(teclado, personatge, masmorra);
 				case EXPLORAR -> explorarSala();
 				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
 				case SORTIR -> jocFinalizat = true;
@@ -364,12 +365,11 @@ public class Main {
 		}
 	}
 
-	public static void demanarMoure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	public static void demanarMoviment(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
-		System.out.println();
 
-		System.out.println(Estils.TITOL + "=== Moure per la masmorra ===" + Colors.RESET);
+		System.out.println("\n" + Estils.TITOL + "=== Moure per la masmorra ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
@@ -379,15 +379,28 @@ public class Main {
 
 		char opcio = entrada.charAt(0);
 
-		switch (opcio) {
-			case 'W' -> personatge.moure('W', masmorra.getX());
-			case 'A' -> personatge.moure('A', masmorra.getX());
-			case 'S' -> personatge.moure('S', masmorra.getY());
-			case 'D' -> personatge.moure('D', masmorra.getY());
-			default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-		}
-		masmorra.mostrarMasmorra(masmorra.getPersonatge());
+		Direccions direccio = switch (opcio) {
+			case 'W' -> Direccions.NORD;
+			case 'S' -> Direccions.SUD;
+			case 'A' -> Direccions.OEST;
+			case 'D' -> Direccions.EST;
+			default -> null;
+		};
 
+		if (direccio == null) {
+			System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+			ConsoleUtils.dormirSegons(1);
+			return;
+		}
+
+		int[] desti = masmorra.calcularNovaPosicio(personatge.getPosicio(), direccio);
+
+		if (desti != null) {
+			personatge.moure(desti);
+		} else {
+			System.out.println(Colors.VERMELL + "⚠ No pots sortir de la masmorra!" + Colors.RESET);
+			ConsoleUtils.dormirSegons(1);
+		}
 	}
 
 	public static void explorarSala() {
