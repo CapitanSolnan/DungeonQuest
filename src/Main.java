@@ -5,6 +5,7 @@ import core.Dificultats;
 import core.Masmorra;
 import model.Personatge;
 import model.Tresor;
+import model.Accions;
 import model.Atributs;
 import model.Monstre;
 import sala.Sala;
@@ -296,42 +297,44 @@ public class Main {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
 
-		boolean juegoIniciado = true;
-		while (juegoIniciado) {
-			System.out.println();
-			System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
-			System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
-			System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
-			System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
-			System.out.println(Colors.BLAU + "  I. Mostrar inventari");
-			System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
-			System.out.print(Estils.RESPOSTA);
-
-			String entrada = teclado.nextLine().toUpperCase();
-			if (entrada.isEmpty())
-				return;
-
-			char opcio = entrada.charAt(0);
-
-			switch (opcio) {
-				case 'M' -> demanarMoure(teclado, personatge, masmorra);
-				case 'E' -> explorarSala();
-				// case 'R' -> {
-				// mostrarAtributs(personatge);
-				// }
-				case 'I' -> demanarObrirInventari(personatge);
-				case 'Q' -> {
-					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
-					juegoIniciado = false;
-					System.exit(0);
-				}
-				default -> {
-					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-					ConsoleUtils.dormirSegons(1.5);
-					ConsoleUtils.saltarPagina();
-				}
-			}
+		boolean jocFinalizat = false;
+		while (!jocFinalizat) {
+			// TODO: Logica Joc
 		}
+	}
+
+	public static Accions demanarSeguentAccio(Scanner teclado) {
+		System.out.println();
+		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
+		System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
+		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
+		System.out.println(Colors.BLAU + "  I. Mostrar inventari");
+		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
+		System.out.print(Estils.RESPOSTA);
+
+		String entrada = teclado.nextLine().toLowerCase();
+		if (entrada.isEmpty())
+			return null;
+
+		char opcio = entrada.charAt(0);
+
+		Accions accio = switch (opcio) {
+			case 'm' -> Accions.MOURE;
+			case 'e' -> Accions.EXPLORAR;
+			case 'i' -> Accions.OBRIR_INVENTARI;
+			case 'q' -> Accions.SORTIR;
+			// System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
+			// juegoIniciado = false;
+			// System.exit(0);
+
+			default -> null;
+			// System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+			// ConsoleUtils.dormirSegons(1.5);
+			// ConsoleUtils.saltarPagina();
+
+		};
+		return accio;
 	}
 
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
