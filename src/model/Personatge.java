@@ -75,36 +75,9 @@ public class Personatge implements Combatent {
 		}
 	}
 
-	public void moure(char direccio, int midaMasmorra) {
-		if (direccio == 'W') {
-			if (posicio[0] - 1 < 0) {
-				System.out.println("⚠ Direcció invàlida!");
-				ConsoleUtils.dormirSegons(1.5);
-				return;
-			}
-			posicio[0]--;
-		} else if (direccio == 'S') {
-			if (posicio[0] + 1 >= midaMasmorra) {
-				System.out.println("⚠ Direcció invàlida!");
-				ConsoleUtils.dormirSegons(1.5);
-				return;
-			}
-			posicio[0]++;
-		} else if (direccio == 'D') {
-			if (posicio[1] + 1 >= midaMasmorra) {
-				System.out.println("⚠ Direcció invàlida!");
-				ConsoleUtils.dormirSegons(1.5);
-				return;
-			}
-			posicio[1]++;
-		} else if (direccio == 'A') {
-			if (posicio[1] - 1 < 0) {
-				System.out.println("⚠ Direcció invàlida!");
-				ConsoleUtils.dormirSegons(1.5);
-				return;
-			}
-			posicio[1]--;
-		}
+	public void moure(int[] novaPosicio) {
+		this.posicio[0] = novaPosicio[0];
+		this.posicio[1] = novaPosicio[1];
 	}
 
 	public void sumarExperiencia(int quantitat) {
