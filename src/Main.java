@@ -303,7 +303,6 @@ public class Main {
 			System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
 			System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
 			System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
-			System.out.println(Colors.GROC + "  R. Mostrar atributs");
 			System.out.println(Colors.BLAU + "  I. Mostrar inventari");
 			System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
 			System.out.print(Estils.RESPOSTA);
@@ -357,7 +356,9 @@ public class Main {
 	}
 
 	public static void demanarMoure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		ConsoleUtils.saltarPagina();
 		masmorra.mostrarMasmorra(masmorra.getPersonatge());
+		System.out.println();
 
 		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
