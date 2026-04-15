@@ -369,7 +369,7 @@ public class Main {
 		mostrarMapaAmbStats(personatge, masmorra);
 		System.out.println();
 
-		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
+		System.out.println(Estils.TITOL + "=== Moure per la masmorra ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
