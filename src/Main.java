@@ -298,38 +298,42 @@ public class Main {
 
 		boolean juegoIniciado = true;
 		while (juegoIniciado) {
-			System.out.println();
-			System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
-			System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
-			System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
-			System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
-			System.out.println(Colors.BLAU + "  I. Mostrar inventari");
-			System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
-			System.out.print(Estils.RESPOSTA);
+			// TODO: Logica Joc
+		}
+	}
 
-			String entrada = teclado.nextLine().toUpperCase();
-			if (entrada.isEmpty())
-				return;
+	public static void demanarSeguentAccio(Scanner teclado) {
+		System.out.println();
+		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
+		System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
+		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
+		System.out.println(Colors.BLAU + "  I. Mostrar inventari");
+		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
+		System.out.print(Estils.RESPOSTA);
 
-			char opcio = entrada.charAt(0);
+		String entrada = teclado.nextLine().toUpperCase();
+		if (entrada.isEmpty())
+			return;
 
-			switch (opcio) {
-				case 'M' -> demanarMoure(teclado, personatge, masmorra);
-				case 'E' -> explorarSala();
-				// case 'R' -> {
-				// mostrarAtributs(personatge);
-				// }
-				case 'I' -> demanarObrirInventari(personatge);
-				case 'Q' -> {
-					System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
-					juegoIniciado = false;
-					System.exit(0);
-				}
-				default -> {
-					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-					ConsoleUtils.dormirSegons(1.5);
-					ConsoleUtils.saltarPagina();
-				}
+		char opcio = entrada.charAt(0);
+
+		switch (opcio) {
+			case 'M' -> demanarMoure(teclado, personatge, masmorra);
+			case 'E' -> explorarSala();
+			// case 'R' -> {
+			// mostrarAtributs(personatge);
+			// }
+			case 'I' -> demanarObrirInventari(personatge);
+			case 'Q' -> {
+				System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
+				juegoIniciado = false;
+				System.exit(0);
+			}
+			default -> {
+				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+				ConsoleUtils.dormirSegons(1.5);
+				ConsoleUtils.saltarPagina();
 			}
 		}
 	}
