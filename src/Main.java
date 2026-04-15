@@ -36,7 +36,7 @@ public class Main {
 
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
-		demanarSeguentAccio(teclado, personatge, masmorra);
+		logicaJoc(teclado, personatge, masmorra);
 	}
 
 	private static String demanarNom(Scanner teclado) {
@@ -292,7 +292,7 @@ public class Main {
 	// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla
 	// pantalla
 
-	public static void demanarSeguentAccio(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	public static void logicaJoc(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
 
