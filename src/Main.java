@@ -297,8 +297,8 @@ public class Main {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
 
-		boolean juegoIniciado = true;
-		while (juegoIniciado) {
+		boolean jocFinalizat = false;
+		while (!jocFinalizat) {
 			// TODO: Logica Joc
 		}
 	}
