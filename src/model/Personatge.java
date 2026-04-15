@@ -53,12 +53,13 @@ public class Personatge implements Combatent {
 		monstre.rebreDany(dany);
 		return dany;
 	}
+
 	public int getExperiencia() {
-    	return experiencia;
+		return experiencia;
 	}
 
 	public Tresor[] getEquipament() {
-    	return equipament;
+		return equipament;
 	}
 
 	public void explorar(Sala sala) {
