@@ -299,6 +299,13 @@ public class Main {
 			ConsoleUtils.saltarPagina();
 			mostrarMapaAmbStats(personatge, masmorra);
 			Accions seguentAccio = demanarSeguentAccio(teclado);
+
+			switch (seguentAccio) {
+				case MOURE -> demanarMoure(teclado, personatge, masmorra);
+				case EXPLORAR -> explorarSala();
+				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
+				case SORTIR -> jocFinalizat = true;
+			}
 		}
 	}
 
