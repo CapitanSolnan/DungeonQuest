@@ -299,7 +299,9 @@ public class Main {
 
 		boolean jocFinalizat = false;
 		while (!jocFinalizat) {
-			// TODO: Logica Joc
+			ConsoleUtils.saltarPagina();
+			mostrarMapaAmbStats(personatge, masmorra);
+			Accions seguentAccio = demanarSeguentAccio(teclado);
 		}
 	}
 
