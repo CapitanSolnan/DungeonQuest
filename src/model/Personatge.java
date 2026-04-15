@@ -3,7 +3,6 @@ package model;
 import combat.Combatent;
 import core.Dificultats;
 import sala.Sala;
-import utils.ConsoleUtils;
 import utils.MathUtils;
 
 public class Personatge implements Combatent {
