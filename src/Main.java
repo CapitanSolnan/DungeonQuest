@@ -366,7 +366,7 @@ public class Main {
 
 	public static void demanarMoure(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
-		masmorra.mostrarMasmorra(masmorra.getPersonatge());
+		mostrarMapaAmbStats(personatge, masmorra);
 		System.out.println();
 
 		System.out.println(Estils.TITOL + "=== Moure's per la masmorra ===" + Colors.RESET);
