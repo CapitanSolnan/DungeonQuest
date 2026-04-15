@@ -5,6 +5,7 @@ import core.Dificultats;
 import core.Masmorra;
 import model.Personatge;
 import model.Tresor;
+import model.Accions;
 import model.Atributs;
 import model.Monstre;
 import sala.Sala;
@@ -302,7 +303,7 @@ public class Main {
 		}
 	}
 
-	public static void demanarSeguentAccio(Scanner teclado) {
+	public static Accions demanarSeguentAccio(Scanner teclado) {
 		System.out.println();
 		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
@@ -312,30 +313,28 @@ public class Main {
 		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
-		String entrada = teclado.nextLine().toUpperCase();
+		String entrada = teclado.nextLine().toLowerCase();
 		if (entrada.isEmpty())
-			return;
+			return null;
 
 		char opcio = entrada.charAt(0);
 
-		switch (opcio) {
-			case 'M' -> demanarMoure(teclado, personatge, masmorra);
-			case 'E' -> explorarSala();
-			// case 'R' -> {
-			// mostrarAtributs(personatge);
-			// }
-			case 'I' -> demanarObrirInventari(personatge);
-			case 'Q' -> {
-				System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
-				juegoIniciado = false;
-				System.exit(0);
-			}
-			default -> {
-				System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
-				ConsoleUtils.dormirSegons(1.5);
-				ConsoleUtils.saltarPagina();
-			}
-		}
+		Accions accio = switch (opcio) {
+			case 'm' -> Accions.MOURE;
+			case 'e' -> Accions.EXPLORAR;
+			case 'i' -> Accions.OBRIR_INVENTARI;
+			case 'q' -> Accions.SORTIR;
+			// System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
+			// juegoIniciado = false;
+			// System.exit(0);
+
+			default -> null;
+			// System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+			// ConsoleUtils.dormirSegons(1.5);
+			// ConsoleUtils.saltarPagina();
+
+		};
+		return accio;
 	}
 
 	public static void combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
