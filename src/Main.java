@@ -19,21 +19,23 @@ public class Main {
 		Scanner teclado = new Scanner(System.in);
 		ConsoleUtils.saltarPagina(); // neteja inicial per alinear vista consola
 
-		Missatges.imprimirMissatgeBenvinguda(teclado);
+		boolean debug = Missatges.imprimirMissatgeBenvinguda(teclado);
 
 		// demanar el nom del jugador
-		String nom = demanarNom(teclado);
+		String nom = (debug) ? "" : demanarNom(teclado);
 
 		// escollir dificultat
-		Dificultats dificultat = demanarDificultat(teclado);
+		Dificultats dificultat = (debug) ? Dificultats.NORMAL : demanarDificultat(teclado);
 
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
 
-		repartirPuntsInicials(teclado, personatge, dificultat);
+		if (!debug) {
+			repartirPuntsInicials(teclado, personatge, dificultat);
+		}
 
 		// demanar mida masmorra
-		int[] midaMasmorra = demanarMidaMasmorra(teclado);
+		int[] midaMasmorra = (debug) ? new int[] { 10, 10 } : demanarMidaMasmorra(teclado);
 
 		// crear objecte masmorra
 		Masmorra masmorra = new Masmorra(midaMasmorra[0], midaMasmorra[1], personatge);
