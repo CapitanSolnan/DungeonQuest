@@ -204,7 +204,6 @@ public class Main {
 		}
 	}
 
-
 	public static void mostrarMapaAmbStats(Personatge personatge, Masmorra masmorra) {
 		String[] mapa = masmorra.generarLiniesMapa(personatge);
 		String[] stats = Missatges.generarLiniesStats(personatge);
@@ -224,7 +223,6 @@ public class Main {
 		// System.out.println("_".repeat(masmorra.getX() * 5 + 25));
 	}
 
-
 	// TODO: Implementar si hay un monstruo entonces atacar activado y depende de la
 	// sala quitar opciones de canviar de sala
 	// Se puede implementar un sistema antes de si hay monstruo salga esta pantalla
@@ -242,6 +240,10 @@ public class Main {
 				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
 				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
 				case SORTIR -> jocFinalizat = true;
+				case null -> {
+					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
+					ConsoleUtils.dormirSegons(1.5);
+				}
 			}
 		}
 	}
@@ -339,8 +341,7 @@ public class Main {
 		}
 	}
 
-
-public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+	public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		Sala sala = masmorra.getSalaActual();
 		if (sala.estaExplorada()) {
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
@@ -411,6 +412,5 @@ public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra
 		System.out.println("Intentant fugir...");
 		ConsoleUtils.dormirSegons(2);
 	}
-
 
 }
