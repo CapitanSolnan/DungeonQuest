@@ -294,9 +294,6 @@ public class Main {
 	// pantalla
 
 	public static void logicaJoc(Scanner teclado, Personatge personatge, Masmorra masmorra) {
-		ConsoleUtils.saltarPagina();
-		mostrarMapaAmbStats(personatge, masmorra);
-
 		boolean jocFinalizat = false;
 		while (!jocFinalizat) {
 			ConsoleUtils.saltarPagina();
