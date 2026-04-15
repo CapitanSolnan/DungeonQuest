@@ -1,5 +1,6 @@
 package core;
 
+import model.Direccions;
 import model.Monstre;
 import model.Personatge;
 import model.Tresor;
@@ -127,6 +128,21 @@ public class Masmorra {
 	public boolean estaForaMapa(int x, int y) {
 		return x < 0 || x >= this.x
 				|| y < 0 || y >= this.y;
+	}
+
+	public int[] calcularNovaPosicio(int[] posicio, Direccions direccio) {
+		int[] novaPosicio = switch (direccio) {
+			case NORD -> new int[] { posicio[0] - 1, posicio[1] };
+			case SUD -> new int[] { posicio[0] + 1, posicio[1] };
+			case EST -> new int[] { posicio[0], posicio[1] + 1 };
+			case OEST -> new int[] { posicio[0], posicio[1] - 1 };
+		};
+
+		if (estaForaMapa(novaPosicio[0], novaPosicio[1])) {
+			return null;
+		} else {
+			return novaPosicio;
+		}
 	}
 
 	public void sumarSalesExplorades() {
