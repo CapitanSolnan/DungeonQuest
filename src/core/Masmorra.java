@@ -115,7 +115,7 @@ public class Masmorra {
 				if (posicio[0] == i && posicio[1] == j) {
 					fila.append(Colors.VERD).append(Estils.NEGRETA).append("[ & ]").append(Colors.RESET);
 				} else if (mapa[i][j].estaExplorada()) {
-					fila.append(Colors.BLANC).append("[ * ]").append(Colors.RESET);
+					fila.append(Colors.BLAU).append("[ * ]").append(Colors.RESET);
 				} else {
 					fila.append(Colors.GRIS).append("[ · ]").append(Colors.RESET);
 				}
@@ -159,6 +159,11 @@ public class Masmorra {
 
 	public int getY() {
 		return y;
+	}
+
+	public Sala getSalaActual() {
+    	int[] pos = personatge.getPosicio();
+    	return mapa[pos[0]][pos[1]];
 	}
 
 	public Personatge getPersonatge() {

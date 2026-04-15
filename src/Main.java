@@ -239,7 +239,7 @@ public class Main {
 
 			switch (seguentAccio) {
 				case MOURE -> demanarMoviment(teclado, personatge, masmorra);
-				case EXPLORAR -> explorarSala();
+				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
 				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
 				case SORTIR -> jocFinalizat = true;
 			}
@@ -339,21 +339,37 @@ public class Main {
 		}
 	}
 
-	public static void explorarSala() {
-		int max = 5;
 
-		for (int min = 0; min < max; min++) {
-			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
+public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		Sala sala = masmorra.getSalaActual();
+		if (sala.estaExplorada()) {
+			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
+			System.out.println(Colors.GRIS + "Ja has explorat aquesta sala." + Colors.RESET);
+			ConsoleUtils.dormirSegons(2);
+			return;
+		} else {
+			int max = 3;
+			for (int min = 0; min < max; min++) {
+				ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
+				Missatges.mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
+				ConsoleUtils.dormirSegons(1);
+			}
 
-			Missatges.mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
-			ConsoleUtils.dormirSegons(1);
+			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
+
+			personatge.explorar(sala);
+			masmorra.sumarSalesExplorades();
+
+			if (sala.getTresor() != null) {
+				System.out.println(Colors.GROC + "Has trobat un tresor: "
+						+ sala.getTresor().getNom() + "!" + Colors.RESET);
+			} else {
+				System.out.println(Colors.GRIS + "No hi ha res d'interessant aquí." + Colors.RESET);
+			}
+
+			ConsoleUtils.dormirSegons(2);
 		}
 
-		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
-		System.out.println("Sala Explorada");
-
-		System.out.println("No hi ha res d'interessant aquí.");
-		ConsoleUtils.dormirSegons(2);
 	}
 
 	public static void demanarObrirInventari(Personatge personatge) {
