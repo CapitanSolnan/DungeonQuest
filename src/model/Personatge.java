@@ -193,7 +193,7 @@ public class Personatge implements Combatent {
 
 		while (experiencia >= experienciaNecessaria) {
 			level++;
-			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+			experienciaNecessaria += 10 * level;
 		}
 
 		return level;
@@ -205,9 +205,9 @@ public class Personatge implements Combatent {
 		int level = 1;
 
 		while (experiencia >= experienciaNecessaria) {
-			punts += 5; // Suposant que cada nivell atorga 5 punts
+			punts += 5;
 			level++;
-			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+			experienciaNecessaria += 10 * level;
 		}
 
 		return punts;
@@ -219,7 +219,7 @@ public class Personatge implements Combatent {
 
 		while (experiencia >= experienciaNecessaria) {
 			level++;
-			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+			experienciaNecessaria += 10 * level;
 		}
 		return experienciaNecessaria;
 

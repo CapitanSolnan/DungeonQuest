@@ -26,3 +26,4 @@
 - [x] Separar responsabilidades de la clase [Colors](https://github.com/CapitanSolnan/DungeonQuest/blob/master/src/utils/Colors.java).
 - [x] Añadir licencia.
 - [x] Utilizar enums/constantes.
+- [x] Implementar sistema de Level.
