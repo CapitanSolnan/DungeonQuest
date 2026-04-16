@@ -16,7 +16,6 @@
 - [ ] Comprobar y corregir todos los toString().
 - [ ] Comprobar gramática.
 - [ ] Mejorar juego partida UI
-- [ ] Implementar metodo generico en mostrarAtributs() [Main.java 232:22]
 
 ## En progreso
 
@@ -27,3 +26,4 @@
 - [x] Añadir licencia.
 - [x] Utilizar enums/constantes.
 - [x] Implementar sistema de Level.
+- [x] Implementar metodo generico en mostrarAtributs() [Main.java 232:22]

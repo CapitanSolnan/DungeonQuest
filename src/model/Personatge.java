@@ -29,6 +29,7 @@ public class Personatge implements Combatent {
 		this.setAtac(Atributs.ATAC.getMinimInicial());
 		this.setAgilitat(Atributs.AGILITAT.getMinimInicial());
 		this.setForsa(Atributs.FORSA.getMinimInicial());
+		this.setExperiencia(Atributs.EXPERIENCIA.getMinimInicial());
 
 		// iniciar punts disponibles segons la dificultat
 		this.setPuntsDisponibles(dificultat.getPuntsPerDificultat());

@@ -361,7 +361,7 @@ public class Main {
 			for (int min = 0; min < max; min++) {
 				ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
 				Missatges.mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
-				ConsoleUtils.dormirSegons(0.5);
+				ConsoleUtils.dormirSegons(0.1);
 			}
 
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
@@ -372,8 +372,12 @@ public class Main {
 			if (sala.getTresor() != null) {
 				System.out.println(Colors.GROC + "Has trobat un tresor: "
 						+ sala.getTresor().getNom() + "!" + Colors.RESET);
+				personatge.setExperiencia(personatge.getExperiencia() + 5);
+
 			} else {
 				System.out.println(Colors.GRIS + "No hi ha res d'interessant aquí." + Colors.RESET);
+				personatge.setExperiencia(personatge.getExperiencia() + 1);
+
 			}
 
 			ConsoleUtils.dormirSegons(1);
@@ -391,7 +395,7 @@ public class Main {
 		for (int i = 0; i < equipament.length; i++) {
 			if (equipament[i] != null) {
 				hiHaTresors = true;
-				System.out.printf("  %s[%d]%s %s — %s%d g%s — %s%d or%s%n",
+				System.out.printf("  %s[%d]%s %s - %s%d g%s - %s%d or%s%n",
 						Colors.GRIS, i + 1, Colors.RESET,
 						Colors.BLANC + equipament[i].getNom() + Colors.RESET,
 						Colors.GROC, (int) equipament[i].getPes(), Colors.RESET,
