@@ -235,12 +235,13 @@ public class Main {
 		while (!jocFinalizat) {
 			ConsoleUtils.saltarPagina();
 			mostrarMapaAmbStats(personatge, masmorra);
-			Accions seguentAccio = demanarSeguentAccio(teclado);
+			Accions seguentAccio = demanarSeguentAccio(teclado, personatge);
 
 			switch (seguentAccio) {
 				case MOURE -> demanarMoviment(teclado, personatge, masmorra);
 				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
 				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
+				case FICAR_PUNTS -> repartirPunts(teclado, personatge);
 				case SORTIR -> jocFinalizat = true;
 				case null -> {
 					System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
@@ -250,13 +251,17 @@ public class Main {
 		}
 	}
 
-	public static Accions demanarSeguentAccio(Scanner teclado) {
+	public static Accions demanarSeguentAccio(Scanner teclado, Personatge personatge) {
 		System.out.println();
 		System.out.println(Estils.TITOL + "=== Què vols fer? ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "Tria una opció:" + Colors.RESET);
 		System.out.println(Colors.VERD + "  M. Moure's per la masmorra");
 		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
 		System.out.println(Colors.BLAU + "  I. Mostrar inventari");
+		if (personatge.getPuntsDisponibles() > 0) {
+					System.out.println(Colors.GROC + "  H. Repartir punts d'atributs" + Colors.RESET);
+
+		}
 		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
@@ -270,6 +275,7 @@ public class Main {
 			case 'm' -> Accions.MOURE;
 			case 'e' -> Accions.EXPLORAR;
 			case 'i' -> Accions.OBRIR_INVENTARI;
+			case 'h' -> Accions.FICAR_PUNTS;
 			case 'q' -> Accions.SORTIR;
 			// System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 			// juegoIniciado = false;

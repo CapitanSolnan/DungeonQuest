@@ -86,16 +86,27 @@ public class Missatges {
 		System.out.println(Colors.RESET);
 	}
 
+	public static String generarBarra(String nom, String color, int valor, int maxValor, int midaBarra, boolean mostrarValors) {
+	int plens = (int) Math.round((double) valor / maxValor * midaBarra);
+	int buits = midaBarra - plens;
+
+	String barra = color + "█".repeat(plens) + Colors.RESET + "░".repeat(buits);
+	String sufix = mostrarValors ? color + valor + "/" + maxValor + Colors.RESET : "";
+
+	return color + nom + " | " + Colors.RESET + "[" + barra + "] " + sufix;
+	}
+
 	public static String[] generarLiniesStats(Personatge personatge) {
 		return new String[] {
-				Colors.CIAN + "Heroi: " + Estils.NEGRETA + Colors.BLANC + personatge.getNom() + Colors.RESET,
+				Colors.CIAN + "Heroi: " + Estils.NEGRETA + Colors.BLANC + personatge.getNom() + Colors.RESET + Colors.CIAN + " | Nivell: " + Estils.NEGRETA + Colors.BLANC + personatge.getLevel() + Colors.RESET,
 				"─".repeat(50),
 				generarBarra("Vida     ", Colors.VIDA, personatge.getVida(), Atributs.VIDA.getMaxim()),
 				generarBarra("Atac     ", Colors.ATAC, personatge.getAtac(), Atributs.ATAC.getMaxim()),
 				generarBarra("Agilitat ", Colors.AGILITAT, personatge.getAgilitat(), Atributs.AGILITAT.getMaxim()),
 				generarBarra("Força    ", Colors.FORSA, personatge.getForsa(), Atributs.FORSA.getMaxim()),
 				"─".repeat(50),
-				"Punts:  " + Colors.GROC + personatge.getPuntsDisponibles() + Colors.RESET
+				"Punts:  " + Colors.GROC + personatge.getPuntsDisponibles() + Colors.RESET 
+				+ " | " + generarBarra("Experiencia ", Colors.EXPERIENCIA, personatge.getExperiencia(), personatge.getLevelExperiencia(), 15, true),
 		};
 	}
 

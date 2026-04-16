@@ -13,8 +13,8 @@ public class Personatge implements Combatent {
 	private int atac;
 	private int agilitat;
 	private int forsa;
-
 	private int experiencia = 0;
+
 	private int[] posicio = { 0, 0 };
 	private Tresor[] equipament;
 	private int puntsDisponibles = 0;
@@ -51,10 +51,6 @@ public class Personatge implements Combatent {
 		int dany = this.calcularAtac();
 		monstre.rebreDany(dany);
 		return dany;
-	}
-
-	public int getExperiencia() {
-		return experiencia;
 	}
 
 	public Tresor[] getEquipament() {
@@ -125,6 +121,7 @@ public class Personatge implements Combatent {
 			case ATAC -> setAtac(atac + quantitat);
 			case AGILITAT -> setAgilitat(agilitat + quantitat);
 			case FORSA -> setForsa(forsa + quantitat);
+			case EXPERIENCIA -> setExperiencia(experiencia + quantitat);
 		}
 
 		setPuntsDisponibles(getPuntsDisponibles() - quantitat);
@@ -137,6 +134,8 @@ public class Personatge implements Combatent {
 			case ATAC -> this.atac;
 			case AGILITAT -> this.agilitat;
 			case FORSA -> this.forsa;
+			case EXPERIENCIA -> this.experiencia;
+
 		};
 	}
 
@@ -184,6 +183,52 @@ public class Personatge implements Combatent {
 		this.forsa = MathUtils.ajustarRang(Atributs.FORSA.getMinimInicial(), Atributs.FORSA.getMaxim(), forsa);
 	}
 
+	public int getExperiencia() {
+		return experiencia;
+	}
+
+	public int getLevel() {
+		int level = 1;
+		int experienciaNecessaria = 10;
+
+		while (experiencia >= experienciaNecessaria) {
+			level++;
+			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+		}
+
+		return level;
+	}
+
+	public int getPuntsLevel() {
+		int punts = 0;
+		int experienciaNecessaria = 10;
+		int level = 1;
+
+		while (experiencia >= experienciaNecessaria) {
+			punts += 5; // Suposant que cada nivell atorga 5 punts
+			level++;
+			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+		}
+
+		return punts;
+	}
+
+	public int getLevelExperiencia() {
+		int level = 1;
+		int experienciaNecessaria = 10;
+
+		while (experiencia >= experienciaNecessaria) {
+			level++;
+			experienciaNecessaria += 10 * level; // Incrementa la experiencia necesaria para el siguiente nivel
+		}
+		return experienciaNecessaria;
+
+	}
+
+	public void setExperiencia(int experiencia) {
+		this.experiencia = MathUtils.ajustarRang(Atributs.EXPERIENCIA.getMinimInicial(), Atributs.EXPERIENCIA.getMaxim(), experiencia);
+	}
+
 	public int[] getPosicio() {
 		return posicio;
 	}
@@ -205,7 +250,7 @@ public class Personatge implements Combatent {
 	}
 
 	public int getPuntsDisponibles() {
-		return puntsDisponibles;
+		return puntsDisponibles + getPuntsLevel();
 	}
 
 	public void setPuntsDisponibles(int puntsDisponibles) {

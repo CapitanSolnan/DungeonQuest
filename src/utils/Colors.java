@@ -25,6 +25,8 @@ public final class Colors {
 	public static final String AGILITAT = MAGENTA;
 	public static final String FORSA = GROC;
 	public static final String MANA = BLAU;
+	public static final String EXPERIENCIA = CIAN;
+
 
 	// colores fondo
 	public static final String FONS_NEGRE = "\u001B[40m";

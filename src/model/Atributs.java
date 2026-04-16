@@ -4,7 +4,8 @@ public enum Atributs {
   VIDA("Vida", 'v', 5, 20),
   ATAC("Atac", 'a', 1, 4),
   AGILITAT("Agilitat", 'g', 4, 11),
-  FORSA("Força", 'f', 1, 11);
+  FORSA("Força", 'f', 1, 11),
+  EXPERIENCIA("Experiencia", 'e', 0, 999);
 
   private final String nom;
   private final char lletra;
