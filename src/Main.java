@@ -354,14 +354,14 @@ public class Main {
 		if (sala.estaExplorada()) {
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
 			System.out.println(Colors.GRIS + "Ja has explorat aquesta sala." + Colors.RESET);
-			ConsoleUtils.dormirSegons(2);
+			ConsoleUtils.dormirSegons(1);
 			return;
 		} else {
-			int max = 3;
+			int max = 20;
 			for (int min = 0; min < max; min++) {
 				ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
 				Missatges.mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
-				ConsoleUtils.dormirSegons(1);
+				ConsoleUtils.dormirSegons(0.5);
 			}
 
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
@@ -376,7 +376,7 @@ public class Main {
 				System.out.println(Colors.GRIS + "No hi ha res d'interessant aquí." + Colors.RESET);
 			}
 
-			ConsoleUtils.dormirSegons(2);
+			ConsoleUtils.dormirSegons(1);
 		}
 
 	}
