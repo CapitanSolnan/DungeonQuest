@@ -275,7 +275,7 @@ public class Main {
 			case 'm' -> Accions.MOURE;
 			case 'e' -> Accions.EXPLORAR;
 			case 'i' -> Accions.OBRIR_INVENTARI;
-			case 'h' -> Accions.FICAR_PUNTS;
+			case 'h' -> (personatge.getPuntsDisponibles() > 0) ? Accions.FICAR_PUNTS : null;
 			case 'q' -> Accions.SORTIR;
 			// System.out.println(Colors.VERMELL + "Fins aviat!" + Colors.RESET);
 			// juegoIniciado = false;
