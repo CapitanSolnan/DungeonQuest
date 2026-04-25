@@ -14,8 +14,12 @@ public class SalaJefe extends Sala{
 
 	}
 
+	public boolean jefeViu() {
+		return teMonstre();
+	}
+
 	public boolean intentarSortir() {
-	return false;
+		return !teMonstre();
 	}
 	
 	

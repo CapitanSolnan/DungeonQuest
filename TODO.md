@@ -1,16 +1,18 @@
 # Lista TODO
 
+## Bugs
+- [] Si te quitan vida, se puede curar utilizando la exp
+- [] Solo sale 1 objeto en el inv
+
 ## Pendiente
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.
-- [ ] Implementar lógica jefe.
-- [ ] Implementar combate.
-- [ ] Implementar conseguir tresors
 - [ ] Implementar inventario (Mostrar els tresors)
 - [ ] Explorar las salas (logica de si hay o no tresors)
 - [ ] Inventario
-- [ ] Atacar
 - [ ] Huir
+- [ ] Balancear difficultat jefe, posible utilidad de curacion
+- [ ] Balancear difficulata combates en normal y dificil
 
 ## No urgente
 - [ ] Comprobar y corregir todos los toString().
@@ -27,3 +29,7 @@
 - [x] Utilizar enums/constantes.
 - [x] Implementar sistema de Level.
 - [x] Implementar metodo generico en mostrarAtributs() [Main.java 232:22]
+- [x] Implementar lógica jefe.
+- [x] Implementar combate.
+- [x] Atacar
+- [x] Implementar conseguir tresors

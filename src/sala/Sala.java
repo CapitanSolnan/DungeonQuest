@@ -30,6 +30,18 @@ public abstract class Sala {
 		return tresor;
 	}
 
+	public Monstre getMonstre() {
+		return monstre;
+	}
+ 
+	public void setMonstre(Monstre monstre) {
+		this.monstre = monstre;
+	}
+	
+	public boolean teMonstre() {
+		return monstre != null && monstre.estaViu();
+	}
+
 	@Override
 	public String toString() {
 		return tresor + " " + monstre + " " + explorada;

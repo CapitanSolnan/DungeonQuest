@@ -111,15 +111,33 @@ public class Missatges {
 	}
 
 	public static void mostrarMenuCombat(Personatge personatge, Monstre monstre) {
-		ConsoleUtils.saltarPagina("Has entrat a una sala amb un monstre!");
-		ConsoleUtils.dormirSegons(1.5);
-		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Atributs en combate ===" + Colors.RESET);
-		System.out.println(Colors.VERMELL + "Monstre: " + monstre.getNom());
-		System.out.println(Colors.VIDA + "Vida del monstre: " + monstre.getVida() + Colors.RESET);
+		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Combat ===" + Colors.RESET);
+ 
+		System.out.println(Colors.VERMELL + Estils.NEGRETA + monstre.getNom() + Colors.RESET);
+		mostrarBarra("  Vida enemic: ", Colors.VERMELL, monstre.getVida(), Math.max(monstre.getVida(), 20));
 		System.out.println();
-		System.out.println(Estils.TITOL + "=== Opcions de combate ===" + Colors.RESET);
-		System.out.println("  A. Atacar");
-		System.out.println("  F. Fugir");
-		System.out.print(Estils.PREGUNTA + "Què vols fer?" + Colors.RESET);
+		mostrarBarra("  Vida pròpia: ", Colors.VERD, personatge.getVida(), Atributs.VIDA.getMaxim());
+		System.out.println();
+ 
+		System.out.println(Estils.PREGUNTA + "Opcions de combat:" + Colors.RESET);
+		System.out.println(Colors.TARONJA + "  A. Atacar");
+		System.out.println(Colors.VERD + "  F. Fugir" + Colors.RESET);
+		System.out.print(Estils.RESPOSTA);
 	}
+
+	public static void mostrarMenuCombatJefe(Personatge personatge, Monstre jefe) {
+		System.out.println(Estils.TITOL + "=== COMBAT FINAL ===" + Colors.RESET);
+ 
+		System.out.println(Colors.VERMELL + Estils.NEGRETA + jefe.getNom() + Colors.RESET);
+		mostrarBarra("  Vida enemic: ", Colors.VERMELL, jefe.getVida(), Math.max(jefe.getVida(), 50));
+		System.out.println();
+ 		mostrarBarra("  Vida pròpia: ", Colors.VERD, personatge.getVida(), Atributs.VIDA.getMaxim());
+		System.out.println();
+ 
+		System.out.println(Estils.PREGUNTA + "Opcions:" + Colors.RESET);
+		System.out.println(Colors.TARONJA + "  A. Atacar");
+		System.out.println(Colors.GRIS + "  F. Intentar fugir (impossiblee!)" + Colors.RESET);
+		System.out.print(Estils.RESPOSTA);
+	}
+
 }

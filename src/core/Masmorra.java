@@ -1,11 +1,14 @@
 package core;
 
+import java.util.Random;
+
 import model.Direccions;
 import model.Monstre;
 import model.Personatge;
 import model.Tresor;
 import sala.Sala;
 import sala.SalaComuna;
+import sala.SalaJefe;
 import sala.SalaPont;
 import sala.SalaTeranyina;
 import utils.Colors;
@@ -21,6 +24,9 @@ public class Masmorra {
 	private Sala[][] mapa = new Sala[x][y];
 	private int salesExplorades = 0;
 	private int salesTotals;
+
+	// Posicio del jefe 
+	private int[] posicioJefe;
 
 	// Personatge
 	private Personatge personatge;
@@ -44,13 +50,13 @@ public class Masmorra {
 		this.y = y;
 		this.salesTotals = this.x * this.y;
 		this.personatge = personatge;
+		this.posicioJefe = new int[] { x / 2, y / 2 };
 		this.mapa = generarMasmorra();
 	}
 
 	private Tresor generarTresor() {
 		if (Math.random() < 0.30) {
 			Tresor plantillaTresor = LLISTA_TRESORS[(int) (Math.random() * LLISTA_TRESORS.length)];
-
 			return new Tresor(plantillaTresor.getNom(), plantillaTresor.getValor(), plantillaTresor.getPes());
 		}
 		return null;
@@ -59,22 +65,39 @@ public class Masmorra {
 	private Monstre generarMonstre() {
 		if (Math.random() < 0.40) {
 			Monstre plantillaMonstre = LLISTA_MONSTRES[(int) (Math.random() * LLISTA_MONSTRES.length)];
-
 			return new Monstre(plantillaMonstre.getNom(), plantillaMonstre.getVida(), plantillaMonstre.getAtac(),
 					plantillaMonstre.getPenalitzacio());
 		}
 		return null;
 	}
 
+	private Monstre generarJefe() {
+    String[] nombres = {
+        "Capitan Solnan",
+        "Stageddat"
+    };
+
+    Random rand = new Random();
+    String nombreRandom = nombres[rand.nextInt(nombres.length)];
+
+    return new Monstre(nombreRandom, 50, 15, 3);
+}
+
 	public Sala[][] generarMasmorra() {
 		Sala[][] nouMapa = new Sala[this.x][this.y];
 		for (int i = 0; i < this.x; i++) {
 			for (int j = 0; j < this.y; j++) {
-				double r = Math.random();
 
-				// 60 sala comuna
-				// 20 sala pont
-				// 20 sala teranyina
+				// Sala del jefe al centre
+				if (i == posicioJefe[0] && j == posicioJefe[1]) {
+					nouMapa[i][j] = new SalaJefe(new Tresor("Tresor del jefe", 1000, 5.0), generarJefe(), false);
+					continue;
+				}
+
+				double r = Math.random();
+				// 60% sala comuna 
+				// 20% pont 
+				// 20% teranyina
 				if (r < 0.60) {
 					nouMapa[i][j] = new SalaComuna(generarTresor(), generarMonstre(), false);
 				} else if (r < 0.80) {
@@ -92,9 +115,10 @@ public class Masmorra {
 
 		for (int i = 0; i < this.x; i++) {
 			for (int j = 0; j < this.y; j++) {
-
 				if (posPersonatge[0] == i && posPersonatge[1] == j) {
 					System.out.print(Colors.VERD + Estils.NEGRETA + "[ & ]" + Colors.RESET);
+				} else if (i == posicioJefe[0] && j == posicioJefe[1]) {
+					System.out.print(Colors.VERMELL + Estils.NEGRETA + "[ J ]" + Colors.RESET);
 				} else if (mapa[i][j].estaExplorada()) {
 					System.out.print(Colors.BLANC + "[ * ]" + Colors.RESET);
 				} else {
@@ -114,6 +138,13 @@ public class Masmorra {
 			for (int j = 0; j < this.y; j++) {
 				if (posicio[0] == i && posicio[1] == j) {
 					fila.append(Colors.VERD).append(Estils.NEGRETA).append("[ & ]").append(Colors.RESET);
+				} else if (i == posicioJefe[0] && j == posicioJefe[1]) {
+					// Marcar sala jefe (J si no explorada, * si ja explorada)
+					if (mapa[i][j].estaExplorada()) {
+						fila.append(Colors.VERMELL).append("[ * ]").append(Colors.RESET);
+					} else {
+						fila.append(Colors.VERMELL).append(Estils.NEGRETA).append("[ J ]").append(Colors.RESET);
+					}
 				} else if (mapa[i][j].estaExplorada()) {
 					fila.append(Colors.BLAU).append("[ * ]").append(Colors.RESET);
 				} else {
@@ -162,8 +193,17 @@ public class Masmorra {
 	}
 
 	public Sala getSalaActual() {
-    	int[] pos = personatge.getPosicio();
-    	return mapa[pos[0]][pos[1]];
+		int[] pos = personatge.getPosicio();
+		return mapa[pos[0]][pos[1]];
+	}
+
+	public boolean esSalaJefe() {
+		int[] pos = personatge.getPosicio();
+		return pos[0] == posicioJefe[0] && pos[1] == posicioJefe[1];
+	}
+
+	public int[] getPosicioJefe() {
+		return posicioJefe;
 	}
 
 	public Personatge getPersonatge() {
