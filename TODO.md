@@ -2,7 +2,6 @@
 
 ## Bugs
 - [ ] Si te quitan vida, se puede curar utilizando la exp
-- [ ] Solo sale 1 objeto en el inv
 
 ## Pendiente
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
@@ -20,6 +19,7 @@
 - [ ] Mejorar juego partida UI
 
 ## En progreso
+- [ ] Solo sale 1 objeto en el inv
 
 ## Terminado
 - [x] Añadir licencia.
