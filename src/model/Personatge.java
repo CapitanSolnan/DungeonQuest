@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import combat.Combatent;
 import core.Dificultats;
 import sala.Sala;
@@ -16,7 +18,7 @@ public class Personatge implements Combatent {
 	private int experiencia = 0;
 
 	private int[] posicio = { 0, 0 };
-	private Tresor[] equipament;
+	private ArrayList<Tresor> equipament;
 	private int puntsDisponibles = 0;
 	private int puntsInvertits = 0;
 
@@ -33,12 +35,6 @@ public class Personatge implements Combatent {
 
 		// iniciar punts disponibles segons la dificultat
 		this.setPuntsDisponibles(dificultat.getPuntsPerDificultat());
-
-		// TODO: cambiar a un array extensible o iniciar amb la mida del maxim de força
-		// posible i fer validacions en intentarAfegirTresor
-
-		// La quantitat d'equipament depen de la força. Inicialment buit.
-		this.equipament = new Tresor[this.forsa];
 	}
 
 	public boolean estaViu() {
@@ -54,7 +50,7 @@ public class Personatge implements Combatent {
 		return dany;
 	}
 
-	public Tresor[] getEquipament() {
+	public ArrayList<Tresor> getEquipament() {
 		return equipament;
 	}
 
@@ -98,13 +94,12 @@ public class Personatge implements Combatent {
 	}
 
 	public boolean intentarAfegirTresor(Tresor tresor) {
-		for (int i = 0; i < equipament.length; i++) {
-			if (equipament[i] == null) {
-				equipament[i] = tresor;
-				return true;
-			}
+		if (this.equipament.size() >= this.forsa) {
+			return false;
+		} else {
+			this.equipament.add(tresor);
+			return true;
 		}
-		return false;
 	}
 
 	public boolean aplicarPunts(Atributs stat, int quantitat) {
@@ -227,7 +222,8 @@ public class Personatge implements Combatent {
 	}
 
 	public void setExperiencia(int experiencia) {
-		this.experiencia = MathUtils.ajustarRang(Atributs.EXPERIENCIA.getMinimInicial(), Atributs.EXPERIENCIA.getMaxim(), experiencia);
+		this.experiencia = MathUtils.ajustarRang(Atributs.EXPERIENCIA.getMinimInicial(), Atributs.EXPERIENCIA.getMaxim(),
+				experiencia);
 	}
 
 	public int[] getPosicio() {
