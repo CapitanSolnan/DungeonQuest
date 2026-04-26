@@ -226,7 +226,6 @@ public class Main {
 		// System.out.println("_".repeat(masmorra.getX() * 5 + 25));
 	}
 
-
 	public static void logicaJoc(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		boolean jocFinalizat = false;
 		while (!jocFinalizat) {
@@ -235,20 +234,20 @@ public class Main {
 				jocFinalizat = true;
 				continue;
 			}
- 
+
 			ConsoleUtils.saltarPagina();
 			mostrarMapaAmbStats(personatge, masmorra);
 			Accions seguentAccio = demanarSeguentAccio(teclado, personatge);
- 
+
 			switch (seguentAccio) {
 				case MOURE -> {
 					boolean esMou = demanarMoviment(teclado, personatge, masmorra);
-					if (esMou) {//combat jefe
+					if (esMou) {// combat jefe
 						Sala sala = masmorra.getSalaActual();
 						if (sala.teMonstre()) {
 							if (masmorra.esSalaJefe()) {
 								logicaSalaJefe(teclado, personatge, masmorra, (SalaJefe) sala);
-							} else {//combat normla
+							} else {// combat normla
 								System.out.println();
 								System.out.println(Colors.VERMELL + Estils.NEGRETA
 										+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
@@ -279,7 +278,7 @@ public class Main {
 		System.out.println(Colors.TARONJA + "  E. Explorar la sala actual");
 		System.out.println(Colors.BLAU + "  I. Mostrar inventari");
 		if (personatge.getPuntsDisponibles() > 0) {
-					System.out.println(Colors.GROC + "  H. Repartir punts d'atributs" + Colors.RESET);
+			System.out.println(Colors.GROC + "  H. Repartir punts d'atributs" + Colors.RESET);
 
 		}
 		System.out.println(Colors.VERMELL + "  Q. Sortir del joc" + Colors.RESET);
@@ -313,22 +312,23 @@ public class Main {
 	public static boolean combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
 		boolean combatActiu = true;
 		boolean victoria = false;
- 
+
 		while (combatActiu && personatge.potLluitar(monstre)) {
 			ConsoleUtils.saltarPagina();
 			Missatges.mostrarMenuCombat(personatge, monstre);
- 
+
 			String entrada = teclado.nextLine().toUpperCase();
-			if (entrada.isEmpty()) continue;
+			if (entrada.isEmpty())
+				continue;
 			char opcio = entrada.charAt(0);
- 
+
 			switch (opcio) {
 				case 'A' -> {
 					int danyFet = personatge.atacar(monstre);
 					System.out.println();
 					System.out.println(Colors.TARONJA + "Has atacat el " + monstre.getNom()
 							+ " i has fet " + danyFet + " de dany!" + Colors.RESET);
- 
+
 					if (!monstre.estaViu()) {
 						System.out.println(Colors.VERD + Estils.NEGRETA + "Has derrotat el "
 								+ monstre.getNom() + "!" + Colors.RESET);
@@ -343,7 +343,7 @@ public class Main {
 						personatge.rebreDany(danyRebut);
 						System.out.println(Colors.VERMELL + "El " + monstre.getNom()
 								+ " t'ha atacat i has rebut " + danyRebut + " de dany!" + Colors.RESET);
- 
+
 						if (!personatge.estaViu()) {
 							System.out.println(Colors.VERMELL + Estils.NEGRETA
 									+ "Has mort en combat!" + Colors.RESET);
@@ -361,44 +361,44 @@ public class Main {
 		return victoria;
 	}
 
-
 	public static void logicaSalaJefe(Scanner teclado, Personatge personatge, Masmorra masmorra, SalaJefe sala) {
 		Monstre jefe = sala.getMonstre();
- 		ConsoleUtils.saltarPagina(Colors.VERMELL + Estils.NEGRETA);
+		ConsoleUtils.saltarPagina(Colors.VERMELL + Estils.NEGRETA);
 
 		if (jefe.getNom().equalsIgnoreCase("Capitan Solnan")) {
 			System.out.println("  ╔═════════════════════════════════════╗");
 			System.out.println("  ║     !! SALA DE CAPITAN SOLNAN !!    ║");
 			System.out.println("  ╚═════════════════════════════════════╝");
-		}else{
+		} else {
 			System.out.println("  ╔════════════════════════════════╗");
 			System.out.println("  ║     !! SALA DE STAGEDDAT !!    ║");
 			System.out.println("  ╚════════════════════════════════╝");
 		}
-		
+
 		System.out.println(Colors.RESET);
 		System.out.println(Colors.VERMELL + jefe.getNom() + " et talla el pas!");
 		System.out.println("No pots sortir fins que l'hagis derrotat..." + Colors.RESET);
 		ConsoleUtils.dormirSegons(3);
- 
+
 		boolean combatActiu = true;
 		boolean victoria = false;
- 
+
 		while (combatActiu && personatge.potLluitar(jefe)) {
 			ConsoleUtils.saltarPagina();
 			Missatges.mostrarMenuCombatJefe(personatge, jefe);
- 
+
 			String entrada = teclado.nextLine().toUpperCase();
-			if (entrada.isEmpty()) continue;
+			if (entrada.isEmpty())
+				continue;
 			char opcio = entrada.charAt(0);
- 
+
 			switch (opcio) {
 				case 'A' -> {
 					int danyFet = personatge.atacar(jefe);
 					System.out.println();
 					System.out.println(Colors.TARONJA + "Ataques a " + jefe.getNom()
 							+ " i fas " + danyFet + " de dany!" + Colors.RESET);
- 
+
 					if (!jefe.estaViu()) {
 						System.out.println(Colors.VERD + Estils.NEGRETA);
 						System.out.println("  ╔═════════════════════════════════╗");
@@ -437,7 +437,7 @@ public class Main {
 				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			}
 		}
- 
+
 		if (victoria) {
 			ConsoleUtils.dormirSegons(2);
 			mostrarVictoriaFinal(personatge, masmorra);
@@ -447,14 +447,15 @@ public class Main {
 	public static boolean demanarMoviment(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
- 
+
 		System.out.println("\n" + Estils.TITOL + "=== Moure per la masmorra ===" + Colors.RESET);
 		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
- 
+
 		String entrada = teclado.nextLine().toUpperCase();
-		if (entrada.isEmpty()) return false;
- 
+		if (entrada.isEmpty())
+			return false;
+
 		char opcio = entrada.charAt(0);
 		Direccions direccio = switch (opcio) {
 			case 'W' -> Direccions.NORD;
@@ -463,13 +464,13 @@ public class Main {
 			case 'D' -> Direccions.EST;
 			default -> null;
 		};
- 
+
 		if (direccio == null) {
 			System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			ConsoleUtils.dormirSegons(1);
 			return false;
 		}
- 
+
 		int[] desti = masmorra.calcularNovaPosicio(personatge.getPosicio(), direccio);
 		if (desti != null) {
 			personatge.moure(desti);
@@ -483,7 +484,7 @@ public class Main {
 
 	public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		Sala sala = masmorra.getSalaActual();
- 
+
 		if (sala.teMonstre()) {
 			System.out.println(Colors.VERMELL + "⚠ No pots explorar amb un monstre present!" + Colors.RESET);
 			System.out.println("Derrota'l primer!");
@@ -495,25 +496,25 @@ public class Main {
 			}
 			return;
 		}
- 
+
 		if (sala.estaExplorada()) {
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
 			System.out.println(Colors.GRIS + "Ja has explorat aquesta sala." + Colors.RESET);
 			ConsoleUtils.dormirSegons(1);
 			return;
 		}
- 
+
 		int max = 20;
 		for (int min = 0; min < max; min++) {
 			ConsoleUtils.saltarPagina(Estils.TITOL + "=== Explorar la sala ===" + Colors.RESET);
 			Missatges.mostrarBarra("Explorant la sala...", Colors.TARONJA, min, max, 30, false);
 			ConsoleUtils.dormirSegons(0.1);
 		}
- 
+
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Sala explorada ===" + Colors.RESET);
 		personatge.explorar(sala);
 		masmorra.sumarSalesExplorades();
- 
+
 		if (sala.getTresor() != null) {
 			System.out.println(Colors.GROC + "Has trobat un tresor: "
 					+ sala.getTresor().getNom() + "!" + Colors.RESET);
@@ -527,10 +528,10 @@ public class Main {
 
 	public static void demanarObrirInventari(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
- 
+
 		Tresor[] equipament = personatge.getEquipament();
 		boolean hiHaTresors = false;
- 
+
 		System.out.println(Colors.GRIS + "  Tresors:" + Colors.RESET);
 		for (int i = 0; i < equipament.length; i++) {
 			if (equipament[i] != null) {
@@ -545,7 +546,7 @@ public class Main {
 		if (!hiHaTresors) {
 			System.out.println(Colors.GRIS + "  No tens cap tresor." + Colors.RESET);
 		}
- 
+
 		System.out.println();
 		ConsoleUtils.dormirSegons(3);
 		ConsoleUtils.saltarPagina();
@@ -565,7 +566,7 @@ public class Main {
 				+ masmorra.getPercentatgeSalesExplorades() + "%" + Colors.RESET);
 		System.out.println();
 	}
- 
+
 	public static void mostrarVictoriaFinal(Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		System.out.println(Colors.GROC + Estils.NEGRETA);
