@@ -11,6 +11,8 @@ import model.Direccions;
 import model.Monstre;
 import sala.Sala;
 import sala.SalaJefe;
+import sala.SalaPont;
+import sala.SalaTeranyina;
 import utils.Colors;
 import utils.ConsoleUtils;
 import utils.Estils;
@@ -241,25 +243,9 @@ public class Main {
 
 			switch (seguentAccio) {
 				case MOURE -> {
-					boolean esMou = demanarMoviment(teclado, personatge, masmorra);
-					if (!esMou) {
+					if (!demanarMoviment(teclado, personatge, masmorra))
 						continue;
-					}
-					Sala sala = masmorra.getSalaActual();
-
-					// sala normal i té monstre
-					if (!sala.esSalaJefe() && sala.teMonstre()) {
-						System.out.println(Colors.VERMELL + Estils.NEGRETA
-								+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
-								+ Colors.RESET);
-						ConsoleUtils.dormirSegons(1.5);
-						combatre(teclado, personatge, sala.getMonstre(), sala);
-					}
-
-					// sala jefe
-					if (sala.esSalaJefe()) {
-						combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
-					}
+					processarSalaActual(teclado, personatge, masmorra);
 				}
 				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
 				case OBRIR_INVENTARI -> demanarObrirInventari(personatge);
@@ -270,6 +256,24 @@ public class Main {
 					ConsoleUtils.dormirSegons(1.5);
 				}
 			}
+		}
+	}
+
+	private static void processarSalaActual(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		Sala sala = masmorra.getSalaActual();
+
+		if (!sala.teMonstre())
+			return;
+
+		System.out.println(Colors.VERMELL + Estils.NEGRETA
+				+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
+				+ Colors.RESET);
+		ConsoleUtils.dormirSegons(1.5);
+
+		if (sala.esSalaJefe()) {
+			combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
+		} else {
+			combatre(teclado, personatge, sala.getMonstre(), sala, masmorra);
 		}
 	}
 
@@ -312,11 +316,11 @@ public class Main {
 		return accio;
 	}
 
-	public static boolean combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala) {
-		boolean combatActiu = true;
+	public static boolean combatre(Scanner teclado, Personatge personatge, Monstre monstre, Sala sala,
+			Masmorra masmorra) {
 		boolean victoria = false;
 
-		while (combatActiu && personatge.potLluitar(monstre)) {
+		while (personatge.potLluitar(monstre)) {
 			ConsoleUtils.saltarPagina();
 			Missatges.mostrarMenuCombat(personatge, monstre);
 
@@ -339,7 +343,6 @@ public class Main {
 						System.out.println(Colors.CIAN + "  +" + monstre.getValorExperiencia()
 								+ " experiència" + Colors.RESET);
 						sala.setMonstre(null); // eliminar monstre de la sala
-						combatActiu = false;
 						victoria = true;
 					} else {
 						int danyRebut = monstre.calcularAtac();
@@ -350,13 +353,37 @@ public class Main {
 						if (!personatge.estaViu()) {
 							System.out.println(Colors.VERMELL + Estils.NEGRETA
 									+ "Has mort en combat!" + Colors.RESET);
-							combatActiu = false;
 						}
 					}
 					ConsoleUtils.dormirSegons(1.5);
 				}
 				case 'F' -> {
-					// TODO: OPCION ESCAPAR
+					int danyFugida = monstre.getVida();
+					personatge.rebreDany(danyFugida);
+
+					System.out
+							.println(Colors.VERMELL + "Has intentat fugir i has rebut " + danyFugida + " de dany!" + Colors.RESET);
+
+					if (!personatge.estaViu()) {
+						ConsoleUtils.saltarPagina();
+						System.out.println(Colors.VERMELL + "Has mort intentant escapar...");
+						ConsoleUtils.dormirSegons(1.5);
+						return false;
+					}
+
+					ConsoleUtils.saltarPagina("FUGINT...");
+					System.out.println(Colors.GROC + "Ràpid! Escull cap a on vols fugir:" + Colors.RESET);
+
+					boolean fugitAmbExit = demanarMoviment(teclado, personatge, masmorra);
+
+					if (fugitAmbExit) {
+						System.out.println(Colors.VERD + "Has aconseguit escapar a una altra sala!" + Colors.RESET);
+					} else {
+						System.out.println(Colors.TARONJA + "No has pogut fugir a una altra sala!" + Colors.RESET);
+					}
+
+					ConsoleUtils.dormirSegons(2);
+					return false;
 				}
 				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			}
@@ -456,11 +483,26 @@ public class Main {
 	 * @return True en cas possible moviment, false en cas contrari.
 	 */
 	public static boolean demanarMoviment(Scanner teclado, Personatge personatge, Masmorra masmorra) {
+		Sala salaActual = masmorra.getSalaActual();
+
+		// comprovar si pot sortir
+		if (!salaActual.intentarSortir()) {
+			if (salaActual instanceof SalaPont) {
+				System.out.println(Colors.TARONJA + "⚠ T'has caigut del pont!" + Colors.RESET);
+			} else if (salaActual instanceof SalaTeranyina) {
+				System.out.println(Colors.TARONJA + "⚠ Hi ha masses teranyines!" + Colors.RESET);
+			} else {
+				System.out.println(Colors.VERMELL + "⚠ No pots sortir d'aquesta sala!" + Colors.RESET);
+			}
+			ConsoleUtils.dormirSegons(1.5);
+			return false;
+		}
+
+		// demanar direcció
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
-
 		System.out.println("\n" + Estils.TITOL + "=== Moure per la masmorra ===" + Colors.RESET);
-		System.out.println(Estils.PREGUNTA + "En quina direcció vols moure't? (W/A/S/D)" + Colors.RESET);
+		System.out.println(Estils.PREGUNTA + "Escull una direcció (W/A/S/D): " + Colors.RESET);
 		System.out.print(Estils.RESPOSTA);
 
 		String entrada = teclado.nextLine().toUpperCase();
@@ -483,15 +525,14 @@ public class Main {
 		}
 
 		int[] desti = masmorra.calcularNovaPosicio(personatge.getPosicio(), direccio);
-
-		if (desti != null) {
-			personatge.moure(desti);
-			return true;
-		} else {
+		if (desti == null) {
 			System.out.println(Colors.VERMELL + "⚠ No pots sortir de la masmorra!" + Colors.RESET);
 			ConsoleUtils.dormirSegons(1);
 			return false;
 		}
+
+		personatge.moure(desti);
+		return true;
 	}
 
 	public static void explorarSala(Scanner teclado, Personatge personatge, Masmorra masmorra) {
@@ -503,7 +544,7 @@ public class Main {
 			if (sala.esSalaJefe()) {
 				combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
 			} else {
-				combatre(teclado, personatge, sala.getMonstre(), sala);
+				combatre(teclado, personatge, sala.getMonstre(), sala, masmorra);
 			}
 			return;
 		}
