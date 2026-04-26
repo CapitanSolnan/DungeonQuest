@@ -18,7 +18,7 @@ public class Personatge implements Combatent {
 	private int experiencia = 0;
 
 	private int[] posicio = { 0, 0 };
-	private ArrayList<Tresor> equipament;
+	private ArrayList<Tresor> equipament = new ArrayList<Tresor>();
 	private int puntsDisponibles = 0;
 	private int puntsInvertits = 0;
 
