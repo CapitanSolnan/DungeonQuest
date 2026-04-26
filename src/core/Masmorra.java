@@ -161,6 +161,14 @@ public class Masmorra {
 				|| y < 0 || y >= this.y;
 	}
 
+	/**
+	 * Calcula la nova posicio segons la direcció.
+	 * 
+	 * @param posicio  Posició actual.
+	 * @param direccio Direcció del moviment.
+	 * @return Nova posició segons la direcció o null en cas que estigui fora del
+	 *         mapa.
+	 */
 	public int[] calcularNovaPosicio(int[] posicio, Direccions direccio) {
 		int[] novaPosicio = switch (direccio) {
 			case NORD -> new int[] { posicio[0] - 1, posicio[1] };
@@ -195,11 +203,6 @@ public class Masmorra {
 	public Sala getSalaActual() {
 		int[] pos = personatge.getPosicio();
 		return mapa[pos[0]][pos[1]];
-	}
-
-	public boolean esSalaJefe() {
-		int[] pos = personatge.getPosicio();
-		return pos[0] == posicioJefe[0] && pos[1] == posicioJefe[1];
 	}
 
 	public int[] getPosicioJefe() {

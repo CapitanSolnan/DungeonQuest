@@ -33,13 +33,17 @@ public abstract class Sala {
 	public Monstre getMonstre() {
 		return monstre;
 	}
- 
+
 	public void setMonstre(Monstre monstre) {
 		this.monstre = monstre;
 	}
-	
+
 	public boolean teMonstre() {
 		return monstre != null && monstre.estaViu();
+	}
+
+	public boolean esSalaJefe() {
+		return false;
 	}
 
 	@Override
