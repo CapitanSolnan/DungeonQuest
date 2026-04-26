@@ -16,7 +16,6 @@ public class SalaTeranyina extends Sala {
 	}
 
 	public boolean intentarSortir() {
-		boolean exit = personatge.ferTiradaForsa();
-		return exit;
+		return personatge.ferTiradaForsa();
 	}
 }
