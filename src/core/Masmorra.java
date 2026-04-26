@@ -205,11 +205,6 @@ public class Masmorra {
 		return mapa[pos[0]][pos[1]];
 	}
 
-	public boolean esSalaJefe() {
-		int[] pos = personatge.getPosicio();
-		return pos[0] == posicioJefe[0] && pos[1] == posicioJefe[1];
-	}
-
 	public int[] getPosicioJefe() {
 		return posicioJefe;
 	}
