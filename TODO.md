@@ -6,9 +6,8 @@
 ## Pendiente
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.
-- [ ] Implementar inventario (Mostrar els tresors)
 - [ ] Explorar las salas (logica de si hay o no tresors)
-- [ ] Inventario
+- [ ] Sistema completo inventario
 - [ ] Huir
 - [ ] Balancear difficultat jefe, posible utilidad de curacion
 - [ ] Balancear difficulata combates en normal y dificil
@@ -33,3 +32,4 @@
 - [x] Atacar
 - [x] Implementar conseguir tresors
 - [x] Solo sale 1 objeto en el inv
+- [x] Implementar inventario (Mostrar els tresors)
