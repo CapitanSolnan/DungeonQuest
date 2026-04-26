@@ -590,7 +590,7 @@ public class Main {
 
 			int i = 1;
 			for (Tresor tresor : equipament) {
-				String index = String.format("%s[%d]%s", Colors.GRIS, i++, Colors.RESET);
+				String index = String.format("%s[%d]%s", Colors.GRIS, i, Colors.RESET);
 				String nom = Colors.BLANC + tresor.getNom() + Colors.RESET;
 				String pes = String.format("%s%.1f g%s", Colors.GROC, tresor.getPes(), Colors.RESET);
 				String valor = String.format("%s%d or%s", Colors.TARONJA, tresor.getValor(), Colors.RESET);
