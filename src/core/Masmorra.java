@@ -161,6 +161,14 @@ public class Masmorra {
 				|| y < 0 || y >= this.y;
 	}
 
+	/**
+	 * Calcula la nova posicio segons la direcció.
+	 * 
+	 * @param posicio  Posició actual.
+	 * @param direccio Direcció del moviment.
+	 * @return Nova posició segons la direcció o null en cas que estigui fora del
+	 *         mapa.
+	 */
 	public int[] calcularNovaPosicio(int[] posicio, Direccions direccio) {
 		int[] novaPosicio = switch (direccio) {
 			case NORD -> new int[] { posicio[0] - 1, posicio[1] };
