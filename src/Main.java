@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import core.Dificultats;
@@ -30,7 +31,6 @@ public class Main {
 
 		// crear personatge
 		Personatge personatge = new Personatge(nom, dificultat);
-
 		if (!debug) {
 			repartirPuntsInicials(teclado, personatge, dificultat);
 		}
@@ -529,22 +529,23 @@ public class Main {
 	public static void demanarObrirInventari(Personatge personatge) {
 		ConsoleUtils.saltarPagina(Estils.TITOL + "=== Inventari ===" + Colors.RESET);
 
-		Tresor[] equipament = personatge.getEquipament();
-		boolean hiHaTresors = false;
+		ArrayList<Tresor> equipament = personatge.getEquipament();
 
-		System.out.println(Colors.GRIS + "  Tresors:" + Colors.RESET);
-		for (int i = 0; i < equipament.length; i++) {
-			if (equipament[i] != null) {
-				hiHaTresors = true;
-				System.out.printf("  %s[%d]%s %s - %s%d g%s - %s%d or%s%n",
-						Colors.GRIS, i + 1, Colors.RESET,
-						Colors.BLANC + equipament[i].getNom() + Colors.RESET,
-						Colors.GROC, (int) equipament[i].getPes(), Colors.RESET,
-						Colors.TARONJA, equipament[i].getValor(), Colors.RESET);
-			}
-		}
-		if (!hiHaTresors) {
+		if (equipament.isEmpty() || equipament == null) {
 			System.out.println(Colors.GRIS + "  No tens cap tresor." + Colors.RESET);
+		} else {
+			System.out.println(Colors.GRIS + "  Tresors:" + Colors.RESET);
+
+			int i = 1;
+			for (Tresor tresor : equipament) {
+				String index = String.format("%s[%d]%s", Colors.GRIS, i++, Colors.RESET);
+				String nom = Colors.BLANC + tresor.getNom() + Colors.RESET;
+				String pes = String.format("%s%.1f g%s", Colors.GROC, tresor.getPes(), Colors.RESET);
+				String valor = String.format("%s%d or%s", Colors.TARONJA, tresor.getValor(), Colors.RESET);
+
+				System.out.println("  " + index + " " + nom + " - " + pes + " - " + valor);
+				i++;
+			}
 		}
 
 		System.out.println();
