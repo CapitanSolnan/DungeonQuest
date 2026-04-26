@@ -19,7 +19,6 @@
 - [ ] Mejorar juego partida UI
 
 ## En progreso
-- [ ] Solo sale 1 objeto en el inv
 
 ## Terminado
 - [x] Añadir licencia.
@@ -33,3 +32,4 @@
 - [x] Implementar combate.
 - [x] Atacar
 - [x] Implementar conseguir tresors
+- [x] Solo sale 1 objeto en el inv
