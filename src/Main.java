@@ -572,7 +572,7 @@ public class Main {
 		ConsoleUtils.saltarPagina();
 		System.out.println(Colors.GROC + Estils.NEGRETA);
 		System.out.println("  ╔═════════════════════════════════╗");
-		System.out.println("  ║        VICTÒRIA FINAL!          ║");
+		System.out.println("  ║           HAS GUANYAT!          ║");
 		System.out.println("  ╚═════════════════════════════════╝");
 		System.out.println(Colors.RESET);
 		System.out.println(Colors.GRIS + "  Heroi: " + Colors.BLANC + personatge.getNom());
