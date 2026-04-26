@@ -248,15 +248,16 @@ public class Main {
 					Sala sala = masmorra.getSalaActual();
 
 					// sala normal i té monstre
-					if (!(sala instanceof SalaJefe) && sala.teMonstre()) {
+					if (!sala.esSalaJefe() && sala.teMonstre()) {
 						System.out.println(Colors.VERMELL + Estils.NEGRETA
 								+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
 								+ Colors.RESET);
 						ConsoleUtils.dormirSegons(1.5);
 						combatre(teclado, personatge, sala.getMonstre(), sala);
 					}
-					if (sala instanceof SalaJefe) {
-						// TODO: Logica jefe
+
+					// sala jefe
+					if (sala.esSalaJefe()) {
 						combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
 					}
 				}
