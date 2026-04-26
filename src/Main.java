@@ -435,7 +435,7 @@ public class Main {
 					ConsoleUtils.dormirSegons(1.5);
 				}
 				case 'F' -> {
-					// TODO: OPCION ESCAPAR pero imposible
+					System.out.println(Colors.VERMELL + "No pots fugir fins..." + Colors.RESET);
 				}
 				default -> System.out.println(Colors.VERMELL + "⚠ Opció invàlida!" + Colors.RESET);
 			}
