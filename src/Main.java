@@ -257,6 +257,7 @@ public class Main {
 					}
 					if (sala instanceof SalaJefe) {
 						// TODO: Logica jefe
+						combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
 					}
 				}
 				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
@@ -362,7 +363,7 @@ public class Main {
 		return victoria;
 	}
 
-	public static void logicaSalaJefe(Scanner teclado, Personatge personatge, Masmorra masmorra, SalaJefe sala) {
+	public static void combatreJefe(Scanner teclado, Personatge personatge, Masmorra masmorra, SalaJefe sala) {
 		Monstre jefe = sala.getMonstre();
 		ConsoleUtils.saltarPagina(Colors.VERMELL + Estils.NEGRETA);
 
@@ -500,7 +501,7 @@ public class Main {
 			System.out.println("Derrota'l primer!");
 			ConsoleUtils.dormirSegons(2);
 			if (masmorra.esSalaJefe()) {
-				logicaSalaJefe(teclado, personatge, masmorra, (SalaJefe) sala);
+				combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
 			} else {
 				combatre(teclado, personatge, sala.getMonstre(), sala);
 			}
