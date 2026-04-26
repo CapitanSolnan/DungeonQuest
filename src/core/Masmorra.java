@@ -25,7 +25,7 @@ public class Masmorra {
 	private int salesExplorades = 0;
 	private int salesTotals;
 
-	// Posicio del jefe 
+	// Posicio del jefe
 	private int[] posicioJefe;
 
 	// Personatge
@@ -40,9 +40,9 @@ public class Masmorra {
 
 	// Monstres posibles
 	private static final Monstre[] LLISTA_MONSTRES = {
-			new Monstre("Zombie", 10, 5, 2),
-			new Monstre("Aranya", 5, 3, 1),
-			new Monstre("Esquelet", 8, 4, 3)
+			new Monstre("Zombie", 1, 0, 2),
+			new Monstre("Aranya", 1, 0, 1),
+			new Monstre("Esquelet", 1, 0, 3)
 	};
 
 	public Masmorra(int x, int y, Personatge personatge) {
@@ -72,16 +72,16 @@ public class Masmorra {
 	}
 
 	private Monstre generarJefe() {
-    String[] nombres = {
-        "Capitan Solnan",
-        "Stageddat"
-    };
+		String[] nombres = {
+				"Capitan Solnan",
+				"Stageddat"
+		};
 
-    Random rand = new Random();
-    String nombreRandom = nombres[rand.nextInt(nombres.length)];
+		Random rand = new Random();
+		String nombreRandom = nombres[rand.nextInt(nombres.length)];
 
-    return new Monstre(nombreRandom, 50, 15, 3);
-}
+		return new Monstre(nombreRandom, 50, 15, 3);
+	}
 
 	public Sala[][] generarMasmorra() {
 		Sala[][] nouMapa = new Sala[this.x][this.y];
@@ -95,8 +95,8 @@ public class Masmorra {
 				}
 
 				double r = Math.random();
-				// 60% sala comuna 
-				// 20% pont 
+				// 60% sala comuna
+				// 20% pont
 				// 20% teranyina
 				if (r < 0.60) {
 					nouMapa[i][j] = new SalaComuna(generarTresor(), generarMonstre(), false);
