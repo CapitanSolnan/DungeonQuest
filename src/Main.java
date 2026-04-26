@@ -498,10 +498,9 @@ public class Main {
 		Sala sala = masmorra.getSalaActual();
 
 		if (sala.teMonstre()) {
-			System.out.println(Colors.VERMELL + "⚠ No pots explorar amb un monstre present!" + Colors.RESET);
-			System.out.println("Derrota'l primer!");
+			System.out.println(Colors.VERMELL + "⚠ Hi ha un monstre!" + Colors.RESET);
 			ConsoleUtils.dormirSegons(2);
-			if (masmorra.esSalaJefe()) {
+			if (sala.esSalaJefe()) {
 				combatreJefe(teclado, personatge, masmorra, (SalaJefe) sala);
 			} else {
 				combatre(teclado, personatge, sala.getMonstre(), sala);
