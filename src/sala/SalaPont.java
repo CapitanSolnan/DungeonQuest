@@ -16,6 +16,10 @@ public class SalaPont extends Sala {
 	}
 
 	public boolean intentarSortir() {
-		return personatge.ferTiradaAgilitat();
+		boolean exit = personatge.ferTiradaAgilitat();
+		if (!exit) {
+			personatge.rebreDany(1);
+		}
+		return exit;
 	}
 }
