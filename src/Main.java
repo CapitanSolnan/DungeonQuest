@@ -242,20 +242,21 @@ public class Main {
 			switch (seguentAccio) {
 				case MOURE -> {
 					boolean esMou = demanarMoviment(teclado, personatge, masmorra);
-					if (esMou) {// combat jefe
-						Sala sala = masmorra.getSalaActual();
-						if (sala.teMonstre()) {
-							if (masmorra.esSalaJefe()) {
-								logicaSalaJefe(teclado, personatge, masmorra, (SalaJefe) sala);
-							} else {// combat normla
-								System.out.println();
-								System.out.println(Colors.VERMELL + Estils.NEGRETA
-										+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
-										+ Colors.RESET);
-								ConsoleUtils.dormirSegons(1.5);
-								combatre(teclado, personatge, sala.getMonstre(), sala);
-							}
-						}
+					if (!esMou) {
+						continue;
+					}
+					Sala sala = masmorra.getSalaActual();
+
+					// sala normal i té monstre
+					if (!(sala instanceof SalaJefe) && sala.teMonstre()) {
+						System.out.println(Colors.VERMELL + Estils.NEGRETA
+								+ "⚠ Has entrat a una sala amb un " + sala.getMonstre().getNom() + "!"
+								+ Colors.RESET);
+						ConsoleUtils.dormirSegons(1.5);
+						combatre(teclado, personatge, sala.getMonstre(), sala);
+					}
+					if (sala instanceof SalaJefe) {
+						// TODO: Logica jefe
 					}
 				}
 				case EXPLORAR -> explorarSala(teclado, personatge, masmorra);
@@ -444,6 +445,14 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Demanar moviment al jugador.
+	 * 
+	 * @param teclado
+	 * @param personatge
+	 * @param masmorra
+	 * @return True en cas possible moviment, false en cas contrari.
+	 */
 	public static boolean demanarMoviment(Scanner teclado, Personatge personatge, Masmorra masmorra) {
 		ConsoleUtils.saltarPagina();
 		mostrarMapaAmbStats(personatge, masmorra);
@@ -472,6 +481,7 @@ public class Main {
 		}
 
 		int[] desti = masmorra.calcularNovaPosicio(personatge.getPosicio(), direccio);
+
 		if (desti != null) {
 			personatge.moure(desti);
 			return true;
