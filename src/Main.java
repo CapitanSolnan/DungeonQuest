@@ -378,6 +378,7 @@ public class Main {
 
 					if (fugitAmbExit) {
 						System.out.println(Colors.VERD + "Has aconseguit escapar a una altra sala!" + Colors.RESET);
+						processarSalaActual(teclado, personatge, masmorra);
 					} else {
 						System.out.println(Colors.TARONJA + "No has pogut fugir a una altra sala!" + Colors.RESET);
 					}
