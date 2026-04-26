@@ -583,7 +583,7 @@ public class Main {
 
 		ArrayList<Tresor> equipament = personatge.getEquipament();
 
-		if (equipament.isEmpty() || equipament == null) {
+		if (equipament == null || equipament.isEmpty()) {
 			System.out.println(Colors.GRIS + "  No tens cap tresor." + Colors.RESET);
 		} else {
 			System.out.println(Colors.GRIS + "  Tresors:" + Colors.RESET);
