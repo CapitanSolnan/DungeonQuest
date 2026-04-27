@@ -139,7 +139,7 @@ public class ControladorCombat {
     ConsoleUtils.saltarPagina(Colors.VERMELL + Estils.NEGRETA);
     // Missatges.mostrarBannerJefe(jefe);
 
-    System.out.println(Colors.RESET);
+    System.out.print(Colors.RESET);
     System.out.println(Colors.VERMELL + jefe.getNom() + " et talla el pas!");
     System.out.println("No pots sortir fins que l'hagis derrotat..." + Colors.RESET);
     ConsoleUtils.dormirSegons(SEGONS_LLARG);
@@ -193,10 +193,11 @@ public class ControladorCombat {
   }
 
   private void processarJefeDerrotat(Monstre jefe, SalaJefe sala) {
+    ConsoleUtils.dormirSegons(SEGONS_COMBAT);
     System.out.println(Colors.VERD + Estils.NEGRETA);
-    System.out.println("  ╔═════════════════════════════════╗");
-    System.out.println("  ║       !! VICTÒRIA FINAL !!      ║");
-    System.out.println("  ╚═════════════════════════════════╝");
+    ConsoleUtils.saltarPagina("  ╔═════════════════════════════════╗");
+                  System.out.println("  ║       !! VICTÒRIA FINAL !!      ║");
+                  System.out.println("  ╚═════════════════════════════════╝");
     System.out.println(Colors.RESET);
 
     personatge.sumarExperiencia(jefe.getValorExperiencia());
