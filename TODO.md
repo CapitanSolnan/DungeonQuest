@@ -2,6 +2,7 @@
 
 ## Bugs
 - [ ] Si te quitan vida, se puede curar utilizando la exp
+- [ ] Marcar como no explorada al derrotar al jefe
 
 ## Pendiente
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
