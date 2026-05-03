@@ -17,7 +17,6 @@ public class ControladorCombat {
 
   private static final double SEGONS_COMBAT = 1.5;
   private static final double SEGONS_FUGIDA = 2.0;
-  private static final double SEGONS_LLARG = 3.0;
 
   private final Scanner teclado;
   private final Personatge personatge;
@@ -139,10 +138,10 @@ public class ControladorCombat {
     ConsoleUtils.saltarPagina(Colors.VERMELL + Estils.NEGRETA);
     // Missatges.mostrarBannerJefe(jefe);
 
-    System.out.println(Colors.RESET);
+    System.out.print(Colors.RESET);
     System.out.println(Colors.VERMELL + jefe.getNom() + " et talla el pas!");
     System.out.println("No pots sortir fins que l'hagis derrotat..." + Colors.RESET);
-    ConsoleUtils.dormirSegons(SEGONS_LLARG);
+    ConsoleUtils.dormirSegons(SEGONS_FUGIDA);
 
     boolean victoria = executarCombatJefe(jefe, sala);
 
@@ -193,8 +192,9 @@ public class ControladorCombat {
   }
 
   private void processarJefeDerrotat(Monstre jefe, SalaJefe sala) {
+    ConsoleUtils.dormirSegons(SEGONS_COMBAT);
     System.out.println(Colors.VERD + Estils.NEGRETA);
-    System.out.println("  ╔═════════════════════════════════╗");
+    ConsoleUtils.saltarPagina("  ╔═════════════════════════════════╗");
     System.out.println("  ║       !! VICTÒRIA FINAL !!      ║");
     System.out.println("  ╚═════════════════════════════════╝");
     System.out.println(Colors.RESET);
