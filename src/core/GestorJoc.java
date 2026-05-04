@@ -58,5 +58,8 @@ public class GestorJoc {
         case null -> Vistes.mostrarError("Opció invàlida!");
       }
     }
+    
+    teclado.close();
+
   }
 }

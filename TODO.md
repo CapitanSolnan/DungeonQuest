@@ -1,8 +1,11 @@
 # Lista TODO
 
 ## Bugs
-- [ ] Si te quitan vida, se puede curar utilizando la exp
-
+- [ ] Si te quitan vida, se puede curar utilizando la exp.
+- [ ] El atributo de vida debe ser diferente de la vida en sí.
+- [ ] Marcar como no explorada al derrotar al jefe.
+- [ ] Hay casos donde aplicar puntos en atributos, los puntos restantes se suman en lugar de restar.
+ 
 ## Pendiente
 - [ ] Configurar la vida y el ataque del enemigo según la dificultad.
 - [ ] Configurar el RNG según la dificultad.

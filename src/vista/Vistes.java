@@ -13,7 +13,7 @@ import model.Tresor;
 
 public class Vistes {
 
-  private static final int PASSOS_BARRA = 20;
+  private static final int PASSOS_BARRA = 10;
   private static final int AMPLADA_BARRA = 30;
   private static final double SEGONS_PAS = 0.1;
   private static final double SEGONS_CURT = 1.0;
@@ -119,6 +119,9 @@ public class Vistes {
     System.out.println(Colors.GRIS + "  Sales explorades: " + Colors.BLANC
         + masmorra.getPercentatgeSalesExplorades() + "%" + Colors.RESET);
     System.out.println();
+    ConsoleUtils.dormirSegons(SEGONS_LLARG);
+    System.exit(0);
+
   }
 
   public static void mostrarError(String missatge) {
