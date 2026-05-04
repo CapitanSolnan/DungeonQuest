@@ -40,9 +40,9 @@ public class Masmorra {
 
 	// Monstres posibles
 	private static final Monstre[] LLISTA_MONSTRES = {
-			new Monstre("Zombie", 1, 0, 2),
-			new Monstre("Aranya", 1, 0, 1),
-			new Monstre("Esquelet", 1, 0, 3)
+			new Monstre("Zombie", 2, 0, 2),
+			new Monstre("Aranya", 3, 0, 1),
+			new Monstre("Esquelet", 1, 0, 2)
 	};
 
 	public Masmorra(int x, int y, Personatge personatge) {
