@@ -80,7 +80,7 @@ public class Masmorra {
 		Random rand = new Random();
 		String nombreRandom = nombres[rand.nextInt(nombres.length)];
 
-		return new Monstre(nombreRandom, 10, 1, 3);
+		return new Monstre(nombreRandom, 30, 5, 9999);
 	}
 
 	public Sala[][] generarMasmorra() {
